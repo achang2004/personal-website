@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aaron Chang · AI Workflows for Small Businesses</title>
+  <title>Aaron Chang</title>
   <meta name="description" content="I build AI workflows that save small businesses 20+ hours a week. UCLA CS grad, ex-Google, Amazon, TikTok." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -305,18 +305,18 @@
       <a href="#services" class="nav-link">Services</a>
       <a href="#experience" class="nav-link">Experience</a>
     </div>
-    <a href="mailto:aaronyuanchang@gmail.com" class="nav-cta">Get in touch</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
     <button id="hamburger" aria-label="Menu">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
   </div>
-  <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0;">
-    <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">About</a>
-    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Services</a>
-    <a href="#experience" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Experience</a>
-    <a href="mailto:aaronyuanchang@gmail.com" class="block py-3" style="font-size:0.85rem; color:#5D3FD3; font-weight:600;">Get in touch →</a>
+  <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0; position:absolute; top:52px; left:0; right:0; z-index:99; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+    <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">About</a>
+    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Services</a>
+    <a href="#experience" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Experience</a>
+    <a href="#contact" class="mobile-link block py-3" style="font-size:0.85rem; color:#5D3FD3; font-weight:600; padding:12px 0; display:block;">Get in touch →</a>
   </div>
 </nav>
 
@@ -353,7 +353,7 @@
       </div>
 
       <div class="profile-actions">
-        <a href="mailto:aaronyuanchang@gmail.com" class="btn-connect">Get in touch</a>
+        <a href="#contact" class="btn-connect">Get in touch</a>
         <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener" class="btn-message">LinkedIn</a>
         <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener" class="btn-message">Google Scholar</a>
       </div>
@@ -375,6 +375,7 @@
   <!-- SERVICES -->
   <div id="services" class="section-card fade-in" style="transition-delay:0.06s;">
     <div class="section-title">Services</div>
+    <p style="font-size:0.9rem; color:#555; line-height:1.75; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #f0f0f0;">I've worked directly with many small businesses and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week. I approach every engagement from two angles: what the customer experiences and what the internal team actually has to do, then apply what I've seen building systems at Google, Amazon, and TikTok to design something that fits. No off-the-shelf tools. No generic advice. I sit down with you, understand your workflow, and build the thing that actually fixes it.</p>
 
     <div class="service-item">
       <div class="service-name">Meeting Automation</div>
@@ -605,16 +606,24 @@
     <div class="section-title">When I'm Not Working</div>
 
     <div class="hobby-item">
-      <div class="hobby-label">Table Tennis</div>
-      <div class="hobby-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
-    </div>
-    <div class="hobby-item">
       <div class="hobby-label">Running</div>
       <div class="hobby-desc">Chasing a sub-16 5K. Also working toward a half marathon PR. I like progress you can measure in seconds.</div>
     </div>
     <div class="hobby-item">
+      <div class="hobby-label">Pool</div>
+      <div class="hobby-desc">Working on running out more often. Thinking through shot selection and position planning before I get to the table, not after.</div>
+    </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Table Tennis</div>
+      <div class="hobby-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
+    </div>
+    <div class="hobby-item">
       <div class="hobby-label">Pickleball</div>
       <div class="hobby-desc">Playing on an RPM Friction Pro V2, no DUPR rating yet, but competing for the first time this year. Ask me how it goes.</div>
+    </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Bowling</div>
+      <div class="hobby-desc">Throwing a 14 lb Raw Hammer. PR is 194 and I'm chasing a 200 game. So close.</div>
     </div>
     <div class="hobby-item">
       <div class="hobby-label">Board Games</div>
@@ -624,30 +633,32 @@
       <div class="hobby-label">Cats</div>
       <div class="hobby-desc">I catsit whenever I can. I travel too much to own one, but the dream is a male calico (yes, I know how rare they are).</div>
     </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Bowling</div>
-      <div class="hobby-desc">Throwing a 14 lb Raw Hammer. PR is 194 and I'm chasing a 200 game. So close.</div>
-    </div>
   </div>
 
 
   <!-- CTA -->
-  <div class="cta-card fade-in" style="transition-delay:0.16s;">
-    <h2>Ready to save 20+ hours a week?</h2>
-    <p>Tell me what's slowing your team down. I'll be honest about what AI can fix and what it actually takes to build it right.</p>
-    <a href="mailto:aaronyuanchang@gmail.com" class="btn-cta-white">Get in touch →</a>
+  <!-- CONTACT -->
+  <div id="contact" class="section-card fade-in" style="transition-delay:0.16s; text-align:center; padding:40px 28px;">
+    <div class="section-title" style="margin-bottom:8px;">Get in touch</div>
+    <p style="font-size:0.9rem; color:#555; line-height:1.75; max-width:480px; margin:0 auto 28px;">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it actually takes to build it right.</p>
+    <div style="display:inline-flex; align-items:center; gap:10px; background:#f3f0fd; border:1.5px solid #d8d0f7; border-radius:10px; padding:12px 20px;">
+      <span style="font-size:0.95rem; font-weight:600; color:#191919; letter-spacing:0.01em;">aaronyuanchang@gmail.com</span>
+      <button onclick="navigator.clipboard.writeText('aaronyuanchang@gmail.com').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)})" style="font-size:0.75rem; font-weight:600; color:#5D3FD3; background:#ede9ff; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='#d8d0f7'" onmouseout="this.style.background='#ede9ff'">Copy</button>
+    </div>
+    <div style="margin-top:20px;">
+      <a href="mailto:aaronyuanchang@gmail.com" class="btn-connect" style="display:inline-block;">Open in mail app →</a>
+    </div>
   </div>
 
 
   <!-- FOOTER -->
   <footer style="margin-top:28px;">
-    <span>© 2025 Aaron Chang</span>
+    <span>© 2026 Aaron Chang</span>
     <div style="display:flex; gap:20px; flex-wrap:wrap;">
-      <a href="#services">Services</a>
       <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Research</a>
-      <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#services">Services</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
     </div>
     <a href="mailto:aaronyuanchang@gmail.com">aaronyuanchang@gmail.com</a>
   </footer>
