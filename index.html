@@ -172,12 +172,12 @@
     .exp-desc { font-size: 0.87rem; color: #555; margin-top: 6px; line-height: 1.6; }
 
     /* Services items */
-    .service-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+    .service-item { padding: 24px 0; border-bottom: 1px solid #f0f0f0; }
     .service-item:last-child { border-bottom: none; padding-bottom: 0; }
     .service-item:first-child { padding-top: 0; }
-    .service-name { font-size: 0.93rem; font-weight: 600; color: #191919; margin-bottom: 4px; }
+    .service-name { font-size: 1rem; font-weight: 700; color: #191919; margin-bottom: 6px; }
     .service-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
-    .service-link { font-size: 0.83rem; color: #0a66c2; text-decoration: none; display: inline-block; margin-top: 6px; }
+    .service-link { font-size: 0.83rem; color: #0a66c2; text-decoration: none; display: inline-block; margin-top: 12px; }
     .service-link:hover { text-decoration: underline; }
 
     /* Work/projects */
@@ -207,27 +207,48 @@
 
     /* Demo snippets */
     .demo-snippet {
-      margin-top: 10px;
-      border: 1px solid #e5e5e5;
-      border-radius: 7px;
+      margin-top: 16px;
+      border: 1.5px solid #d8d0f7;
+      border-radius: 10px;
       overflow: hidden;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
+      box-shadow: 0 2px 8px rgba(93,63,211,0.07);
     }
     .demo-label {
-      background: #f5f5f5;
-      color: #888;
-      font-size: 0.72rem;
-      font-weight: 600;
+      background: #ede9ff;
+      color: #5D3FD3;
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 5px 12px;
-      border-bottom: 1px solid #e5e5e5;
+      letter-spacing: 0.06em;
+      padding: 7px 14px;
+      border-bottom: 1.5px solid #d8d0f7;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .demo-label::before {
+      content: '';
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #5D3FD3;
+      opacity: 0.5;
     }
     .demo-body {
-      padding: 10px 12px;
-      color: #444;
-      line-height: 1.7;
-      background: #fafafa;
+      padding: 14px 16px;
+      color: #333;
+      line-height: 1.8;
+      background: #fff;
+    }
+    .demo-gif-placeholder {
+      background: #f3f0fd;
+      border-top: 1.5px solid #d8d0f7;
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      color: #9d8cd4;
+      text-align: center;
+      font-style: italic;
     }
 
     /* CTA card */
@@ -364,6 +385,7 @@
           &nbsp;&nbsp;· Sara — follow up with Acme on new timeline<br>
           &nbsp;&nbsp;· All — reconvene Apr 22 for status update
         </div>
+        <div class="demo-gif-placeholder">Live demo coming soon</div>
       </div>
       <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
     </div>
@@ -379,6 +401,7 @@
           <span style="color:#6b7280;">&#9679; Low</span>&nbsp; — <strong>Newsletter from Shopify</strong> · No action needed<br>
           <span style="color:#b45309;">&#9679; High</span> — <strong>Client re: contract revision</strong> · Approval needed before Friday
         </div>
+        <div class="demo-gif-placeholder">Live demo coming soon</div>
       </div>
       <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
     </div>
@@ -394,6 +417,7 @@
           Top SKU: Blue Hoodie (312 units)<br>
           <em>Report sent to client automatically every Monday at 8 AM.</em>
         </div>
+        <div class="demo-gif-placeholder">Live demo coming soon</div>
       </div>
       <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
     </div>
@@ -410,6 +434,7 @@
           <strong>Step 3:</strong> Action items emailed to attendees via Gmail<br>
           <em>Zero manual steps. Runs automatically every time.</em>
         </div>
+        <div class="demo-gif-placeholder">Live demo coming soon</div>
       </div>
       <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
     </div>
