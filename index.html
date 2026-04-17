@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aaron Chang · AI Workflows for Small Businesses</title>
+  <meta name="description" content="I build AI workflows that save small businesses 20+ hours a week. UCLA CS grad, ex-Google, Amazon, TikTok." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #f3f2ef;
+      color: #191919;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Nav */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e5e5e5;
+      height: 52px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between; width: 100%;
+    }
+    .nav-logo { font-size: 0.95rem; font-weight: 600; color: #191919; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-link { font-size: 0.82rem; font-weight: 500; color: #666; text-decoration: none; transition: color 0.15s; }
+    .nav-link:hover { color: #5D3FD3; }
+    .nav-cta {
+      font-size: 0.82rem; font-weight: 600; color: #5D3FD3;
+      border: 1.5px solid #5D3FD3; border-radius: 20px;
+      padding: 5px 16px; text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-cta:hover { background: #5D3FD3; color: #fff; }
+
+    /* Mobile nav */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    #hamburger { display: none; background: none; border: none; cursor: pointer; color: #666; }
+    @media (max-width: 640px) {
+      .nav-links, .nav-cta { display: none !important; }
+      #hamburger { display: block; }
+    }
+
+    /* Layout shell */
+    .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 80px; padding-top: 52px; }
+
+    /* Profile card */
+    .profile-card {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e5e5e5;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    .cover-banner {
+      height: 160px;
+      background: url('assets/images/apple_wallpaper.jpeg') center center / cover no-repeat;
+      position: relative;
+    }
+    .avatar-wrap {
+      position: absolute;
+      bottom: -52px;
+      left: 24px;
+    }
+    .avatar {
+      width: 112px; height: 112px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      background: #e5e5e5;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .avatar svg { color: #aaa; }
+    .profile-body { padding: 64px 24px 24px; }
+    .profile-name { font-size: 1.4rem; font-weight: 700; color: #191919; margin-bottom: 4px; }
+    .profile-headline { font-size: 0.97rem; color: #191919; margin-bottom: 6px; font-weight: 400; }
+    .profile-location { font-size: 0.83rem; color: #666; margin-bottom: 14px; }
+    .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .btn-connect {
+      font-size: 0.85rem; font-weight: 600; color: #fff;
+      background: #5D3FD3; border: none; border-radius: 20px;
+      padding: 7px 20px; cursor: pointer; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-connect:hover { background: #3d2a8a; }
+    .btn-message {
+      font-size: 0.85rem; font-weight: 600; color: #5D3FD3;
+      background: transparent; border: 1.5px solid #5D3FD3; border-radius: 20px;
+      padding: 6px 18px; cursor: pointer; text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-message:hover { background: #ede9ff; }
+
+    /* Logo row in profile */
+    .logo-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+    .logo-row img { height: 18px; width: auto; opacity: 0.8; transition: opacity 0.2s; }
+    .logo-row img:hover { opacity: 1; }
+
+    /* Sections */
+    .section-card {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e5e5e5;
+      padding: 20px 24px;
+      margin-top: 12px;
+    }
+    .section-title {
+      font-size: 1.05rem; font-weight: 700; color: #191919;
+      margin-bottom: 16px;
+    }
+
+    /* About prose */
+    .about-text { font-size: 0.93rem; color: #444; line-height: 1.75; }
+    .about-text p + p { margin-top: 12px; }
+    .about-text a { color: #0a66c2; text-decoration: none; }
+    .about-text a:hover { text-decoration: underline; }
+
+    /* Experience items */
+    .exp-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-logo {
+      width: 44px; height: 44px; border-radius: 6px;
+      border: 1px solid #e5e5e5;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; background: #fafafa; overflow: hidden;
+    }
+    .exp-logo img { width: 28px; height: 28px; object-fit: contain; }
+    .exp-content { flex: 1; min-width: 0; }
+    .exp-title { font-size: 0.93rem; font-weight: 600; color: #191919; }
+    .exp-company { font-size: 0.87rem; color: #444; margin-top: 1px; }
+    .exp-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
+    .exp-desc { font-size: 0.87rem; color: #555; margin-top: 6px; line-height: 1.6; }
+
+    /* Services items */
+    .service-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+    .service-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .service-item:first-child { padding-top: 0; }
+    .service-name { font-size: 0.93rem; font-weight: 600; color: #191919; margin-bottom: 4px; }
+    .service-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
+    .service-link { font-size: 0.83rem; color: #0a66c2; text-decoration: none; display: inline-block; margin-top: 6px; }
+    .service-link:hover { text-decoration: underline; }
+
+    /* Work/projects */
+    .project-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .project-item:first-child { padding-top: 0; }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .project-name { font-size: 0.93rem; font-weight: 600; color: #191919; }
+    .project-name a { color: #0a66c2; text-decoration: none; }
+    .project-name a:hover { text-decoration: underline; }
+    .project-sub { font-size: 0.82rem; color: #888; margin-top: 2px; }
+    .project-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
+    .project-desc p + p { margin-top: 8px; }
+    .tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 500;
+      padding: 2px 9px; border-radius: 12px;
+      background: #ede9ff; color: #5D3FD3;
+    }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+    /* Hobbies */
+    .hobby-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+    .hobby-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .hobby-item:first-child { padding-top: 0; }
+    .hobby-label { font-size: 0.87rem; font-weight: 600; color: #191919; min-width: 130px; flex-shrink: 0; padding-top: 1px; }
+    .hobby-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
+
+    /* Demo snippets */
+    .demo-snippet {
+      margin-top: 10px;
+      border: 1px solid #e5e5e5;
+      border-radius: 7px;
+      overflow: hidden;
+      font-size: 0.82rem;
+    }
+    .demo-label {
+      background: #f5f5f5;
+      color: #888;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 5px 12px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .demo-body {
+      padding: 10px 12px;
+      color: #444;
+      line-height: 1.7;
+      background: #fafafa;
+    }
+
+    /* CTA card */
+    .cta-card {
+      background: #5D3FD3;
+      border-radius: 10px;
+      padding: 32px 28px;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .cta-card h2 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .cta-card p { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin-bottom: 20px; line-height: 1.6; }
+    .btn-cta-white {
+      display: inline-block; background: #fff; color: #5D3FD3;
+      font-size: 0.88rem; font-weight: 700; border-radius: 20px;
+      padding: 10px 28px; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-cta-white:hover { opacity: 0.9; }
+
+    /* Footer */
+    footer {
+      max-width: 860px; margin: 0 auto;
+      padding: 24px 16px 0;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      border-top: 1px solid #e5e5e5;
+    }
+    footer a, footer span { font-size: 0.78rem; color: #888; text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: #5D3FD3; }
+
+    @media (max-width: 560px) {
+      .cover-banner { height: 110px; }
+      .avatar { width: 88px; height: 88px; }
+      .avatar-wrap { bottom: -44px; }
+      .profile-body { padding: 54px 16px 20px; }
+      .section-card { padding: 16px; }
+      .hobby-item { flex-direction: column; gap: 4px; }
+      .hobby-label { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Aaron Chang</a>
+    <div class="nav-links">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
+    </div>
+    <a href="mailto:aaronyuanchang@gmail.com" class="nav-cta">Get in touch</a>
+    <button id="hamburger" aria-label="Menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0;">
+    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Services</a>
+    <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">About</a>
+    <a href="#work" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Work</a>
+    <a href="mailto:aaronyuanchang@gmail.com" class="block py-3" style="font-size:0.85rem; color:#5D3FD3; font-weight:600;">Get in touch →</a>
+  </div>
+</nav>
+
+
+<div class="page-wrap">
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card fade-in">
+    <div class="cover-banner">
+      <div class="avatar-wrap">
+        <div class="avatar">
+          <!-- Profile photo placeholder -->
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-body">
+      <div class="profile-name">Aaron Chang</div>
+      <div class="profile-headline">Software Engineer &amp; AI Systems Builder · Helping small businesses eliminate operational overhead with AI</div>
+      <div class="profile-location">Los Angeles, California · <a href="mailto:aaronyuanchang@gmail.com" style="color:#0a66c2; text-decoration:none;">aaronyuanchang@gmail.com</a></div>
+
+      <div class="logo-row">
+        <img src="assets/logos/ucla.svg" alt="UCLA" title="UCLA" />
+        <img src="assets/logos/google.svg" alt="Google" title="Google" />
+        <img src="assets/logos/amazon.svg" alt="Amazon" title="Amazon" />
+        <img src="assets/logos/tiktok.svg" alt="TikTok" title="TikTok" />
+      </div>
+
+      <div class="profile-actions">
+        <a href="mailto:aaronyuanchang@gmail.com" class="btn-connect">Get in touch</a>
+        <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener" class="btn-message">LinkedIn</a>
+        <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener" class="btn-message">Google Scholar</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ABOUT -->
+  <div id="about" class="section-card fade-in" style="transition-delay:0.04s;">
+    <div class="section-title">About</div>
+    <div class="about-text">
+      <p>I'm a software engineer and AI systems builder based in Los Angeles. I studied Computer Science at UCLA, where I did machine learning research across two labs: the Julian McAuley Lab at UC San Diego and the Doheny Image Analysis Laboratory, with papers accepted into conferences. You can see them on <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>. I also worked at Google, Amazon, and TikTok, shipping production systems at scale.</p>
+      <p>I also co-run two businesses: <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a>, a B2B company helping Chinese brands expand into the U.S. retail market, and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, a college admissions firm with a 100% client success rate. Both gave me a firsthand look at how much time small businesses waste on tasks that AI can handle, so I started building the systems that fix that.</p>
+      <p>I'm not a consultant who has only read about AI. I've deployed it in businesses I actually run. When I work with you, you get someone who understands both the technology and what it's like to be on the receiving end of it.</p>
+    </div>
+  </div>
+
+
+  <!-- SERVICES -->
+  <div id="services" class="section-card fade-in" style="transition-delay:0.06s;">
+    <div class="section-title">Services</div>
+
+    <div class="service-item">
+      <div class="service-name">Meeting Automation</div>
+      <div class="service-desc">Every meeting automatically transcribed, summarized, and filed, with action items extracted and sent to the right people. Your team stops taking notes and starts moving faster.</div>
+      <div class="demo-snippet">
+        <div class="demo-label">Example output</div>
+        <div class="demo-body">
+          <strong>Meeting: Q2 Pipeline Review · Apr 14, 2026</strong><br>
+          <strong>Summary:</strong> Team aligned on pushing the Acme deal to June. Legal needs to review the revised contract by Friday.<br>
+          <strong>Action items:</strong><br>
+          &nbsp;&nbsp;· Jason — send revised contract to legal by Apr 18<br>
+          &nbsp;&nbsp;· Sara — follow up with Acme on new timeline<br>
+          &nbsp;&nbsp;· All — reconvene Apr 22 for status update
+        </div>
+      </div>
+      <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Email Workflow</div>
+      <div class="service-desc">All your team's email pulled into one place, summarized by AI, tagged with urgency, and turned into a clean action list. You stop managing your inbox and start managing your business.</div>
+      <div class="demo-snippet">
+        <div class="demo-label">Example output</div>
+        <div class="demo-body">
+          <strong>Inbox digest · Apr 14, 2026 · 9:00 AM</strong><br>
+          <span style="color:#b45309;">&#9679; High</span> — <strong>Vendor invoice overdue</strong> · Reply requested by EOD<br>
+          <span style="color:#6b7280;">&#9679; Low</span>&nbsp; — <strong>Newsletter from Shopify</strong> · No action needed<br>
+          <span style="color:#b45309;">&#9679; High</span> — <strong>Client re: contract revision</strong> · Approval needed before Friday
+        </div>
+      </div>
+      <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
+    </div>
+
+    <div class="service-item">
+      <div class="service-name">Custom AI Tools</div>
+      <div class="service-desc">Purpose-built tools for your specific workflow: client reporting, proposal generation, inventory analysis, or anything repetitive your team handles manually today.</div>
+      <div class="demo-snippet">
+        <div class="demo-label">Example output</div>
+        <div class="demo-body">
+          <strong>Weekly client report · Acme Corp · Auto-generated</strong><br>
+          Units sold: 1,240 &nbsp;|&nbsp; Revenue: $38,400 &nbsp;|&nbsp; Return rate: 2.1%<br>
+          Top SKU: Blue Hoodie (312 units)<br>
+          <em>Report sent to client automatically every Monday at 8 AM.</em>
+        </div>
+      </div>
+      <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
+    </div>
+
+    <div class="service-item" style="border-bottom:none; padding-bottom:0;">
+      <div class="service-name">Google Workspace Integration</div>
+      <div class="service-desc">Connect your existing tools: Gmail, Drive, Meet, Calendar into automated workflows that run in the background without changing how your team already works.</div>
+      <div class="demo-snippet">
+        <div class="demo-label">Example workflow</div>
+        <div class="demo-body">
+          <strong>Trigger:</strong> Meeting ends in Google Meet<br>
+          <strong>Step 1:</strong> Transcript pulled from Meet, summarized by AI<br>
+          <strong>Step 2:</strong> Summary + action items saved to Drive folder<br>
+          <strong>Step 3:</strong> Action items emailed to attendees via Gmail<br>
+          <em>Zero manual steps. Runs automatically every time.</em>
+        </div>
+      </div>
+      <a href="mailto:aaronyuanchang@gmail.com" class="service-link">Get in touch →</a>
+    </div>
+  </div>
+
+
+  <!-- EXPERIENCE -->
+  <div class="section-card fade-in" style="transition-delay:0.08s;">
+    <div class="section-title">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-logo">
+        <img src="assets/logos/google.svg" alt="Google" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Software Engineer Intern</div>
+        <div class="exp-company">Google · Internship</div>
+        <div class="exp-meta">2026 · Irvine, CA · On-site</div>
+        <div class="exp-desc">Agentic Ads Personalization</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:4px;">
+        <img src="assets/logos/amazon.svg" alt="Amazon" style="width:32px;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Software Engineer Intern</div>
+        <div class="exp-company">Amazon Web Services (AWS) · Internship</div>
+        <div class="exp-meta">2025 · Seattle, WA · On-site</div>
+        <div class="exp-desc">Core Build Infrastructure</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo">
+        <img src="assets/logos/tiktok.svg" alt="TikTok" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Software Engineer Intern</div>
+        <div class="exp-company">TikTok · Internship</div>
+        <div class="exp-meta">2024 · Irvine, CA · On-site</div>
+        <div class="exp-desc">Creator Commerce Infrastructure</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:2px;">
+        <img src="assets/logos/ucsd.svg" alt="UC San Diego" style="width:36px; height:36px; object-fit:contain;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Machine Learning Researcher Intern</div>
+        <div class="exp-company">UC San Diego · Julian McAuley Lab</div>
+        <div class="exp-meta">2024 – Present · San Diego, CA · Hybrid</div>
+        <div class="exp-desc">Multimodal LLMs, Visual Prompting, Personalization + Alignment. <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener" style="color:#0a66c2;">Published research →</a></div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:2px;">
+        <img src="assets/logos/doheny.png" alt="Doheny Eye Institute" style="width:36px; height:36px; object-fit:contain;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Machine Learning Researcher Intern</div>
+        <div class="exp-company">Doheny Eye Institute · Internship</div>
+        <div class="exp-meta">Nov 2019 – Mar 2024 · 4 yrs 5 mos · Pasadena, CA · Hybrid</div>
+        <div class="exp-desc">Medical Image Processing using CNNs @ Doheny Image Analysis Laboratory (DIAL)</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:2px;">
+        <img src="assets/logos/wintone.png" alt="WinTone" style="width:36px; height:36px; object-fit:contain;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">AI Systems Lead</div>
+        <div class="exp-company">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a></div>
+        <div class="exp-meta">2022 – Present · Los Angeles, CA</div>
+        <div class="exp-desc">B2B retail expansion helping Chinese brands enter the U.S. market. Built internal AI systems including a centralized email aggregation pipeline, automated client reporting, and workflow tooling. Also built the company website.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:2px; display:flex; align-items:center; justify-content:center;">
+        <img src="assets/logos/keystone.svg" alt="Keystone Consulting" style="width:36px; height:36px; object-fit:contain;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Technology Lead</div>
+        <div class="exp-company">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a></div>
+        <div class="exp-meta">2021 – Present · Los Angeles, CA</div>
+        <div class="exp-desc">College admissions coaching with a 100% client success rate. Designed and deployed AI-assisted document workflows, meeting summary systems, and client communication automation. Also built the company website.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- EDUCATION -->
+  <div class="section-card fade-in" style="transition-delay:0.1s;">
+    <div class="section-title">Education</div>
+    <div class="exp-item">
+      <div class="exp-logo">
+        <img src="assets/logos/ucla.svg" alt="UCLA" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">University of California, Los Angeles</div>
+        <div class="exp-company">B.S. Computer Science</div>
+        <div class="exp-meta">2022 – 2026 · Los Angeles, CA</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-logo" style="background:#fff; padding:2px; display:flex; align-items:center; justify-content:center;">
+        <img src="assets/logos/ahs.jpg" alt="Arcadia High School" style="width:36px; height:36px; object-fit:contain;" />
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Arcadia High School</div>
+        <div class="exp-company">High School Diploma</div>
+        <div class="exp-meta">2018 – 2022 · Arcadia, CA</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- WORK / PROJECTS -->
+  <div id="work" class="section-card fade-in" style="transition-delay:0.12s;">
+    <div class="section-title">AI in Practice</div>
+
+    <div class="project-item">
+      <div class="project-header">
+        <div>
+          <div class="project-name">Centralized Email &amp; AI Workflow</div>
+          <div class="project-sub">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a> · B2B retail expansion · Los Angeles</div>
+        </div>
+      </div>
+      <div class="project-desc">
+        <p>With a distributed team across time zones, emails were getting lost and nothing had a clear owner. I built a centralized system that aggregates all employee inboxes into a single pipeline. Each thread is summarized by AI, tagged with priority, and turned into a shared action list. Bottlenecks that used to surface in weekly calls now surface the same day.</p>
+        <p>Also automated the weekly client reporting process: performance data pulled, formatted, and emailed to clients without anyone touching a spreadsheet.</p>
+      </div>
+      <div class="tags">
+        <span class="tag">Email Aggregation</span>
+        <span class="tag">AI Summarization</span>
+        <span class="tag">Reporting Automation</span>
+        <span class="tag">Google Workspace</span>
+      </div>
+    </div>
+
+    <div class="project-item" style="border-bottom:none; padding-bottom:0;">
+      <div class="project-header">
+        <div>
+          <div class="project-name">Document &amp; Meeting Automation</div>
+          <div class="project-sub">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
+        </div>
+      </div>
+      <div class="project-desc">
+        <p>Advisors were spending hours a week writing session notes, chasing document submissions, and manually following up with families. I automated the intake and document workflow so application materials move through the pipeline without manual handoffs, and built a meeting summary system so every session ends with a structured recap automatically sent to the client.</p>
+        <p>The result: advisors spend more time coaching, and no follow-up falls through the cracks.</p>
+      </div>
+      <div class="tags">
+        <span class="tag">Document Automation</span>
+        <span class="tag">Meeting Summaries</span>
+        <span class="tag">CRM Workflow</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- OUTSIDE THE OFFICE -->
+  <div class="section-card fade-in" style="transition-delay:0.14s;">
+    <div class="section-title">When I'm Not Working</div>
+
+    <div class="hobby-item">
+      <div class="hobby-label">Table Tennis</div>
+      <div class="hobby-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
+    </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Running</div>
+      <div class="hobby-desc">Chasing a sub-16 5K. Also working toward a half marathon PR. I like progress you can measure in seconds.</div>
+    </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Pickleball</div>
+      <div class="hobby-desc">Playing on an RPM Friction Pro V2, no DUPR rating yet, but competing for the first time this year. Ask me how it goes.</div>
+    </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Board Games</div>
+      <div class="hobby-desc">Cambio, Hues &amp; Cues, Texas Hold'em, Dou Di Zhu, and Chess (1600+ on chess.com). I like games where thinking three moves ahead actually pays off.</div>
+    </div>
+  </div>
+
+
+  <!-- CTA -->
+  <div class="cta-card fade-in" style="transition-delay:0.16s;">
+    <h2>Ready to save 20+ hours a week?</h2>
+    <p>Tell me what's slowing your team down. I'll be honest about what AI can fix and what it actually takes to build it right.</p>
+    <a href="mailto:aaronyuanchang@gmail.com" class="btn-cta-white">Get in touch →</a>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer style="margin-top:28px;">
+    <span>© 2025 Aaron Chang</span>
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Research</a>
+      <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <a href="mailto:aaronyuanchang@gmail.com">aaronyuanchang@gmail.com</a>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+
+<script>
+  // Nav hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Fade-in observer
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
