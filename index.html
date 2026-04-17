@@ -38,7 +38,11 @@
       max-width: 860px; margin: 0 auto; padding: 0 20px;
       display: flex; align-items: center; justify-content: space-between; width: 100%;
     }
-    .nav-logo { font-size: 0.95rem; font-weight: 600; color: #191919; text-decoration: none; }
+    .nav-logo {
+      text-decoration: none; display: flex; align-items: center;
+      flex-shrink: 0;
+    }
+    .nav-logo img { visibility: visible; height: 36px; width: auto; display: block; }
     .nav-links { display: flex; gap: 24px; }
     .nav-link { font-size: 0.82rem; font-weight: 500; color: #666; text-decoration: none; transition: color 0.15s; }
     .nav-link:hover { color: #5D3FD3; }
@@ -295,7 +299,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">Aaron Chang</a>
+    <a href="#" class="nav-logo"><img src="assets/images/nerdcat.png" alt="Aaron Chang" /></a>
     <div class="nav-links">
       <a href="#about" class="nav-link">About</a>
       <a href="#services" class="nav-link">Services</a>
