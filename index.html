@@ -69,7 +69,7 @@
     /* Profile card */
     .profile-card {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 0;
       border: 1px solid #e5e5e5;
       overflow: hidden;
       margin-top: 16px;
@@ -142,7 +142,7 @@
     /* Sections */
     .section-card {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 0;
       border: 1px solid #e5e5e5;
       padding: 20px 24px;
       margin-top: 12px;
@@ -163,7 +163,7 @@
     .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
     .exp-item:first-child { padding-top: 0; }
     .exp-logo {
-      width: 44px; height: 44px; border-radius: 6px;
+      width: 44px; height: 44px; border-radius: 0;
       border: 1px solid #e5e5e5;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; background: #fafafa; overflow: hidden;
@@ -175,14 +175,20 @@
     .exp-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
     .exp-desc { font-size: 0.87rem; color: #555; margin-top: 6px; line-height: 1.6; }
 
-    /* Services items */
-    .service-item { padding: 24px 0; border-bottom: 1px solid #f0f0f0; }
-    .service-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .service-item:first-child { padding-top: 0; }
-    .service-name { font-size: 1rem; font-weight: 700; color: #191919; margin-bottom: 6px; }
-    .service-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
-    .service-link { font-size: 0.83rem; color: #0a66c2; text-decoration: none; display: inline-block; margin-top: 12px; }
-    .service-link:hover { text-decoration: underline; }
+    /* Services grid */
+    .services-header { font-size: 1.5rem; font-weight: 700; color: #191919; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .services-subhead { font-size: 0.88rem; color: #555; line-height: 1.75; margin-bottom: 24px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 780px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
+    .svc-card { border: 1px solid #2B5F5C; border-radius: 0; background: #fff; padding: 22px 20px 18px; display: flex; flex-direction: column; }
+    .svc-name { font-size: 1rem; font-weight: 700; color: #191919; margin-bottom: 12px; line-height: 1.25; }
+    .svc-desc { font-size: 0.84rem; color: #444; line-height: 1.7; margin-bottom: 16px; flex: 1; }
+    .svc-bullets { list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 7px; }
+    .svc-bullets li { font-size: 0.81rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5; }
+    .svc-bullets li::before { content: '●'; position: absolute; left: 0; color: #2B5F5C; font-size: 0.5rem; top: 4px; }
+    .svc-cta { font-size: 0.82rem; font-weight: 600; color: #2B5F5C; text-decoration: none; border-top: 1px solid #ebebeb; padding-top: 14px; display: block; transition: color 0.15s; }
+    .svc-cta:hover { color: #1e4744; }
 
     /* Work/projects */
     .project-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
@@ -197,7 +203,7 @@
     .project-desc p + p { margin-top: 8px; }
     .tag {
       display: inline-block; font-size: 0.72rem; font-weight: 500;
-      padding: 2px 9px; border-radius: 12px;
+      padding: 2px 9px; border-radius: 0;
       background: #d0e8e7; color: #2B5F5C;
     }
     .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
@@ -209,56 +215,11 @@
     .hobby-label { font-size: 0.87rem; font-weight: 600; color: #191919; min-width: 130px; flex-shrink: 0; padding-top: 1px; }
     .hobby-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
 
-    /* Demo snippets */
-    .demo-snippet {
-      margin-top: 16px;
-      border: 1.5px solid #8fc4c2;
-      border-radius: 10px;
-      overflow: hidden;
-      font-size: 0.83rem;
-      box-shadow: 0 2px 8px rgba(93,63,211,0.07);
-    }
-    .demo-label {
-      background: #d0e8e7;
-      color: #2B5F5C;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 7px 14px;
-      border-bottom: 1.5px solid #8fc4c2;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .demo-label::before {
-      content: '';
-      display: inline-block;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #2B5F5C;
-      opacity: 0.5;
-    }
-    .demo-body {
-      padding: 14px 16px;
-      color: #333;
-      line-height: 1.8;
-      background: #fff;
-    }
-    .demo-gif-placeholder {
-      background: #f0f7f7;
-      border-top: 1.5px solid #8fc4c2;
-      padding: 12px 16px;
-      font-size: 0.75rem;
-      color: #3a7a76;
-      text-align: center;
-      font-style: italic;
-    }
 
     /* CTA card */
     .cta-card {
       background: #2B5F5C;
-      border-radius: 10px;
+      border-radius: 0;
       padding: 32px 28px;
       margin-top: 12px;
       text-align: center;
@@ -335,7 +296,7 @@
 
     <div class="profile-body">
       <div class="profile-name">Aaron Chang</div>
-      <div class="profile-headline">Software Engineer &amp; AI Systems Builder · Helping small businesses eliminate operational overhead with AI</div>
+      <div class="profile-headline">Software Engineer & AI Systems Builder · Helping small businesses eliminate operational overhead with AI</div>
       <div class="profile-location">Los Angeles, California · <a href="mailto:aaron@aaronchang.dev" style="color:#0a66c2; text-decoration:none;">aaron@aaronchang.dev</a></div>
 
       <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
@@ -374,69 +335,76 @@
   <!-- SERVICES -->
   <div id="services" class="section-card fade-in" style="transition-delay:0.06s;">
     <div class="section-title">Services</div>
-    <p style="font-size:0.9rem; color:#555; line-height:1.75; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid #f0f0f0;">I've worked directly with many small businesses and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week. I approach every engagement from two angles: what the customer experiences and what the internal team actually has to do, then apply what I've seen building systems at Google, Amazon, and TikTok to design something that fits. No off-the-shelf tools. No generic advice. I sit down with you, understand your workflow, and build the thing that actually fixes it.</p>
+    <p class="services-subhead">I've worked with service businesses, agencies, and e-commerce teams and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week. I sit down with your team, understand the actual workflow, and build the thing that fixes it.</p>
 
-    <div class="service-item">
-      <div class="service-name">Meeting Automation</div>
-      <div class="service-desc">Every meeting automatically transcribed, summarized, and filed, with action items extracted and sent to the right people. Your team stops taking notes and starts moving faster.</div>
-      <div class="demo-snippet">
-        <div class="demo-label">Example output</div>
-        <div class="demo-body">
-          <strong>Meeting: Q2 Pipeline Review · Apr 14, 2026</strong><br>
-          <strong>Summary:</strong> Team aligned on pushing the Acme deal to June. Legal needs to review the revised contract by Friday.<br>
-          <strong>Action items:</strong><br>
-          &nbsp;&nbsp;· Jason — send revised contract to legal by Apr 18<br>
-          &nbsp;&nbsp;· Sara — follow up with Acme on new timeline<br>
-          &nbsp;&nbsp;· All — reconvene Apr 22 for status update
-        </div>
-        <div class="demo-gif-placeholder">Live demo coming soon</div>
-      </div>
-    </div>
+    <div class="services-grid">
 
-    <div class="service-item">
-      <div class="service-name">Email Workflow</div>
-      <div class="service-desc">All your team's email pulled into one place, summarized by AI, tagged with urgency, and turned into a clean action list. You stop managing your inbox and start managing your business.</div>
-      <div class="demo-snippet">
-        <div class="demo-label">Example output</div>
-        <div class="demo-body">
-          <strong>Inbox digest · Apr 14, 2026 · 9:00 AM</strong><br>
-          <span style="color:#b45309;">&#9679; High</span> — <strong>Vendor invoice overdue</strong> · Reply requested by EOD<br>
-          <span style="color:#6b7280;">&#9679; Low</span>&nbsp; — <strong>Newsletter from Shopify</strong> · No action needed<br>
-          <span style="color:#b45309;">&#9679; High</span> — <strong>Client re: contract revision</strong> · Approval needed before Friday
-        </div>
-        <div class="demo-gif-placeholder">Live demo coming soon</div>
+      <div class="svc-card">
+        <div class="svc-name">Meeting Intelligence</div>
+        <div class="svc-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</div>
+        <ul class="svc-bullets">
+          <li>AI recap with decisions, owners, and deadlines</li>
+          <li>Action items routed by assignee via email or Slack</li>
+          <li>All summaries archived and searchable by topic</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
-    </div>
 
-    <div class="service-item">
-      <div class="service-name">Custom AI Tools</div>
-      <div class="service-desc">Purpose-built tools for your specific workflow: client reporting, proposal generation, inventory analysis, or anything repetitive your team handles manually today.</div>
-      <div class="demo-snippet">
-        <div class="demo-label">Example output</div>
-        <div class="demo-body">
-          <strong>Weekly client report · Acme Corp · Auto-generated</strong><br>
-          Units sold: 1,240 &nbsp;|&nbsp; Revenue: $38,400 &nbsp;|&nbsp; Return rate: 2.1%<br>
-          Top SKU: Blue Hoodie (312 units)<br>
-          <em>Report sent to client automatically every Monday at 8 AM.</em>
-        </div>
-        <div class="demo-gif-placeholder">Live demo coming soon</div>
+      <div class="svc-card">
+        <div class="svc-name">Inbox &amp; Communication Ops</div>
+        <div class="svc-desc">Your team's email pulled into one prioritized feed, triaged by AI, and converted into a daily action list. Nothing gets buried, nothing falls through the cracks.</div>
+        <ul class="svc-bullets">
+          <li>Multi-inbox aggregation across your whole team</li>
+          <li>AI triage: urgency tags, required actions, owner assignment</li>
+          <li>Morning digest delivered with zero manual steps</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
-    </div>
 
-    <div class="service-item" style="border-bottom:none; padding-bottom:0;">
-      <div class="service-name">Google Workspace Integration</div>
-      <div class="service-desc">Connect your existing tools: Gmail, Drive, Meet, Calendar into automated workflows that run in the background without changing how your team already works.</div>
-      <div class="demo-snippet">
-        <div class="demo-label">Example workflow</div>
-        <div class="demo-body">
-          <strong>Trigger:</strong> Meeting ends in Google Meet<br>
-          <strong>Step 1:</strong> Transcript pulled from Meet, summarized by AI<br>
-          <strong>Step 2:</strong> Summary + action items saved to Drive folder<br>
-          <strong>Step 3:</strong> Action items emailed to attendees via Gmail<br>
-          <em>Zero manual steps. Runs automatically every time.</em>
-        </div>
-        <div class="demo-gif-placeholder">Live demo coming soon</div>
+      <div class="svc-card">
+        <div class="svc-name">Custom Reporting &amp; Workflow Tools</div>
+        <div class="svc-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</div>
+        <ul class="svc-bullets">
+          <li>Pulls from your existing data sources and spreadsheets</li>
+          <li>Proposal and document generation from structured inputs</li>
+          <li>Delivered weekly, daily, or on-trigger (your call)</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
+
+      <div class="svc-card">
+        <div class="svc-name">Shared Knowledge Base &amp; File AI</div>
+        <div class="svc-desc">One organized cloud workspace (Google Drive, OneDrive, or similar) your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</div>
+        <ul class="svc-bullets">
+          <li>Folder structure built around how your team actually works</li>
+          <li>AI summaries of docs, folders, and contracts on demand</li>
+          <li>Access rules so everyone sees exactly what they need</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-name">Customer Data &amp; Trend Analysis</div>
+        <div class="svc-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</div>
+        <ul class="svc-bullets">
+          <li>Automated pulls from forms, CRMs, and order systems</li>
+          <li>AI trend reports: behavior, retention, and demand signals</li>
+          <li>Recurring digest or live dashboard, your preference</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-name">AI-Powered Customer Support</div>
+        <div class="svc-desc">A support layer that handles common questions automatically, routes complex ones to the right person, and drafts replies your team can approve and send in seconds.</div>
+        <ul class="svc-bullets">
+          <li>Trained on your FAQs, policies, and past responses</li>
+          <li>Auto-drafts replies to common inquiries via email or chat</li>
+          <li>Escalation rules so edge cases always reach a human</li>
+        </ul>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
+      </div>
+
     </div>
   </div>
 
@@ -640,9 +608,9 @@
   <div id="contact" class="section-card fade-in" style="transition-delay:0.16s; text-align:center; padding:40px 28px;">
     <div class="section-title" style="margin-bottom:8px;">Get in touch</div>
     <p style="font-size:0.9rem; color:#555; line-height:1.75; max-width:480px; margin:0 auto 28px;">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it actually takes to build it right.</p>
-    <div style="display:inline-flex; align-items:center; gap:10px; background:#f0f7f7; border:1.5px solid #8fc4c2; border-radius:10px; padding:12px 20px;">
+    <div style="display:inline-flex; align-items:center; gap:10px; background:#f0f7f7; border:1.5px solid #8fc4c2; border-radius:0; padding:12px 20px;">
       <span style="font-size:0.95rem; font-weight:600; color:#191919; letter-spacing:0.01em;">aaron@aaronchang.dev</span>
-      <button onclick="navigator.clipboard.writeText('aaron@aaronchang.dev').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)})" style="font-size:0.75rem; font-weight:600; color:#2B5F5C; background:#d0e8e7; border:none; border-radius:6px; padding:4px 10px; cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='#8fc4c2'" onmouseout="this.style.background='#d0e8e7'">Copy</button>
+      <button onclick="navigator.clipboard.writeText('aaron@aaronchang.dev').then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)})" style="font-size:0.75rem; font-weight:600; color:#2B5F5C; background:#d0e8e7; border:none; border-radius:0; padding:4px 10px; cursor:pointer; transition:background 0.15s;" onmouseover="this.style.background='#8fc4c2'" onmouseout="this.style.background='#d0e8e7'">Copy</button>
     </div>
     <div style="margin-top:20px;">
       <a href="mailto:aaron@aaronchang.dev" class="btn-connect" style="display:inline-block;">Open in mail app →</a>
