@@ -93,7 +93,7 @@
     .profile-name { font-size: 1.4rem; font-weight: 700; color: #191919; margin-bottom: 4px; }
     .profile-headline { font-size: 0.97rem; color: #191919; margin-bottom: 6px; font-weight: 400; }
     .profile-location { font-size: 0.83rem; color: #666; margin-bottom: 14px; }
-    .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
     .btn-connect {
       font-size: 0.85rem; font-weight: 600; color: #fff;
       background: #5D3FD3; border: none; border-radius: 20px;
@@ -109,10 +109,31 @@
     }
     .btn-message:hover { background: #ede9ff; }
 
-    /* Logo row in profile */
-    .logo-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
-    .logo-row img { height: 18px; width: auto; opacity: 0.8; transition: opacity 0.2s; }
-    .logo-row img:hover { opacity: 1; }
+    /* Logo marquee */
+    .logo-marquee-wrap {
+      overflow: hidden;
+      margin-top: 16px;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .logo-marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      width: max-content;
+      will-change: transform;
+    }
+    .logo-marquee-track img {
+      height: 18px;
+      width: auto;
+      opacity: 0.8;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+    .logo-marquee-track img:hover { opacity: 1; }
+
+    /* Scroll offset for fixed nav */
+    [id] { scroll-margin-top: 64px; }
 
     /* Sections */
     .section-card {
@@ -255,10 +276,9 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">Aaron Chang</a>
     <div class="nav-links">
-      <a href="#services" class="nav-link">Services</a>
       <a href="#about" class="nav-link">About</a>
-      <a href="#work" class="nav-link">Work</a>
-      <a href="https://www.linkedin.com/in/aaronyuanchang/" target="_blank" rel="noopener" class="nav-link">LinkedIn</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#experience" class="nav-link">Experience</a>
     </div>
     <a href="mailto:aaronyuanchang@gmail.com" class="nav-cta">Get in touch</a>
     <button id="hamburger" aria-label="Menu">
@@ -268,9 +288,9 @@
     </button>
   </div>
   <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0;">
-    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Services</a>
     <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">About</a>
-    <a href="#work" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Work</a>
+    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Services</a>
+    <a href="#experience" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0;">Experience</a>
     <a href="mailto:aaronyuanchang@gmail.com" class="block py-3" style="font-size:0.85rem; color:#5D3FD3; font-weight:600;">Get in touch →</a>
   </div>
 </nav>
@@ -296,11 +316,15 @@
       <div class="profile-headline">Software Engineer &amp; AI Systems Builder · Helping small businesses eliminate operational overhead with AI</div>
       <div class="profile-location">Los Angeles, California · <a href="mailto:aaronyuanchang@gmail.com" style="color:#0a66c2; text-decoration:none;">aaronyuanchang@gmail.com</a></div>
 
-      <div class="logo-row">
-        <img src="assets/logos/ucla.svg" alt="UCLA" title="UCLA" />
-        <img src="assets/logos/google.svg" alt="Google" title="Google" />
-        <img src="assets/logos/amazon.svg" alt="Amazon" title="Amazon" />
-        <img src="assets/logos/tiktok.svg" alt="TikTok" title="TikTok" />
+      <div class="logo-marquee-wrap">
+        <div class="logo-marquee-track" data-speed="30">
+          <img src="assets/logos/ucla.svg" alt="UCLA" title="UCLA" />
+          <img src="assets/logos/google.svg" alt="Google" title="Google" />
+          <img src="assets/logos/amazon.svg" alt="Amazon" title="Amazon" />
+          <img src="assets/logos/tiktok.svg" alt="TikTok" title="TikTok" />
+          <img src="assets/logos/ucsd.svg" alt="UC San Diego" title="UC San Diego" />
+          <img src="assets/logos/doheny.png" alt="Doheny Eye Institute" title="Doheny Eye Institute" style="height:22px;" />
+        </div>
       </div>
 
       <div class="profile-actions">
@@ -393,7 +417,7 @@
 
 
   <!-- EXPERIENCE -->
-  <div class="section-card fade-in" style="transition-delay:0.08s;">
+  <div id="experience" class="section-card fade-in" style="transition-delay:0.08s;">
     <div class="section-title">Experience</div>
 
     <div class="exp-item">
@@ -571,6 +595,10 @@
       <div class="hobby-label">Board Games</div>
       <div class="hobby-desc">Cambio, Hues &amp; Cues, Texas Hold'em, Dou Di Zhu, and Chess (1600+ on chess.com). I like games where thinking three moves ahead actually pays off.</div>
     </div>
+    <div class="hobby-item">
+      <div class="hobby-label">Cats</div>
+      <div class="hobby-desc">I catsit whenever I can. I travel too much to own one, but the dream is a male calico (yes, I know how rare they are).</div>
+    </div>
   </div>
 
 
@@ -610,6 +638,32 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Logo marquee — speed in px/second, device-refresh-rate independent
+  document.querySelectorAll('.logo-marquee-track').forEach(track => {
+    const pxPerSec = parseFloat(track.dataset.speed) || 60;
+    Array.from(track.children).forEach(child => track.appendChild(child.cloneNode(true)));
+    let offset = 0;
+    let paused = false;
+    let lastTs = null;
+    track.addEventListener('mouseenter', () => paused = true);
+    track.addEventListener('mouseleave', () => paused = false);
+    function step(ts) {
+      if (lastTs !== null && !paused) {
+        const delta = (ts - lastTs) / 1000;
+        offset += pxPerSec * delta;
+        const first = track.children[0];
+        if (offset >= first.offsetWidth + 40) {
+          offset -= first.offsetWidth + 40;
+          track.appendChild(track.removeChild(first));
+        }
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+      lastTs = ts;
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
 </script>
 
 </body>
