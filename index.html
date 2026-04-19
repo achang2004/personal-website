@@ -22,7 +22,7 @@
     }
 
     /* Fade-in */
-    .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .fade-in { opacity: 0; transform: translateY(10px); transition: opacity 0.35s ease, transform 0.35s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* Nav */
@@ -935,11 +935,18 @@
   hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
   document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
-  // Fade-in observer
+  // Fade-in observer — large rootMargin so sections below fold trigger before scrolling
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.08 });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  // Immediately show anything already visible on load
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 0);
 
   // Logo marquee — speed in px/second, device-refresh-rate independent
   document.querySelectorAll('.logo-marquee-track').forEach(track => {
