@@ -657,7 +657,7 @@
     track.addEventListener('mouseleave', () => paused = false);
     function step(ts) {
       if (lastTs !== null && !paused) {
-        const delta = (ts - lastTs) / 1000;
+        const delta = Math.min((ts - lastTs) / 1000, 0.1);
         offset += pxPerSec * delta;
         const first = track.children[0];
         if (offset >= first.offsetWidth + 40) {
