@@ -35,7 +35,7 @@
       display: flex; align-items: center;
     }
     .nav-inner {
-      max-width: 860px; margin: 0 auto; padding: 0 20px;
+      max-width: 75vw; margin: 0 auto; padding: 0 20px;
       display: flex; align-items: center; justify-content: space-between; width: 100%;
     }
     .nav-logo {
@@ -46,6 +46,23 @@
     .nav-links { display: flex; gap: 24px; }
     .nav-link { font-size: 0.82rem; font-weight: 500; color: #666; text-decoration: none; transition: color 0.15s; }
     .nav-link:hover { color: #2B5F5C; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .nav-dropdown-toggle::after { content: '▾'; font-size: 0.65rem; opacity: 0.6; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: -12px;
+      background: #fff; border: 1px solid #e5e5e5; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      min-width: 240px; z-index: 200; padding: 6px 0;
+      padding-top: 12px; margin-top: 0;
+    }
+    .nav-dropdown-menu::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 12px;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-item { display: block; padding: 8px 16px; font-size: 0.8rem; color: #444; text-decoration: none; transition: background 0.12s, color 0.12s; white-space: nowrap; }
+    .nav-dropdown-item:hover { background: #f0f7f7; color: #2B5F5C; }
+    .nav-dropdown-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
+    .nav-dropdown-item.custom { color: #2B5F5C; font-weight: 600; }
     .nav-cta {
       font-size: 0.82rem; font-weight: 600; color: #fff;
       background: #2B5F5C; border: none; border-radius: 0;
@@ -61,10 +78,11 @@
     @media (max-width: 640px) {
       .nav-links, .nav-cta { display: none !important; }
       #hamburger { display: block; }
+      .nav-inner, .page-wrap, footer { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding-left: 12px !important; padding-right: 12px !important; }
     }
 
     /* Layout shell */
-    .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 80px; padding-top: 52px; }
+    .page-wrap { max-width: 75vw; margin: 0 auto; padding: 52px 16px 80px; }
 
     /* Profile card */
     .profile-card {
@@ -175,20 +193,80 @@
     .exp-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
     .exp-desc { font-size: 0.87rem; color: #555; margin-top: 6px; line-height: 1.6; }
 
-    /* Services grid */
-    .services-header { font-size: 1.5rem; font-weight: 700; color: #191919; margin-bottom: 6px; letter-spacing: -0.01em; }
+    /* Services rows */
     .services-subhead { font-size: 0.88rem; color: #555; line-height: 1.75; margin-bottom: 24px; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    @media (max-width: 780px) { .services-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
-    .svc-card { border: 1px solid #2B5F5C; border-radius: 0; background: #fff; padding: 22px 20px 18px; display: flex; flex-direction: column; }
+    .svc-row { display: flex; gap: 32px; padding: 24px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+    .svc-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .svc-row:first-child { padding-top: 0; }
+    .svc-left { flex: 1; min-width: 0; }
+    .svc-right { width: 42%; flex-shrink: 0; }
+    .svc-demo-img { width: 100%; border: 1px solid #e5e5e5; display: block; }
     .svc-name { font-size: 1rem; font-weight: 700; color: #191919; margin-bottom: 12px; line-height: 1.25; }
-    .svc-desc { font-size: 0.84rem; color: #444; line-height: 1.7; margin-bottom: 16px; flex: 1; }
+    .svc-desc { font-size: 0.84rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
     .svc-bullets { list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 7px; }
     .svc-bullets li { font-size: 0.81rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5; }
     .svc-bullets li::before { content: '●'; position: absolute; left: 0; color: #2B5F5C; font-size: 0.5rem; top: 4px; }
     .svc-cta { font-size: 0.82rem; font-weight: 600; color: #2B5F5C; text-decoration: none; border-top: 1px solid #ebebeb; padding-top: 14px; display: block; transition: color 0.15s; }
     .svc-cta:hover { color: #1e4744; }
+    @media (max-width: 640px) { .svc-row { flex-direction: column; } .svc-right { width: 100%; } }
+
+    /* Before/after demo panels */
+    .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .demo-panel { overflow: hidden; font-family: 'Inter', sans-serif; border: 1px solid #d8d8d8; }
+    .demo-panel.before { background: #f5f5f5; }
+    .demo-panel.after { background: #fff; }
+    .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .demo-panel-header.before { color: #666; background: #ececec; border-bottom: 1px solid #d8d8d8; }
+    .demo-panel-header.after { color: #fff; background: #2B5F5C; border-bottom: none; }
+    .demo-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .demo-dot.before { background: #999; }
+    .demo-dot.after { background: rgba(255,255,255,0.7); }
+    .demo-panel-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
+    .demo-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 1px solid #e8e8e8; }
+    .demo-panel.before .demo-row { background: #f5f5f5; }
+    .demo-panel.after .demo-row { background: #fff; border-color: #ebebeb; }
+    .demo-row:last-child { border-bottom: none; }
+    .demo-badge { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; }
+    .badge-urgent { background: #fde8e8; color: #b91c1c; border: 1px solid #f5c6c6; }
+    .badge-waiting { background: #ebebeb; color: #555; border: 1px solid #d4d4d4; }
+    .badge-auto { background: rgba(43,95,92,0.1); color: #1f4a47; border: 1px solid rgba(43,95,92,0.25); }
+    .badge-you { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .demo-row-text { font-size: 0.74rem; color: #333; }
+    .demo-panel.before .demo-row-text { color: #555; }
+    .demo-caption { font-size: 0.68rem; color: #999; font-style: italic; padding: 8px 14px 12px; text-align: center; }
+    .demo-panel.before .demo-caption { color: #aaa; }
+    .demo-card { background: rgba(43,95,92,0.06); border: 1px solid rgba(43,95,92,0.22); padding: 10px 12px; margin: 4px 0; }
+    .demo-card-title { font-size: 0.75rem; font-weight: 700; color: #2B5F5C; margin-bottom: 3px; }
+    .demo-card-sub { font-size: 0.7rem; color: #555; line-height: 1.5; }
+    .demo-approval { font-size: 0.65rem; color: #2B5F5C; text-align: right; padding: 4px 0 6px; }
+    .demo-draft { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 9px 11px; font-size: 0.72rem; color: #444; line-height: 1.55; }
+    .demo-section-label { font-size: 0.6rem; font-weight: 700; color: #999; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 0 3px; }
+    .demo-stat-row { display: flex; gap: 8px; }
+    .demo-stat { flex: 1; background: #f9f9f9; border: 1px solid #e8e8e8; padding: 8px 10px; }
+    .demo-panel.after .demo-stat { background: #f4faf9; border-color: rgba(43,95,92,0.15); }
+    .demo-stat-val { font-size: 0.95rem; font-weight: 700; color: #191919; }
+    .demo-stat-label { font-size: 0.6rem; color: #888; margin-top: 1px; }
+    .demo-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; padding: 2px 7px; }
+    .demo-tag.up { background: rgba(43,95,92,0.1); color: #1f4a47; }
+    .demo-tag.down { background: #fde8e8; color: #b91c1c; }
+    .demo-file-row { display: flex; align-items: center; gap: 7px; padding: 6px 10px; border-bottom: 1px solid #e8e8e8; font-size: 0.72rem; color: #444; }
+    .demo-panel.before .demo-file-row { background: #f5f5f5; color: #666; }
+    .demo-panel.after .demo-file-row { background: #fff; }
+    .demo-file-row:last-child { border-bottom: none; }
+    .demo-file-icon { font-size: 0.8rem; opacity: 0.6; }
+    .demo-summary-box { background: rgba(43,95,92,0.07); border-left: 2px solid #2B5F5C; padding: 8px 10px; font-size: 0.7rem; color: #333; line-height: 1.55; margin-top: 6px; }
+    .demo-meeting-row { padding: 8px 10px; border-bottom: 1px solid #e8e8e8; }
+    .demo-panel.before .demo-meeting-row { background: #f5f5f5; }
+    .demo-panel.after .demo-meeting-row { background: #fff; }
+    .demo-meeting-row:last-child { border-bottom: none; }
+    .demo-meeting-title { font-size: 0.75rem; font-weight: 600; color: #191919; }
+    .demo-meeting-sub { font-size: 0.67rem; color: #777; margin-top: 2px; }
+    .demo-meeting-note { font-size: 0.67rem; color: #bbb; font-style: italic; margin-top: 5px; }
+    .demo-action-item { display: flex; align-items: flex-start; gap: 6px; padding: 5px 0; border-bottom: 1px solid #efefef; font-size: 0.7rem; color: #333; }
+    .demo-action-item:last-child { border-bottom: none; }
+    .demo-action-dot { width: 5px; height: 5px; border-radius: 50%; background: #2B5F5C; flex-shrink: 0; margin-top: 5px; }
+    .demo-assignee { font-size: 0.62rem; font-weight: 600; color: #2B5F5C; }
+    @media (max-width: 640px) { .demo-panels { grid-template-columns: 1fr; } }
 
     /* Work/projects */
     .project-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
@@ -236,7 +314,7 @@
 
     /* Footer */
     footer {
-      max-width: 860px; margin: 0 auto;
+      max-width: 75vw; margin: 0 auto;
       padding: 24px 16px 0;
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
       border-top: 1px solid #e5e5e5;
@@ -263,7 +341,21 @@
     <a href="#" class="nav-logo"><img src="assets/images/nerdcat.png" alt="Aaron Chang" /></a>
     <div class="nav-links">
       <a href="#about" class="nav-link">About</a>
-      <a href="#services" class="nav-link">Services</a>
+      <div class="nav-dropdown">
+        <a href="#services" class="nav-link nav-dropdown-toggle">Services</a>
+        <div class="nav-dropdown-menu">
+          <a href="#svc-meeting" class="nav-dropdown-item">Meeting Intelligence</a>
+          <a href="#svc-inbox" class="nav-dropdown-item">Inbox &amp; Communication Ops</a>
+          <a href="#svc-reporting" class="nav-dropdown-item">Custom Reporting &amp; Workflow Tools</a>
+          <a href="#svc-knowledge" class="nav-dropdown-item">Shared Knowledge Base &amp; File AI</a>
+          <a href="#svc-trends" class="nav-dropdown-item">Customer Data &amp; Trend Analysis</a>
+          <a href="#svc-support" class="nav-dropdown-item">AI-Powered Customer Support</a>
+          <div class="nav-dropdown-divider"></div>
+          <div style="padding: 6px 16px 2px; font-size: 0.7rem; color: #aaa;">Don't see what you need?</div>
+          <a href="#contact" class="nav-dropdown-item custom">Custom Service →</a>
+        </div>
+      </div>
+      <a href="#work" class="nav-link">Client Work</a>
       <a href="#experience" class="nav-link">Experience</a>
     </div>
     <a href="#contact" class="nav-cta">Get in touch</a>
@@ -276,6 +368,14 @@
   <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0; position:absolute; top:52px; left:0; right:0; z-index:99; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
     <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">About</a>
     <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Services</a>
+    <a href="#svc-meeting" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Meeting Intelligence</a>
+    <a href="#svc-inbox" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Inbox &amp; Communication Ops</a>
+    <a href="#svc-reporting" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Custom Reporting &amp; Workflow Tools</a>
+    <a href="#svc-knowledge" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Shared Knowledge Base &amp; File AI</a>
+    <a href="#svc-trends" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Customer Data &amp; Trend Analysis</a>
+    <a href="#svc-support" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">AI-Powered Customer Support</a>
+    <a href="#contact" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#2B5F5C; font-weight:600;">Custom Service →</a>
+    <a href="#work" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Client Work</a>
     <a href="#experience" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Experience</a>
     <a href="#contact" class="mobile-link block py-3" style="font-size:0.85rem; color:#2B5F5C; font-weight:600; padding:12px 0; display:block;">Get in touch →</a>
   </div>
@@ -337,9 +437,11 @@
     <div class="section-title">Services</div>
     <p class="services-subhead">I've worked with service businesses, agencies, and e-commerce teams and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week. I sit down with your team, understand the actual workflow, and build the solution that fixes it.</p>
 
-    <div class="services-grid">
+    <div style="margin: 24px 0; border-top: 1px solid #f0f0f0;"></div>
 
-      <div class="svc-card">
+    <!-- Meeting Intelligence -->
+    <div id="svc-meeting" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">Meeting Intelligence</div>
         <div class="svc-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</div>
         <ul class="svc-bullets">
@@ -348,9 +450,41 @@
           <li>All summaries archived and searchable by topic</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-meeting-row">
+                <div class="demo-meeting-title">Weekly Team Check-in</div>
+                <div class="demo-meeting-sub">Mon, Oct 14 · 2:00 PM · 4 people</div>
+                <div class="demo-meeting-note">No notes · No agenda · No follow-up</div>
+              </div>
+              <div class="demo-meeting-row">
+                <div class="demo-meeting-title">Client Strategy Call</div>
+                <div class="demo-meeting-sub">Tue, Oct 15 · 10:00 AM · 3 people</div>
+                <div class="demo-meeting-note">No notes · No agenda · No follow-up</div>
+              </div>
+            </div>
+            <div class="demo-caption">Someone has to write the notes. Usually no one does.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Weekly Team Check-in · Auto-summary</div>
+              <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Jason:</span> send revised contract to legal by Oct 18</span></div>
+              <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Sara:</span> follow up with Acme on new timeline</span></div>
+              <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">All:</span> reconvene Oct 22 for status update</span></div>
+              <div class="demo-summary-box">Decision: Push Acme deal to November. Legal review needed before any signatures.</div>
+            </div>
+            <div class="demo-caption">Delivered to attendees within 2 minutes of the call ending.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="svc-card">
+    <!-- Inbox & Communication Ops -->
+    <div id="svc-inbox" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">Inbox &amp; Communication Ops</div>
         <div class="svc-desc">Your team's email pulled into one prioritized feed, triaged by AI, and converted into a daily action list. Nothing gets buried, nothing falls through the cracks.</div>
         <ul class="svc-bullets">
@@ -359,9 +493,38 @@
           <li>Morning digest delivered with zero manual steps</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Support inbox · 47 unread</div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Vendor invoice overdue, 3 days ago</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Client re: contract revision</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Do you offer bulk discounts?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Can I change my delivery address?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">What are your store hours?</span></div>
+            </div>
+            <div class="demo-caption">Every message needs someone to read, think, and reply.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Morning digest · 9:00 AM</div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Vendor invoice overdue · Reply by EOD</span></div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Client re: contract · Approval needed</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Store hours inquiry</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Delivery address change</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Bulk discount question</span></div>
+            </div>
+            <div class="demo-caption">2 items need you. The rest handled automatically.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="svc-card">
+    <!-- Custom Reporting -->
+    <div id="svc-reporting" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">Custom Reporting &amp; Workflow Tools</div>
         <div class="svc-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</div>
         <ul class="svc-bullets">
@@ -370,20 +533,78 @@
           <li>Delivered weekly, daily, or on-trigger (your call)</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Friday 4pm: client report due</div>
+              <div class="demo-row"><span class="demo-row-text">Open spreadsheet, copy last week</span></div>
+              <div class="demo-row"><span class="demo-row-text">Pull numbers from 3 different tabs</span></div>
+              <div class="demo-row"><span class="demo-row-text">Format, recheck, fix errors</span></div>
+              <div class="demo-row"><span class="demo-row-text">Write summary paragraph manually</span></div>
+              <div class="demo-row"><span class="demo-row-text">Email to 6 clients one by one</span></div>
+            </div>
+            <div class="demo-caption">~2 hours every week, every time.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Weekly report · Auto-generated · Mon 8 AM</div>
+              <div class="demo-stat-row">
+                <div class="demo-stat"><div class="demo-stat-val">1,240</div><div class="demo-stat-label">Units sold</div></div>
+                <div class="demo-stat"><div class="demo-stat-val">$38.4k</div><div class="demo-stat-label">Revenue</div></div>
+                <div class="demo-stat"><div class="demo-stat-val">2.1%</div><div class="demo-stat-label">Return rate</div></div>
+              </div>
+              <div class="demo-summary-box">Top SKU: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
+              <div class="demo-section-label" style="margin-top:6px;">Sent to 6 clients automatically</div>
+            </div>
+            <div class="demo-caption">Done before anyone gets to the office.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="svc-card">
+    <!-- Knowledge Base -->
+    <div id="svc-knowledge" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">Shared Knowledge Base &amp; File AI</div>
-        <div class="svc-desc">One organized cloud workspace (Google Drive, OneDrive, or similar) your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</div>
+        <div class="svc-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</div>
         <ul class="svc-bullets">
           <li>Folder structure built around how your team actually works</li>
           <li>AI summaries of docs, folders, and contracts on demand</li>
           <li>Access rules so everyone sees exactly what they need</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Finding the Johnson contract</div>
+              <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Final docs v2</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Final docs v2 (Mike's copy)</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Archive 2024</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Contracts - OLD</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
+            </div>
+            <div class="demo-caption">20 minutes to find a file that should take 20 seconds.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
+              <div class="demo-summary-box">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
+              <div class="demo-section-label" style="margin-top:8px;">Source</div>
+              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
+            </div>
+            <div class="demo-caption">Answer in seconds. No folder hunting.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="svc-card">
+    <!-- Trend Analysis -->
+    <div id="svc-trends" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">Customer Data &amp; Trend Analysis</div>
         <div class="svc-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</div>
         <ul class="svc-bullets">
@@ -392,9 +613,38 @@
           <li>Recurring digest or live dashboard, your preference</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">What you know about your customers</div>
+              <div class="demo-row"><span class="demo-row-text">Total orders this month: 412</span></div>
+              <div class="demo-row"><span class="demo-row-text">Revenue: $28,400</span></div>
+              <div class="demo-row"><span class="demo-row-text">New vs returning: unknown</span></div>
+              <div class="demo-row"><span class="demo-row-text">Why they churn: unknown</span></div>
+              <div class="demo-row"><span class="demo-row-text">Top questions: unknown</span></div>
+            </div>
+            <div class="demo-caption">The data exists. No one has time to look at it.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Weekly insight digest</div>
+              <div class="demo-stat-row">
+                <div class="demo-stat"><div class="demo-stat-val">68%</div><div class="demo-stat-label">Return rate <span class="demo-tag up">+12%</span></div></div>
+                <div class="demo-stat"><div class="demo-stat-val">Day 14</div><div class="demo-stat-label">Avg churn point</div></div>
+              </div>
+              <div class="demo-summary-box">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div>
+            </div>
+            <div class="demo-caption">Delivered every Monday. No spreadsheet required.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="svc-card">
+    <!-- Customer Support -->
+    <div id="svc-support" class="svc-row">
+      <div class="svc-left">
         <div class="svc-name">AI-Powered Customer Support</div>
         <div class="svc-desc">A support layer that handles common questions automatically, routes complex ones to the right person, and drafts replies your team can approve and send in seconds.</div>
         <ul class="svc-bullets">
@@ -403,31 +653,73 @@
           <li>Escalation rules so edge cases always reach a human</li>
         </ul>
         <a href="#contact" class="svc-cta">Get in touch →</a>
+        <div class="demo-panels">
+          <div class="demo-panel before">
+            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Open requests, waiting for reply</div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Do you offer bulk discounts?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Can I change my delivery address?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">What are your store hours?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Is the oat latte available iced?</span></div>
+            </div>
+            <div class="demo-caption">Every message needs someone to read, think, and type a reply.</div>
+          </div>
+          <div class="demo-panel after">
+            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-body">
+              <div class="demo-section-label">Open requests</div>
+              <div class="demo-row"><span class="demo-badge badge-you">You</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">What are your store hours?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Is the oat latte available iced?</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">How do I return a damaged item?</span></div>
+              <div class="demo-card">
+                <div class="demo-card-title">Draft ready: "Do you offer bulk discounts?"</div>
+                <div class="demo-card-sub">AI drafted a reply based on your pricing policy. Approve or edit before sending.</div>
+              </div>
+              <div class="demo-approval">AI draft, waiting for your approval</div>
+            </div>
+            <div class="demo-caption">1 item needs you. Everything else is handled.</div>
+          </div>
+        </div>
       </div>
+    </div>
 
+    <!-- Custom Service callout -->
+    <div style="margin-top:24px; border-top:1px solid #f0f0f0; padding-top:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div style="font-size:0.95rem; font-weight:700; color:#191919; margin-bottom:4px;">Don't see what you need?</div>
+        <div style="font-size:0.84rem; color:#555; line-height:1.6;">Every business runs differently. If your workflow doesn't fit the categories above, reach out and describe what you're dealing with. I'll tell you honestly if I can build it.</div>
+      </div>
+      <a href="#contact" class="btn-connect" style="white-space:nowrap; flex-shrink:0;">Talk about a custom service →</a>
     </div>
   </div>
 
 
   <!-- WORK / PROJECTS -->
   <div id="work" class="section-card fade-in" style="transition-delay:0.08s;">
-    <div class="section-title">AI in Practice</div>
+    <div class="section-title">Client Work</div>
+    <p style="font-size:0.84rem; color:#666; line-height:1.65; margin-top:10px;">Two businesses I built the full AI stack for, end to end.</p>
+
+    <div style="margin: 24px 0; border-top: 1px solid #f0f0f0;"></div>
 
     <div class="project-item">
       <div class="project-header">
         <div>
-          <div class="project-name">Centralized Email &amp; AI Workflow</div>
+          <div class="project-name">WinTone</div>
           <div class="project-sub">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a> · B2B retail expansion · Los Angeles</div>
         </div>
       </div>
       <div class="project-desc">
-        <p>With a distributed team across time zones, emails were getting lost and nothing had a clear owner. I built a centralized system that aggregates all employee inboxes into a single pipeline. Each thread is summarized by AI, tagged with priority, and turned into a shared action list. Bottlenecks that used to surface in weekly calls now surface the same day.</p>
-        <p>Also automated the weekly client reporting process: performance data pulled, formatted, and emailed to clients without anyone touching a spreadsheet.</p>
+        <p>Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
+        <p>Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
+        <p>Also built the website.</p>
       </div>
       <div class="tags">
-        <span class="tag">Email Aggregation</span>
-        <span class="tag">AI Summarization</span>
-        <span class="tag">Reporting Automation</span>
+        <span class="tag">AI Search</span>
+        <span class="tag">Meeting Transcription</span>
+        <span class="tag">Email Automation</span>
         <span class="tag">Google Workspace</span>
       </div>
     </div>
@@ -435,18 +727,20 @@
     <div class="project-item" style="border-bottom:none; padding-bottom:0;">
       <div class="project-header">
         <div>
-          <div class="project-name">Document &amp; Meeting Automation</div>
+          <div class="project-name">Keystone Consulting</div>
           <div class="project-sub">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
         </div>
       </div>
       <div class="project-desc">
-        <p>Advisors were spending hours a week writing session notes, chasing document submissions, and manually following up with families. I automated the intake and document workflow so application materials move through the pipeline without manual handoffs, and built a meeting summary system so every session ends with a structured recap automatically sent to the client.</p>
-        <p>The result: advisors spend more time coaching, and no follow-up falls through the cracks.</p>
+        <p>Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
+        <p>Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
+        <p>Also built the website.</p>
       </div>
       <div class="tags">
-        <span class="tag">Document Automation</span>
-        <span class="tag">Meeting Summaries</span>
-        <span class="tag">CRM Workflow</span>
+        <span class="tag">Scheduling Automation</span>
+        <span class="tag">Client Database</span>
+        <span class="tag">Retention Dashboard</span>
+        <span class="tag">AI Support Bot</span>
       </div>
     </div>
   </div>
@@ -624,6 +918,7 @@
     <div style="display:flex; gap:20px; flex-wrap:wrap;">
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#work">Client Work</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
