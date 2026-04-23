@@ -211,62 +211,70 @@
     @media (max-width: 640px) { .svc-row { flex-direction: column; } .svc-right { width: 100%; } }
 
     /* Before/after demo panels */
-    .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-    .demo-panel { overflow: hidden; font-family: 'Inter', sans-serif; border: 1px solid #d8d8d8; }
-    .demo-panel.before { background: #f5f5f5; }
+    .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 20px; border: 1px solid #e5e5e5; }
+    .demo-panel { overflow: hidden; font-family: 'Inter', sans-serif; }
+    .demo-panel.before { background: #fff; border-right: 1px solid #e5e5e5; }
     .demo-panel.after { background: #fff; }
-    .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .demo-panel-header.before { color: #666; background: #ececec; border-bottom: 1px solid #d8d8d8; }
-    .demo-panel-header.after { color: #fff; background: #2B5F5C; border-bottom: none; }
+    .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #e5e5e5; }
+    .demo-panel-header.before { background: #fafafa; }
+    .demo-panel-header.after { background: #fafafa; }
+    .demo-panel-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
+    .demo-panel-label.before { color: #999; }
+    .demo-panel-label.after { color: #2B5F5C; }
     .demo-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .demo-dot.before { background: #999; }
-    .demo-dot.after { background: rgba(255,255,255,0.7); }
-    .demo-panel-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
-    .demo-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 1px solid #e8e8e8; }
-    .demo-panel.before .demo-row { background: #f5f5f5; }
-    .demo-panel.after .demo-row { background: #fff; border-color: #ebebeb; }
+    .demo-dot.before { background: #ddd; }
+    .demo-dot.after { background: #2B5F5C; }
+    .demo-panel-body { padding: 16px; display: flex; flex-direction: column; gap: 0; }
+    /* Rows */
+    .demo-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f2f2f2; }
     .demo-row:last-child { border-bottom: none; }
-    .demo-badge { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; white-space: nowrap; flex-shrink: 0; }
-    .badge-urgent { background: #fde8e8; color: #b91c1c; border: 1px solid #f5c6c6; }
-    .badge-waiting { background: #ebebeb; color: #555; border: 1px solid #d4d4d4; }
-    .badge-auto { background: rgba(43,95,92,0.1); color: #1f4a47; border: 1px solid rgba(43,95,92,0.25); }
-    .badge-you { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
-    .demo-row-text { font-size: 0.74rem; color: #333; }
-    .demo-panel.before .demo-row-text { color: #555; }
-    .demo-caption { font-size: 0.68rem; color: #999; font-style: italic; padding: 8px 14px 12px; text-align: center; }
-    .demo-panel.before .demo-caption { color: #aaa; }
-    .demo-card { background: rgba(43,95,92,0.06); border: 1px solid rgba(43,95,92,0.22); padding: 10px 12px; margin: 4px 0; }
-    .demo-card-title { font-size: 0.75rem; font-weight: 700; color: #2B5F5C; margin-bottom: 3px; }
-    .demo-card-sub { font-size: 0.7rem; color: #555; line-height: 1.5; }
-    .demo-approval { font-size: 0.65rem; color: #2B5F5C; text-align: right; padding: 4px 0 6px; }
-    .demo-draft { background: #f9f9f9; border: 1px solid #e0e0e0; padding: 9px 11px; font-size: 0.72rem; color: #444; line-height: 1.55; }
-    .demo-section-label { font-size: 0.6rem; font-weight: 700; color: #999; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 0 3px; }
-    .demo-stat-row { display: flex; gap: 8px; }
-    .demo-stat { flex: 1; background: #f9f9f9; border: 1px solid #e8e8e8; padding: 8px 10px; }
-    .demo-panel.after .demo-stat { background: #f4faf9; border-color: rgba(43,95,92,0.15); }
-    .demo-stat-val { font-size: 0.95rem; font-weight: 700; color: #191919; }
-    .demo-stat-label { font-size: 0.6rem; color: #888; margin-top: 1px; }
-    .demo-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; padding: 2px 7px; }
-    .demo-tag.up { background: rgba(43,95,92,0.1); color: #1f4a47; }
-    .demo-tag.down { background: #fde8e8; color: #b91c1c; }
-    .demo-file-row { display: flex; align-items: center; gap: 7px; padding: 6px 10px; border-bottom: 1px solid #e8e8e8; font-size: 0.72rem; color: #444; }
-    .demo-panel.before .demo-file-row { background: #f5f5f5; color: #666; }
-    .demo-panel.after .demo-file-row { background: #fff; }
+    .demo-row-text { font-size: 0.78rem; color: #333; line-height: 1.4; flex: 1; }
+    .demo-panel.before .demo-row-text { color: #777; }
+    /* Badges */
+    .demo-badge { font-size: 0.63rem; font-weight: 500; padding: 3px 9px; white-space: nowrap; flex-shrink: 0; border-radius: 4px; }
+    .badge-urgent { background: #fff1f1; color: #c0392b; }
+    .badge-waiting { background: #f5f5f5; color: #777; }
+    .badge-auto { background: #f0f8f7; color: #2B5F5C; }
+    .badge-you { background: #eff6ff; color: #2563eb; }
+    /* Caption */
+    .demo-caption { font-size: 0.7rem; color: #bbb; padding: 12px 16px; border-top: 1px solid #f2f2f2; }
+    /* Stats */
+    .demo-stat-row { display: flex; gap: 0; border: 1px solid #ebebeb; margin-bottom: 12px; }
+    .demo-stat { flex: 1; padding: 12px 14px; border-right: 1px solid #ebebeb; }
+    .demo-stat:last-child { border-right: none; }
+    .demo-stat-val { font-size: 1.1rem; font-weight: 700; color: #111; line-height: 1; }
+    .demo-stat-label { font-size: 0.62rem; color: #aaa; margin-top: 4px; }
+    .demo-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; padding: 1px 5px; border-radius: 3px; }
+    .demo-tag.up { background: #f0f8f7; color: #2B5F5C; }
+    .demo-tag.down { background: #fff1f1; color: #c0392b; }
+    /* Section label */
+    .demo-section-label { font-size: 0.63rem; font-weight: 600; color: #bbb; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; margin-top: 4px; }
+    /* Summary */
+    .demo-summary-box { font-size: 0.75rem; color: #444; line-height: 1.65; padding: 11px 13px; background: #f9f9f9; border-left: 2px solid #2B5F5C; margin-top: 4px; }
+    .demo-panel.before .demo-summary-box { border-left-color: #ddd; background: #fafafa; color: #888; }
+    /* File rows */
+    .demo-file-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid #f2f2f2; font-size: 0.76rem; color: #444; }
+    .demo-panel.before .demo-file-row { color: #888; }
     .demo-file-row:last-child { border-bottom: none; }
-    .demo-file-icon { font-size: 0.8rem; opacity: 0.6; }
-    .demo-summary-box { background: rgba(43,95,92,0.07); border-left: 2px solid #2B5F5C; padding: 8px 10px; font-size: 0.7rem; color: #333; line-height: 1.55; margin-top: 6px; }
-    .demo-meeting-row { padding: 8px 10px; border-bottom: 1px solid #e8e8e8; }
-    .demo-panel.before .demo-meeting-row { background: #f5f5f5; }
-    .demo-panel.after .demo-meeting-row { background: #fff; }
+    .demo-file-icon { font-size: 0.9rem; opacity: 0.45; }
+    /* Meeting rows */
+    .demo-meeting-row { padding: 10px 0; border-bottom: 1px solid #f2f2f2; }
     .demo-meeting-row:last-child { border-bottom: none; }
-    .demo-meeting-title { font-size: 0.75rem; font-weight: 600; color: #191919; }
-    .demo-meeting-sub { font-size: 0.67rem; color: #777; margin-top: 2px; }
-    .demo-meeting-note { font-size: 0.67rem; color: #bbb; font-style: italic; margin-top: 5px; }
-    .demo-action-item { display: flex; align-items: flex-start; gap: 6px; padding: 5px 0; border-bottom: 1px solid #efefef; font-size: 0.7rem; color: #333; }
+    .demo-meeting-title { font-size: 0.78rem; font-weight: 600; color: #222; }
+    .demo-panel.before .demo-meeting-title { color: #888; }
+    .demo-meeting-sub { font-size: 0.69rem; color: #aaa; margin-top: 3px; }
+    .demo-meeting-note { font-size: 0.68rem; color: #ccc; margin-top: 3px; }
+    /* Action items */
+    .demo-action-item { display: flex; align-items: flex-start; gap: 9px; padding: 8px 0; border-bottom: 1px solid #f2f2f2; font-size: 0.76rem; color: #333; line-height: 1.5; }
     .demo-action-item:last-child { border-bottom: none; }
-    .demo-action-dot { width: 5px; height: 5px; border-radius: 50%; background: #2B5F5C; flex-shrink: 0; margin-top: 5px; }
-    .demo-assignee { font-size: 0.62rem; font-weight: 600; color: #2B5F5C; }
-    @media (max-width: 640px) { .demo-panels { grid-template-columns: 1fr; } }
+    .demo-action-dot { width: 6px; height: 6px; border-radius: 50%; background: #2B5F5C; flex-shrink: 0; margin-top: 5px; }
+    .demo-assignee { font-weight: 600; color: #2B5F5C; margin-right: 2px; }
+    /* Card (draft) */
+    .demo-card { background: #f9f9f9; border: 1px solid #e8e8e8; padding: 11px 13px; margin-top: 8px; }
+    .demo-card-title { font-size: 0.76rem; font-weight: 600; color: #222; margin-bottom: 4px; }
+    .demo-card-sub { font-size: 0.72rem; color: #666; line-height: 1.5; }
+    .demo-approval { font-size: 0.67rem; color: #2B5F5C; padding: 6px 0 0; }
+    @media (max-width: 640px) { .demo-panels { grid-template-columns: 1fr; } .demo-panel.before { border-right: none; border-bottom: 1px solid #e5e5e5; } }
 
     /* Work/projects */
     .project-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
@@ -456,7 +464,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Your online presence</div>
               <div class="demo-row"><span class="demo-badge badge-urgent">Problem</span><span class="demo-row-text">No website, customers can't find you</span></div>
@@ -467,7 +475,7 @@
             <div class="demo-caption">Every day without a site is customers lost to competitors.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">This week</div>
               <div class="demo-stat-row">
@@ -497,7 +505,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-meeting-row">
                 <div class="demo-meeting-title">Weekly Team Check-in</div>
@@ -513,7 +521,7 @@
             <div class="demo-caption">Someone has to write the notes. Usually no one does.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Weekly Team Check-in · Auto-summary</div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Jason:</span> send revised contract to legal by Oct 18</span></div>
@@ -541,7 +549,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Support inbox · 47 unread</div>
               <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Vendor invoice overdue, 3 days ago</span></div>
@@ -553,7 +561,7 @@
             <div class="demo-caption">Every message needs someone to read, think, and reply.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Morning digest · 9:00 AM</div>
               <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Vendor invoice overdue · Reply by EOD</span></div>
@@ -582,7 +590,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Friday 4pm: client report due</div>
               <div class="demo-row"><span class="demo-row-text">Open spreadsheet, copy last week</span></div>
@@ -594,7 +602,7 @@
             <div class="demo-caption">~2 hours every week, every time.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Weekly report · Auto-generated · Mon 8 AM</div>
               <div class="demo-stat-row">
@@ -625,7 +633,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Finding the Johnson contract</div>
               <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Final docs v2</span></div>
@@ -637,7 +645,7 @@
             <div class="demo-caption">20 minutes to find a file that should take 20 seconds.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
               <div class="demo-summary-box">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
@@ -664,7 +672,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">What you know about your customers</div>
               <div class="demo-row"><span class="demo-row-text">Total orders this month: 412</span></div>
@@ -676,7 +684,7 @@
             <div class="demo-caption">The data exists. No one has time to look at it.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Weekly insight digest</div>
               <div class="demo-stat-row">
@@ -705,7 +713,7 @@
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
-            <div class="demo-panel-header before"><span class="demo-dot before"></span>Before</div>
+            <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Open requests, waiting for reply</div>
               <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
@@ -717,7 +725,7 @@
             <div class="demo-caption">Every message needs someone to read, think, and type a reply.</div>
           </div>
           <div class="demo-panel after">
-            <div class="demo-panel-header after"><span class="demo-dot after"></span>After</div>
+            <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Open requests</div>
               <div class="demo-row"><span class="demo-badge badge-you">You</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
