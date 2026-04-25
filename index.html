@@ -219,7 +219,7 @@
     .demo-panel-header.before { background: #fff; }
     .demo-panel-header.after { background: #f0f7f6; }
     .demo-panel-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
-    .demo-panel-label.before { color: #999; }
+    .demo-panel-label.before { color: #666; }
     .demo-panel-label.after { color: #2B5F5C; }
     .demo-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
     .demo-dot.before { background: #ddd; }
@@ -229,7 +229,7 @@
     .demo-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #e8e8e8; }
     .demo-row:last-child { border-bottom: none; }
     .demo-row-text { font-size: 0.8rem; color: #222; line-height: 1.4; flex: 1; }
-    .demo-panel.before .demo-row-text { color: #555; }
+    .demo-panel.before .demo-row-text { color: #222; }
     /* Badges */
     .demo-badge { font-size: 0.65rem; font-weight: 600; padding: 3px 9px; white-space: nowrap; flex-shrink: 0; border-radius: 4px; }
     .badge-urgent { background: #fde8e8; color: #a02020; }
@@ -237,33 +237,33 @@
     .badge-auto { background: #e6f2f1; color: #1f4a47; }
     .badge-you { background: #dbeafe; color: #1d4ed8; }
     /* Caption */
-    .demo-caption { font-size: 0.72rem; color: #888; padding: 12px 16px; border-top: 1px solid #e8e8e8; min-height: 44px; display: flex; align-items: center; }
+    .demo-caption { font-size: 0.72rem; color: #444; padding: 12px 16px; border-top: 1px solid #e8e8e8; min-height: 44px; display: flex; align-items: center; }
     /* Stats */
     .demo-stat-row { display: flex; gap: 0; border: 1px solid #e0e0e0; margin-bottom: 12px; }
     .demo-stat { flex: 1; padding: 12px 14px; border-right: 1px solid #e0e0e0; }
     .demo-stat:last-child { border-right: none; }
     .demo-stat-val { font-size: 1.1rem; font-weight: 700; color: #111; line-height: 1; }
-    .demo-stat-label { font-size: 0.64rem; color: #666; margin-top: 4px; }
+    .demo-stat-label { font-size: 0.64rem; color: #444; margin-top: 4px; }
     .demo-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; padding: 1px 5px; border-radius: 3px; }
     .demo-tag.up { background: #e6f2f1; color: #1f4a47; }
     .demo-tag.down { background: #fde8e8; color: #a02020; }
     /* Section label */
-    .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #888; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; margin-top: 4px; }
+    .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #555; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; margin-top: 4px; }
     /* Summary */
     .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 11px 13px; background: #f5faf9; border-left: 2px solid #2B5F5C; margin-top: 6px; }
     .demo-panel.before .demo-summary-box { border-left-color: #ccc; background: #fff; color: #666; }
     /* File rows */
     .demo-file-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #333; }
-    .demo-panel.before .demo-file-row { color: #666; }
+    .demo-panel.before .demo-file-row { color: #222; }
     .demo-file-row:last-child { border-bottom: none; }
     .demo-file-icon { font-size: 0.9rem; opacity: 0.55; }
     /* Meeting rows */
     .demo-meeting-row { padding: 10px 0; border-bottom: 1px solid #ebebeb; }
     .demo-meeting-row:last-child { border-bottom: none; }
     .demo-meeting-title { font-size: 0.8rem; font-weight: 600; color: #191919; }
-    .demo-panel.before .demo-meeting-title { color: #555; }
+    .demo-panel.before .demo-meeting-title { color: #222; }
     .demo-meeting-sub { font-size: 0.71rem; color: #777; margin-top: 3px; }
-    .demo-meeting-note { font-size: 0.7rem; color: #aaa; margin-top: 3px; }
+    .demo-meeting-note { font-size: 0.7rem; color: #666; margin-top: 3px; }
     /* Action items */
     .demo-action-item { display: flex; align-items: flex-start; gap: 9px; padding: 8px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #222; line-height: 1.5; }
     .demo-action-item:last-child { border-bottom: none; }
@@ -461,7 +461,7 @@
           <li>Analytics so you know who visits, where they come from, and what they do</li>
           <li>SEO basics included so people can actually find you</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -484,7 +484,7 @@
                 <div class="demo-stat"><div class="demo-stat-val">#3</div><div class="demo-stat-label">Google rank</div></div>
               </div>
               <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top traffic source: Google search. Most visited page: Services. AI chat handled 8 visitor questions without you.</div>
               </div>
             </div>
@@ -505,7 +505,7 @@
           <li>Action items routed by assignee via email or Slack</li>
           <li>All summaries archived and searchable by topic</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -539,7 +539,7 @@
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Mike:</span> confirm budget approval with finance by Oct 20</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">All:</span> reconvene Oct 22 for status update</span></div>
               <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Decision</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Decision</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Push Acme deal to November. Legal review needed before any signatures.</div>
               </div>
             </div>
@@ -560,7 +560,7 @@
           <li>AI tags urgency, assigns owners, and surfaces required actions</li>
           <li>Morning digest of what needs attention today, delivered automatically</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -601,7 +601,7 @@
           <li>Proposal and document generation from structured inputs</li>
           <li>Delivered weekly, daily, or on-trigger (your call)</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -626,7 +626,7 @@
               </div>
               <div class="demo-section-label" style="margin-top:10px;">Sent to 6 clients automatically</div>
               <div style="margin-top:10px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top SKU: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
               </div>
             </div>
@@ -647,7 +647,7 @@
           <li>AI summaries of docs, folders, and contracts on demand</li>
           <li>Access rules so everyone sees exactly what they need</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -666,7 +666,7 @@
             <div class="demo-panel-body">
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
               <div style="margin-top:4px; margin-bottom:2px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Answer</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Answer</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
               </div>
               <div class="demo-section-label" style="margin-top:8px;">Source</div>
@@ -689,7 +689,7 @@
           <li>AI trend reports: behavior, retention, and demand signals</li>
           <li>Recurring digest or live dashboard, your preference</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -712,11 +712,11 @@
                 <div class="demo-stat"><div class="demo-stat-val">Day 14</div><div class="demo-stat-label">Avg churn point</div></div>
               </div>
               <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div>
               </div>
               <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Recommended action</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Recommended action</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Send a re-engagement sequence to customers with no activity in 14 days. Draft ready. Approve to send.</div>
               </div>
             </div>
@@ -737,7 +737,7 @@
           <li>Answers FAQs instantly via website chat, no staff needed</li>
           <li>Escalates edge cases to you with the full conversation attached</li>
         </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -760,7 +760,7 @@
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Blue version restock? · Notified when available</span></div>
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">In-store pickup? · Directions sent automatically</span></div>
               <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Escalated to you</div>
+                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Escalated to you</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Order #4821 delayed in transit. Customer frustrated. Full chat history attached.</div>
               </div>
             </div>
