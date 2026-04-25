@@ -250,7 +250,7 @@
     /* Section label */
     .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #888; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; margin-top: 4px; }
     /* Summary */
-    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 11px 13px; background: #f5faf9; border-left: 2px solid #2B5F5C; margin-top: 12px; }
+    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 11px 13px; background: #f5faf9; border-left: 2px solid #2B5F5C; margin-top: 6px; }
     .demo-panel.before .demo-summary-box { border-left-color: #ccc; background: #fff; color: #666; }
     /* File rows */
     .demo-file-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #333; }
@@ -477,13 +477,16 @@
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">This week</div>
+              <div class="demo-section-label">This week's website traffic</div>
               <div class="demo-stat-row">
                 <div class="demo-stat"><div class="demo-stat-val">340</div><div class="demo-stat-label">Visitors</div></div>
                 <div class="demo-stat"><div class="demo-stat-val">12</div><div class="demo-stat-label">Inquiry forms</div></div>
                 <div class="demo-stat"><div class="demo-stat-val">#3</div><div class="demo-stat-label">Google rank</div></div>
               </div>
-              <div class="demo-summary-box">Top traffic source: Google search. Most visited page: Services. AI chat handled 8 visitor questions without you.</div>
+              <div style="margin-top:12px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top traffic source: Google search. Most visited page: Services. AI chat handled 8 visitor questions without you.</div>
+              </div>
             </div>
             <div class="demo-caption">A site that works for you while you work.</div>
           </div>
@@ -507,6 +510,7 @@
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
+              <div class="demo-section-label">This week's meetings</div>
               <div class="demo-meeting-row">
                 <div class="demo-meeting-title">Weekly Team Check-in</div>
                 <div class="demo-meeting-sub">Mon, Oct 14 · 2:00 PM · 4 people</div>
@@ -528,11 +532,16 @@
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Weekly Team Check-in · Auto-summary</div>
+              <div class="demo-section-label">Weekly Team Check-in · Auto-generated summary</div>
+              <div class="demo-section-label" style="margin-top:8px; color:#2B5F5C;">Action items</div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Jason:</span> send revised contract to legal by Oct 18</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Sara:</span> follow up with Acme on new timeline</span></div>
+              <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Mike:</span> confirm budget approval with finance by Oct 20</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">All:</span> reconvene Oct 22 for status update</span></div>
-              <div class="demo-summary-box">Decision: Push Acme deal to November. Legal review needed before any signatures.</div>
+              <div style="margin-top:12px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Decision</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Push Acme deal to November. Legal review needed before any signatures.</div>
+              </div>
             </div>
             <div class="demo-caption">Delivered to attendees within 2 minutes of the call ending.</div>
           </div>
@@ -545,37 +554,37 @@
     <div id="svc-inbox" class="svc-row">
       <div class="svc-left">
         <div class="svc-name">Inbox &amp; Communication Ops</div>
-        <div class="svc-desc">Your team's email pulled into one prioritized feed, triaged by AI, and converted into a daily action list. Nothing gets buried, nothing falls through the cracks.</div>
+        <div class="svc-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</div>
         <ul class="svc-bullets">
-          <li>Multi-inbox aggregation across your whole team</li>
-          <li>AI triage: urgency tags, required actions, owner assignment</li>
-          <li>Morning digest delivered with zero manual steps</li>
+          <li>Aggregates email across your team's inboxes</li>
+          <li>AI tags urgency, assigns owners, and surfaces required actions</li>
+          <li>Morning digest of what needs attention today, delivered automatically</li>
         </ul>
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Support inbox · 47 unread</div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Vendor invoice overdue, 3 days ago</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Client re: contract revision</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Do you offer bulk discounts?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Can I change my delivery address?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">What are your store hours?</span></div>
+              <div class="demo-section-label">Owner inbox · 31 unread, no priority order</div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Unread</span><span class="demo-row-text">Supplier: invoice #1042 due Friday</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Unread</span><span class="demo-row-text">Contractor: revised quote attached</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Unread</span><span class="demo-row-text">Landlord: lease renewal terms</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Unread</span><span class="demo-row-text">Staff: schedule conflict next week</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Unread</span><span class="demo-row-text">Partner: updated revenue split proposal</span></div>
             </div>
-            <div class="demo-caption">Every message needs someone to read, think, and reply.</div>
+            <div class="demo-caption">Everything looks equally urgent. Nothing gets done.</div>
           </div>
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Morning digest · 9:00 AM</div>
-              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Vendor invoice overdue · Reply by EOD</span></div>
-              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Client re: contract · Approval needed</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Store hours inquiry</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Delivery address change</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Bulk discount question</span></div>
+              <div class="demo-section-label">AI-prioritized business digest · 8:00 AM</div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Supplier invoice due Friday · Pay or reply today</span></div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Partner revenue proposal · Decision needed</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Review</span><span class="demo-row-text">Contractor quote · Draft comparison ready</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Review</span><span class="demo-row-text">Lease renewal · Key terms extracted</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Handled</span><span class="demo-row-text">Staff schedule conflict · Auto-resolved</span></div>
             </div>
-            <div class="demo-caption">2 items need you. The rest handled automatically.</div>
+            <div class="demo-caption">2 decisions needed. Everything else is sorted.</div>
           </div>
         </div>
         <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
@@ -609,14 +618,17 @@
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Weekly report · Auto-generated · Mon 8 AM</div>
+              <div class="demo-section-label">Weekly client report · Auto-generated · Mon 8 AM</div>
               <div class="demo-stat-row">
                 <div class="demo-stat"><div class="demo-stat-val">1,240</div><div class="demo-stat-label">Units sold</div></div>
                 <div class="demo-stat"><div class="demo-stat-val">$38.4k</div><div class="demo-stat-label">Revenue</div></div>
                 <div class="demo-stat"><div class="demo-stat-val">2.1%</div><div class="demo-stat-label">Return rate</div></div>
               </div>
-              <div class="demo-summary-box" style="margin-bottom:0;">Top SKU: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
-              <div class="demo-section-label" style="margin-top:8px; margin-bottom:0;">Sent to 6 clients automatically</div>
+              <div class="demo-section-label" style="margin-top:10px;">Sent to 6 clients automatically</div>
+              <div style="margin-top:10px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top SKU: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
+              </div>
             </div>
             <div class="demo-caption">Done before anyone gets to the office.</div>
           </div>
@@ -653,7 +665,10 @@
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
-              <div class="demo-summary-box">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
+              <div style="margin-top:4px; margin-bottom:2px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Answer</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
+              </div>
               <div class="demo-section-label" style="margin-top:8px;">Source</div>
               <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
             </div>
@@ -691,12 +706,19 @@
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Weekly insight digest</div>
+              <div class="demo-section-label">Weekly customer behavior digest</div>
               <div class="demo-stat-row">
                 <div class="demo-stat"><div class="demo-stat-val">68%</div><div class="demo-stat-label">Return rate <span class="demo-tag up">+12%</span></div></div>
                 <div class="demo-stat"><div class="demo-stat-val">Day 14</div><div class="demo-stat-label">Avg churn point</div></div>
               </div>
-              <div class="demo-summary-box">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div>
+              <div style="margin-top:12px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div>
+              </div>
+              <div style="margin-top:12px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Recommended action</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Send a re-engagement sequence to customers with no activity in 14 days. Draft ready. Approve to send.</div>
+              </div>
             </div>
             <div class="demo-caption">Delivered every Monday. No spreadsheet required.</div>
           </div>
@@ -708,42 +730,41 @@
     <!-- Customer Support -->
     <div id="svc-support" class="svc-row">
       <div class="svc-left">
-        <div class="svc-name">AI-Powered Customer Support</div>
-        <div class="svc-desc">A support layer that handles common questions automatically, routes complex ones to the right person, and drafts replies your team can approve and send in seconds.</div>
+        <div class="svc-name">Customer FAQ &amp; Chat Automation</div>
+        <div class="svc-desc">A chat widget on your website trained on your products, policies, and FAQs. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</div>
         <ul class="svc-bullets">
-          <li>Trained on your FAQs, policies, and past responses</li>
-          <li>Auto-drafts replies to common inquiries via email or chat</li>
-          <li>Escalation rules so edge cases always reach a human</li>
+          <li>Trained on your products, pricing, policies, and past answers</li>
+          <li>Answers FAQs instantly via website chat, no staff needed</li>
+          <li>Escalates edge cases to you with the full conversation attached</li>
         </ul>
         <div style="font-size:0.7rem; font-weight:700; color:#aaa; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Open requests, waiting for reply</div>
-              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Do you offer bulk discounts?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Can I change my delivery address?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">What are your store hours?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Waiting</span><span class="demo-row-text">Is the oat latte available iced?</span></div>
+              <div class="demo-section-label">Website chat · no automation</div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">Do you ship to Canada? (11 PM)</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">What's your return window? (1 AM)</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">Is the blue version back in stock? (6 AM)</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">Can I pick up in store? (7 AM)</span></div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Lost</span><span class="demo-row-text">Visitor left after no response for 4 minutes</span></div>
             </div>
-            <div class="demo-caption">Every message needs someone to read, think, and type a reply.</div>
+            <div class="demo-caption">Customers ask at midnight. You reply at 9 AM. They've already left.</div>
           </div>
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Open requests</div>
-              <div class="demo-row"><span class="demo-badge badge-you">You</span><span class="demo-row-text">Where is my order? Ordered 5 days ago.</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">What are your store hours?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">Is the oat latte available iced?</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Auto-replied</span><span class="demo-row-text">How do I return a damaged item?</span></div>
-              <div class="demo-card">
-                <div class="demo-card-title">Draft ready: "Do you offer bulk discounts?"</div>
-                <div class="demo-card-sub">AI drafted a reply based on your pricing policy. Approve or edit before sending.</div>
+              <div class="demo-section-label">Website chat · AI handled · last 24 hrs</div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Do you ship to Canada? · Yes, 5–7 days</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Return window? · 30 days, free returns</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Blue version restock? · Notified when available</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">In-store pickup? · Directions sent automatically</span></div>
+              <div style="margin-top:12px;">
+                <div style="font-size:0.65rem; font-weight:700; color:#aaa; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Escalated to you</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Order #4821 delayed in transit. Customer frustrated. Full chat history attached.</div>
               </div>
-              <div class="demo-approval">AI draft, waiting for your approval</div>
             </div>
-            <div class="demo-caption">1 item needs you. Everything else is handled.</div>
+            <div class="demo-caption">Shoppers get answers instantly. You only see what needs a human.</div>
           </div>
         </div>
         <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
