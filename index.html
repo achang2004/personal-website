@@ -65,11 +65,12 @@
     .nav-dropdown-item.custom { color: #2B5F5C; font-weight: 600; }
     .nav-cta {
       font-size: 0.82rem; font-weight: 600; color: #fff;
-      background: #2B5F5C; border: none; border-radius: 0;
-      padding: 5px 16px; text-decoration: none;
-      transition: background 0.15s;
+      background: #2B5F5C; border: none; border-radius: 6px;
+      padding: 7px 18px; text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.10);
     }
-    .nav-cta:hover { background: #1e4744; }
+    .nav-cta:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
 
     /* Mobile nav */
     #mobile-menu { display: none; }
@@ -118,11 +119,12 @@
     .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
     .btn-connect {
       font-size: 0.85rem; font-weight: 600; color: #fff;
-      background: #2B5F5C; border: none; border-radius: 0;
-      padding: 7px 20px; cursor: pointer; text-decoration: none;
-      transition: background 0.15s;
+      background: #2B5F5C; border: none; border-radius: 6px;
+      padding: 7px 20px; cursor: pointer; text-decoration: none; letter-spacing: 0.01em;
+      transition: background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.10);
     }
-    .btn-connect:hover { background: #1e4744; }
+    .btn-connect:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
     .btn-message {
       font-size: 0.85rem; font-weight: 600; color: #2B5F5C;
       background: transparent; border: 1.5px solid #2B5F5C; border-radius: 0;
@@ -206,9 +208,15 @@
     .svc-bullets { list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 7px; }
     .svc-bullets li { font-size: 0.81rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5; }
     .svc-bullets li::before { content: '●'; position: absolute; left: 0; color: #2B5F5C; font-size: 0.5rem; top: 4px; }
-    .svc-cta { font-size: 0.82rem; font-weight: 600; color: #2B5F5C; text-decoration: none; border-top: 1px solid #ebebeb; padding-top: 14px; display: block; transition: color 0.15s; }
-    .svc-cta:hover { color: #1e4744; }
+    .svc-cta { font-size: 0.82rem; font-weight: 600; color: #fff; background: #2B5F5C; text-decoration: none; padding: 9px 20px; border-radius: 6px; display: inline-block; margin-top: 20px; transition: background 0.15s, box-shadow 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.10); letter-spacing: 0.01em; }
+    .svc-cta:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
     @media (max-width: 640px) { .svc-row { flex-direction: column; } .svc-right { width: 100%; } }
+    .svc-icon-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .svc-icon-card { border: 1px solid #e5e5e5; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .svc-icon-card-icon { font-size: 1.1rem; line-height: 1; }
+    .svc-icon-card-title { font-size: 0.78rem; font-weight: 700; color: #191919; }
+    .svc-icon-card-desc { font-size: 0.74rem; color: #555; line-height: 1.5; }
+    @media (max-width: 640px) { .svc-icon-cards { grid-template-columns: 1fr; } }
 
     /* Before/after demo panels */
     .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 20px; border: 1px solid #999; }
@@ -436,8 +444,8 @@
     <div class="section-title">About</div>
     <div class="about-text">
       <p>Most small businesses don't have an operations team, a data team, or anyone whose job is to figure out what AI can actually do for them. That's the gap I fill.</p>
-      <p>I've worked as a software engineer at Google, Amazon, and TikTok, and published machine learning research at multiple machine learning conferences (you can find it on my <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>). I also co-run <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a>, which helps Chinese brands break into U.S. retail, and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, which helps students gain admission to top U.S. universities. In both, I've built the actual AI systems: email pipelines, automated reporting, meeting summaries, document workflows. Not demos. Production.</p>
-      <p>That's what you get when you work with me: someone who has been on both sides of the table, and who builds systems sized for a small team, not a Fortune 500 budget.</p>
+      <p>I've worked as a software engineer at Google, Amazon, and TikTok, and published machine learning research at multiple conferences (<a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>). I co-run <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a> and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, and have built the AI systems running inside both.</p>
+      <p style="font-weight:600; color:#191919;">Not demos. Production.</p>
     </div>
   </div>
 
@@ -454,14 +462,24 @@
       <div class="svc-left">
         <div class="svc-name">Website Design &amp; Build</div>
         <div class="svc-desc">Most small businesses either have no website or one that actively loses them customers. I build a clean, fast site around your brand and goals, then wire it up to collect and understand visitor data from day one.</div>
-        <ul class="svc-bullets">
-          <li>Custom design built around your brand, not a template</li>
-          <li>Contact forms, booking flows, or product pages as needed</li>
-          <li>AI chat widget trained on your FAQs and services</li>
-          <li>Analytics so you know who visits, where they come from, and what they do</li>
-          <li>SEO basics included so people can actually find you</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">✏️</div>
+            <div class="svc-icon-card-title">Custom design</div>
+            <div class="svc-icon-card-desc">Built around your brand, not a template</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">💬</div>
+            <div class="svc-icon-card-title">AI chat widget</div>
+            <div class="svc-icon-card-desc">Trained on your common questions and services</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🔍</div>
+            <div class="svc-icon-card-title">SEO included</div>
+            <div class="svc-icon-card-desc">So people can actually find you</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -491,7 +509,7 @@
             <div class="demo-caption">A site that works for you while you work.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -500,12 +518,24 @@
       <div class="svc-left">
         <div class="svc-name">Meeting Intelligence</div>
         <div class="svc-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</div>
-        <ul class="svc-bullets">
-          <li>AI recap with decisions, owners, and deadlines</li>
-          <li>Action items routed by assignee via email or Slack</li>
-          <li>All summaries archived and searchable by topic</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📋</div>
+            <div class="svc-icon-card-title">AI recap</div>
+            <div class="svc-icon-card-desc">Decisions, owners, and deadlines captured automatically</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📤</div>
+            <div class="svc-icon-card-title">Action routing</div>
+            <div class="svc-icon-card-desc">Tasks sent to each assignee via email or Slack</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🗂️</div>
+            <div class="svc-icon-card-title">Searchable archive</div>
+            <div class="svc-icon-card-desc">Every summary indexed and findable by topic</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -546,7 +576,7 @@
             <div class="demo-caption">Delivered to attendees within 2 minutes of the call ending.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -555,12 +585,24 @@
       <div class="svc-left">
         <div class="svc-name">Inbox &amp; Communication Ops</div>
         <div class="svc-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</div>
-        <ul class="svc-bullets">
-          <li>Aggregates email across your team's inboxes</li>
-          <li>AI tags urgency, assigns owners, and surfaces required actions</li>
-          <li>Morning digest of what needs attention today, delivered automatically</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📥</div>
+            <div class="svc-icon-card-title">Unified inbox</div>
+            <div class="svc-icon-card-desc">All team email aggregated into one prioritized feed</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🏷️</div>
+            <div class="svc-icon-card-title">AI triage</div>
+            <div class="svc-icon-card-desc">Urgency tagged, owners assigned, actions surfaced</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🌅</div>
+            <div class="svc-icon-card-title">Morning digest</div>
+            <div class="svc-icon-card-desc">What needs attention today, delivered automatically</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -587,7 +629,7 @@
             <div class="demo-caption">2 decisions needed. Everything else is sorted.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -596,12 +638,24 @@
       <div class="svc-left">
         <div class="svc-name">Custom Reporting &amp; Workflow Tools</div>
         <div class="svc-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</div>
-        <ul class="svc-bullets">
-          <li>Pulls from your existing data sources and spreadsheets</li>
-          <li>Proposal and document generation from structured inputs</li>
-          <li>Delivered weekly, daily, or on-trigger (your call)</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🔗</div>
+            <div class="svc-icon-card-title">Data pull</div>
+            <div class="svc-icon-card-desc">Pulls from your existing sources and spreadsheets</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📄</div>
+            <div class="svc-icon-card-title">Doc generation</div>
+            <div class="svc-icon-card-desc">Proposals and reports built from structured inputs</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">⏰</div>
+            <div class="svc-icon-card-title">Scheduled delivery</div>
+            <div class="svc-icon-card-desc">Weekly, daily, or on-trigger (your call)</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -627,13 +681,13 @@
               <div class="demo-section-label" style="margin-top:10px;">Sent to 6 clients automatically</div>
               <div style="margin-top:10px;">
                 <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top SKU: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top product: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
               </div>
             </div>
             <div class="demo-caption">Done before anyone gets to the office.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -642,12 +696,24 @@
       <div class="svc-left">
         <div class="svc-name">Shared Knowledge Base &amp; File AI</div>
         <div class="svc-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</div>
-        <ul class="svc-bullets">
-          <li>Folder structure built around how your team actually works</li>
-          <li>AI summaries of docs, folders, and contracts on demand</li>
-          <li>Access rules so everyone sees exactly what they need</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📁</div>
+            <div class="svc-icon-card-title">Organized workspace</div>
+            <div class="svc-icon-card-desc">Folder structure built around how your team actually works</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🤖</div>
+            <div class="svc-icon-card-title">AI summaries</div>
+            <div class="svc-icon-card-desc">Docs, folders, and contracts surfaced on demand</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🔒</div>
+            <div class="svc-icon-card-title">Access control</div>
+            <div class="svc-icon-card-desc">Everyone sees exactly what they need, nothing more</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -667,7 +733,7 @@
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
               <div style="margin-top:4px; margin-bottom:2px;">
                 <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Answer</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): Net-60 payment terms, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
+                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): payment due in 60 days, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
               </div>
               <div class="demo-section-label" style="margin-top:8px;">Source</div>
               <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
@@ -675,7 +741,7 @@
             <div class="demo-caption">Answer in seconds. No folder hunting.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -684,12 +750,24 @@
       <div class="svc-left">
         <div class="svc-name">Customer Data &amp; Trend Analysis</div>
         <div class="svc-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</div>
-        <ul class="svc-bullets">
-          <li>Automated pulls from forms, CRMs, and order systems</li>
-          <li>AI trend reports: behavior, retention, and demand signals</li>
-          <li>Recurring digest or live dashboard, your preference</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📊</div>
+            <div class="svc-icon-card-title">Automated pulls</div>
+            <div class="svc-icon-card-desc">Data collected from forms, customer databases, and order systems</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">📈</div>
+            <div class="svc-icon-card-title">Trend reports</div>
+            <div class="svc-icon-card-desc">Behavior, retention, and demand signals surfaced by AI</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🗓️</div>
+            <div class="svc-icon-card-title">Digest or dashboard</div>
+            <div class="svc-icon-card-desc">Recurring email digest or live dashboard, your preference</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -723,21 +801,33 @@
             <div class="demo-caption">Delivered every Monday. No spreadsheet required.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
     <!-- Customer Support -->
     <div id="svc-support" class="svc-row">
       <div class="svc-left">
-        <div class="svc-name">Customer FAQ &amp; Chat Automation</div>
-        <div class="svc-desc">A chat widget on your website trained on your products, policies, and FAQs. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</div>
-        <ul class="svc-bullets">
-          <li>Trained on your products, pricing, policies, and past answers</li>
-          <li>Answers FAQs instantly via website chat, no staff needed</li>
-          <li>Escalates edge cases to you with the full conversation attached</li>
-        </ul>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Example</div>
+        <div class="svc-name">Customer Questions &amp; Chat Automation</div>
+        <div class="svc-desc">A chat widget on your website trained on your products, policies, and common questions. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</div>
+        <div class="svc-icon-cards">
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🧠</div>
+            <div class="svc-icon-card-title">Trained on your data</div>
+            <div class="svc-icon-card-desc">Products, pricing, policies, and past answers</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">⚡</div>
+            <div class="svc-icon-card-title">Instant answers</div>
+            <div class="svc-icon-card-desc">Common questions answered via website chat, 24/7, no staff needed</div>
+          </div>
+          <div class="svc-icon-card">
+            <div class="svc-icon-card-icon">🔔</div>
+            <div class="svc-icon-card-title">Smart escalation</div>
+            <div class="svc-icon-card-desc">Edge cases routed to you with full conversation attached</div>
+          </div>
+        </div>
+        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -767,7 +857,7 @@
             <div class="demo-caption">Shoppers get answers instantly. You only see what needs a human.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta" style="display:inline-block; margin-top:16px;">Get in touch →</a>
+        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
 
@@ -793,13 +883,12 @@
       <div class="project-header">
         <div>
           <div class="project-name">WinTone</div>
-          <div class="project-sub">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a> · B2B retail expansion · Los Angeles</div>
+          <div class="project-sub"><a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a> · Retail expansion · Los Angeles</div>
         </div>
       </div>
       <div class="project-desc">
-        <p>Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
-        <p>Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
-        <p>Also built the website.</p>
+        <p><strong>Client database.</strong> Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
+        <p><strong>Meeting system.</strong> Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
       </div>
       <div class="tags">
         <span class="tag">AI Search</span>
@@ -813,13 +902,12 @@
       <div class="project-header">
         <div>
           <div class="project-name">Keystone Consulting</div>
-          <div class="project-sub">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
+          <div class="project-sub"><a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
         </div>
       </div>
       <div class="project-desc">
-        <p>Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
-        <p>Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
-        <p>Also built the website.</p>
+        <p><strong>Meeting scheduler.</strong> Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
+        <p><strong>Retention dashboard.</strong> Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
       </div>
       <div class="tags">
         <span class="tag">Scheduling Automation</span>
@@ -903,7 +991,7 @@
         <div class="exp-title">AI Systems Lead</div>
         <div class="exp-company">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a></div>
         <div class="exp-meta">2022 – Present · Los Angeles, CA</div>
-        <div class="exp-desc">B2B retail expansion helping Chinese brands enter the U.S. market. Built internal AI systems including a centralized email aggregation pipeline, automated client reporting, and workflow tooling. Also built the company website.</div>
+        <div class="exp-desc">Retail expansion helping Chinese brands enter the U.S. market. Built internal AI systems including a centralized email aggregation pipeline, automated client reporting, and workflow tooling. Also built the company website.</div>
       </div>
     </div>
 
