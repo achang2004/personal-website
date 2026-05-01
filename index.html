@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aaron Chang — AI Systems Builder</title>
+  <title>Aaron Chang</title>
   <meta name="description" content="I build AI workflows that save small businesses 20+ hours a week. UCLA CS grad, ex-Google, Amazon, TikTok." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <style>
     /* ─── RESET & TOKENS ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,13 +50,15 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Nunito Sans', -apple-system, sans-serif;
       font-size: var(--fs-base);
       color: var(--text);
       background: var(--white);
       -webkit-font-smoothing: antialiased;
       line-height: 1.6;
     }
+
+    h1, h2, h3, h4, h5, h6, .eyebrow, .section-label, .nav-link, .nav-logo, .btn { font-family: 'Nunito Sans', -apple-system, sans-serif; }
 
     /* ─── UTILITIES ──────────────────────────────────────────── */
     .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
@@ -154,10 +157,13 @@
     .nav-dropdown-toggle { display: flex; align-items: center; gap: 3px; cursor: pointer; }
     .nav-dropdown-toggle::after { content: '▾'; font-size: 0.6rem; opacity: 0.7; }
     .nav-dropdown-menu {
-      display: none; position: absolute; top: calc(100% + 8px); left: -8px;
+      display: none; position: absolute; top: 100%; left: -8px;
+      padding-top: 8px;
+      background: transparent; min-width: 260px; z-index: 300;
+    }
+    .nav-dropdown-menu-inner {
       background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow-lg); min-width: 260px; z-index: 300;
-      padding: 8px;
+      box-shadow: var(--shadow-lg); padding: 8px;
     }
     .nav-dropdown:hover .nav-dropdown-menu { display: block; }
     .nav-dropdown-item {
@@ -180,8 +186,8 @@
     #mobile-menu { display: none; }
     #mobile-menu.open { display: block; }
 
-    @media (max-width: 768px) {
-      .nav-links, .nav-cta-wrap { display: none; }
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta-wrap { display: none !important; }
       #hamburger { display: flex; }
       #mobile-menu {
         position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
@@ -310,7 +316,7 @@
       border-bottom: 1px solid var(--border); padding: 24px 0;
     }
     .proof-inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      padding: 0 0 0 24px;
       display: flex; align-items: center; gap: 20px;
     }
     .proof-label {
@@ -323,8 +329,8 @@
     }
     .proof-marquee-wrap {
       flex: 1; overflow: hidden;
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
     }
     .proof-marquee-track {
       display: flex; align-items: center; gap: 48px;
@@ -456,7 +462,7 @@
 
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-quote-wrap { position: static; }
+      .about-quote-wrap { display: none; }
     }
 
     /* ─── SERVICES GRID ──────────────────────────────────────── */
@@ -465,6 +471,10 @@
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 16px; margin-top: 0;
     }
+    /* Center the lone 7th card in the last row — desktop only */
+    @media (min-width: 901px) {
+      .services-grid > .svc-card:last-child:nth-child(3n+1) { grid-column: 2; }
+    }
     .svc-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -472,25 +482,136 @@
       padding: 24px;
       text-decoration: none; color: inherit;
       display: flex; flex-direction: column; gap: 10px;
-      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      transition: box-shadow 0.2s, border-color 0.2s;
       cursor: pointer;
     }
-    .svc-card:hover {
-      box-shadow: var(--shadow);
-      transform: translateY(-3px);
-      border-color: var(--brand);
-    }
-    .svc-card-icon { width: 22px; height: 22px; display: block; }
-    .svc-card-icon svg { width: 22px; height: 22px; stroke: var(--brand); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; display: block; }
+    .svc-card:hover { box-shadow: var(--shadow); border-color: var(--brand); }
+    /* Desktop: hide the mobile header, show direct icon/name/desc */
+    .svc-card-header { display: none; }
+    .svc-card-icon { width: 22px; height: 22px; display: flex; align-items: center; flex-shrink: 0; }
+    .svc-card-icon .material-icons-outlined { font-size: 22px; color: var(--brand); }
     .svc-card-name { font-size: var(--fs-base); font-weight: 700; color: var(--text); }
-    .svc-card-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.5; }
+    .svc-card-chevron { display: none; }
+    .svc-card-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.55; }
+    .svc-mobile-extra { display: none; }
+    @media (max-width: 900px) { .svc-mobile-extra { display: inline; } }
 
-    @media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 580px) { .services-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .services-grid > .svc-card { grid-column: 1 !important; }
+
+      /* Hide desktop icon/name — shown inside header on mobile */
+      .svc-card > .svc-card-icon,
+      .svc-card > .svc-card-name { display: none; }
+
+      .svc-card { padding: 0; gap: 0; }
+
+      .svc-card-header {
+        display: flex; align-items: center; gap: 12px;
+        padding: 16px 18px; justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+      .svc-card-header-left { display: flex; align-items: center; gap: 12px; }
+      .svc-card-header-left .svc-card-icon { display: flex; }
+      .svc-card-header-left .svc-card-name { display: block; }
+      .svc-card-chevron { display: flex; color: var(--text-faint); transition: transform 0.3s ease; flex-shrink: 0; }
+      .svc-card-chevron .material-icons-outlined { font-size: 18px; }
+      .svc-card.open .svc-card-chevron { transform: rotate(180deg); }
+
+      /* Desc: hidden by clipping the inner wrapper height */
+      .svc-card > .svc-card-desc {
+        overflow: hidden;
+        height: 0;
+        transition: height 0.35s cubic-bezier(0.4,0,0.2,1);
+      }
+      .svc-card > .svc-card-desc > .svc-desc-inner {
+        padding: 14px 18px 18px;
+      }
+    }
 
     /* ─── SERVICE DETAIL PANELS ──────────────────────────────── */
     .svc-panel { padding: 72px 0; border-top: 1px solid var(--border); }
     .svc-panel:nth-child(even) { background: var(--surface); }
+
+    /* Desktop: hide trigger, show body normally */
+    .svc-panel-trigger { display: none; }
+    .svc-panel-body { display: contents; }
+    .svc-panel-body-inner { display: none; } /* unused on desktop */
+
+    /* Mobile accordion for service panels */
+    @media (max-width: 900px) {
+      .svc-panel { padding: 0; overflow: hidden; }
+      .svc-panel-trigger {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 16px 20px; cursor: pointer; gap: 12px;
+        border: none; width: 100%; text-align: left; background: inherit;
+      }
+      .svc-panel-trigger-left { display: flex; align-items: center; gap: 10px; }
+      .svc-panel-trigger .svc-panel-number { margin-bottom: 0; font-size: var(--fs-xs); }
+      .svc-panel-trigger-icon .material-icons-outlined { font-size: 20px; color: var(--brand); }
+      .svc-panel-trigger-name { font-size: var(--fs-sm); font-weight: 700; color: var(--text); }
+      .svc-panel-chevron { color: var(--text-faint); transition: transform 0.3s ease; flex-shrink: 0; }
+      .svc-panel-chevron .material-icons-outlined { font-size: 20px; }
+      .svc-panel.panel-open .svc-panel-chevron { transform: rotate(180deg); }
+
+      /* Animated body */
+      .svc-panel-body { display: block; overflow: hidden; height: 0; transition: height 0.4s cubic-bezier(0.4,0,0.2,1); }
+      .svc-panel-inner { padding: 0 20px 24px; gap: 28px; }
+      .svc-panel-name { font-size: var(--fs-xl); }
+
+      /* Hide duplicate title inside body on mobile */
+      .svc-panel-body .svc-panel-number,
+      .svc-panel-body .svc-panel-name { display: none; }
+
+      /* Close button at bottom */
+      .svc-panel-close {
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        width: 100%; padding: 12px; border: none; background: none;
+        font-size: var(--fs-xs); font-weight: 600; color: var(--brand);
+        cursor: pointer; border-top: 1px solid var(--border); margin-top: 8px;
+        font-family: inherit;
+      }
+      .svc-panel-close .material-icons-outlined { font-size: 16px; }
+
+      /* Hide the numbered detail panels entirely on mobile */
+      #svc-details { display: none; }
+    }
+
+    /* Hide close button on desktop */
+    @media (min-width: 901px) {
+      .svc-panel-close { display: none !important; }
+    }
+
+    /* ─── EXP/EDU MOBILE ACCORDION ──────────────────────────── */
+    .exp-accordion-trigger {
+      display: none;
+    }
+    .exp-accordion-body { display: contents; }
+
+    @media (max-width: 900px) {
+      .exp-accordion-trigger {
+        display: flex; align-items: center; justify-content: space-between;
+        width: 100%; padding: 0; border: none; background: none;
+        cursor: pointer; font-family: inherit;
+        padding-bottom: 16px; border-bottom: 1px solid var(--border);
+        margin-bottom: 0;
+      }
+      .exp-accordion-trigger-left { display: flex; align-items: center; }
+      .exp-accordion-trigger-label { font-size: var(--fs-xl); font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+      .exp-accordion-chevron { color: var(--text-faint); transition: transform 0.3s ease; flex-shrink: 0; }
+      .exp-accordion-chevron .material-icons-outlined { font-size: 22px; }
+      .exp-accordion-open .exp-accordion-chevron { transform: rotate(180deg); }
+
+      .exp-accordion-body { display: block; overflow: hidden; height: 0; transition: height 0.4s cubic-bezier(0.4,0,0.2,1); }
+      .exp-accordion-body .exp-list { padding-top: 16px; }
+
+      /* Hide the static section header h2 since trigger replaces it */
+      .exp-section-header-mobile { display: none; }
+    }
+    @media (min-width: 901px) {
+      .exp-section-header-mobile { display: block; }
+    }
+
     .svc-panel-inner {
       max-width: var(--container); margin: 0 auto; padding: 0 28px;
       display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
@@ -509,7 +630,8 @@
       display: flex; flex-direction: column; gap: 6px;
     }
     .svc-panel:nth-child(even) .svc-feature-card { background: var(--white); }
-    .svc-feature-icon { font-size: 1.1rem; }
+    .svc-feature-icon { font-size: 1.1rem; display: flex; align-items: center; }
+    .svc-feature-icon .material-icons-outlined { font-size: 18px; color: var(--brand); }
     .svc-feature-title { font-size: var(--fs-xs); font-weight: 700; color: var(--text); }
     .svc-feature-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
 
@@ -520,7 +642,7 @@
 
     /* Before/after demo panels — preserved from original */
     .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #ccc; border-radius: var(--radius-sm); overflow: hidden; }
-    .demo-panel { overflow: hidden; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; }
+    .demo-panel { overflow: hidden; font-family: 'Nunito Sans', sans-serif; display: flex; flex-direction: column; }
     .demo-panel.before { background: #fff; border-right: 1px solid #ccc; }
     .demo-panel.after { background: #fff; }
     .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #ccc; }
@@ -586,16 +708,21 @@
 
     /* Custom CTA banner */
     .custom-svc-banner {
-      background: var(--dark); border-radius: var(--radius);
-      padding: 48px 48px;
+      background: #fff; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 40px 48px;
       display: flex; align-items: center; justify-content: space-between;
       gap: 32px; flex-wrap: wrap;
     }
-    .custom-svc-banner h3 { font-size: var(--fs-xl); font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .custom-svc-banner p { font-size: var(--fs-sm); color: rgba(255,255,255,0.5); line-height: 1.65; max-width: 480px; margin: 0; }
+    .custom-svc-banner h3 { font-size: var(--fs-xl); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .custom-svc-banner p { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.65; max-width: 480px; margin: 0; }
+    @media (max-width: 640px) {
+      .custom-svc-banner { padding: 28px 24px; }
+      .custom-svc-banner .btn { width: auto; align-self: flex-start; }
+    }
 
     /* ─── CLIENT WORK ────────────────────────────────────────── */
-    #work { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
+    #work { background: var(--surface); padding: 96px 0; border-top: 1px solid var(--border); }
     .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 0; }
     .work-card {
       background: #fff;
@@ -628,8 +755,27 @@
 
     @media (max-width: 768px) { .work-grid { grid-template-columns: 1fr; } }
 
+    /* Work card collapsible — always visible on desktop */
+    .work-card-chevron { display: none; }
+    .work-card-collapsible { display: block; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .work-card-collapsible-inner { display: contents; }
+
+    /* Work card accordion on mobile only */
+    @media (max-width: 900px) {
+      .work-card { cursor: pointer; padding: 0; }
+      .work-card-header { margin-bottom: 0; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+      .work-card-chevron { display: flex; color: var(--text-faint); transition: transform 0.3s ease; margin-left: auto; flex-shrink: 0; }
+      .work-card-chevron .material-icons-outlined { font-size: 20px; }
+      .work-card.wc-open .work-card-chevron { transform: rotate(180deg); }
+      .work-card-collapsible {
+        overflow: hidden; height: 0; margin-top: 0; border-top: none; padding-top: 0;
+        transition: height 0.35s cubic-bezier(0.4,0,0.2,1);
+      }
+      .work-card-collapsible-inner { display: block; padding: 24px; }
+    }
+
     /* ─── EXPERIENCE ─────────────────────────────────────────── */
-    #experience { padding: 96px 0; }
+    #experience { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
     .exp-list { display: flex; flex-direction: column; gap: 0; }
     .exp-item {
       display: flex; gap: 18px; padding: 22px 0;
@@ -655,10 +801,10 @@
     .exp-desc a:hover { text-decoration: underline; }
 
     /* ─── EDUCATION ──────────────────────────────────────────── */
-    #education { padding: 0 0 96px; }
+    #education { background: #fff; padding: 48px 0 96px; }
 
     /* ─── HOBBIES ────────────────────────────────────────────── */
-    #hobbies { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
+    #hobbies { background: var(--surface); padding: 96px 0; border-top: 1px solid var(--border); }
     .hobbies-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 0; background: var(--border); border: 1px solid var(--border);
@@ -667,26 +813,47 @@
     .hobby-card {
       background: #fff; padding: 26px 24px;
     }
-    .hobby-card-icon { display: none; }
+    .hobby-card-icon { display: flex; align-items: center; margin-bottom: 10px; }
+    .hobby-card-icon .material-icons-outlined { font-size: 22px; color: var(--brand); }
     .hobby-card-label { font-size: var(--fs-base); font-weight: 700; color: var(--text); margin-bottom: 8px; }
     .hobby-card-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.65; }
 
     @media (max-width: 900px) { .hobbies-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 580px) { .hobbies-grid { grid-template-columns: 1fr; } }
 
+    /* Hobby card — desktop always open */
+    .hobby-card-header { display: contents; }
+    .hobby-card-chevron { display: none; }
+    .hobby-card-desc { display: block; }
+
+    /* Hobby card accordion — mobile only */
+    @media (max-width: 900px) {
+      .hobby-card { cursor: pointer; padding: 18px 20px; }
+      .hobby-card-header { display: flex; align-items: center; justify-content: space-between; }
+      .hobby-card-header-left { display: flex; align-items: center; gap: 10px; }
+      .hobby-card-header-left .hobby-card-icon { margin-bottom: 0; }
+      .hobby-card-header-left .hobby-card-label { margin-bottom: 0; }
+      .hobby-card-chevron { display: flex; color: var(--text-faint); transition: transform 0.3s ease; flex-shrink: 0; }
+      .hobby-card-chevron .material-icons-outlined { font-size: 18px; }
+      .hobby-card.hc-open .hobby-card-chevron { transform: rotate(180deg); }
+      .hobby-card-desc { overflow: hidden; height: 0; transition: height 0.35s cubic-bezier(0.4,0,0.2,1); }
+      /* Inner spacing so text doesn't touch header */
+      .hobby-card-desc::before { content: ''; display: block; height: 12px; }
+    }
+
     /* ─── CONTACT ────────────────────────────────────────────── */
-    #contact { background: var(--dark); padding: 96px 0; }
+    #contact { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
     .contact-inner { max-width: 720px; margin: 0 auto; padding: 0 28px; }
     .contact-header { text-align: center; margin-bottom: 48px; }
     .contact-form-wrap {
-      background: #fff; border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-dark);
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow);
     }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(255,255,255,0.07);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
       padding: 32px 0;
     }
     .footer-inner {
@@ -694,19 +861,21 @@
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 16px;
     }
-    .footer-copy { font-size: var(--fs-xs); color: rgba(255,255,255,0.3); }
+    .footer-copy { font-size: var(--fs-xs); color: var(--text-faint); }
     .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-    .footer-links a { font-size: var(--fs-xs); color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.15s; }
-    .footer-links a:hover { color: var(--brand-muted); }
-    .footer-email { font-size: var(--fs-xs); color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.15s; }
-    .footer-email:hover { color: var(--brand-muted); }
+    .footer-links a { font-size: var(--fs-xs); color: var(--text-faint); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--brand); }
+    .footer-email { font-size: var(--fs-xs); color: var(--text-faint); text-decoration: none; transition: color 0.15s; }
+    .footer-email:hover { color: var(--brand); }
 
     /* ─── MOBILE ADJUSTMENTS ─────────────────────────────────── */
     @media (max-width: 640px) {
       .section { padding: 60px 0; }
       .section-header { margin-bottom: 40px; }
-      #about, #experience, #education, #hobbies, #contact, #work { padding: 60px 0; }
-      #education { padding-bottom: 60px; }
+      #services { padding: 48px 0 40px; }
+      #about, #experience, #hobbies, #contact, #work { padding: 60px 0; }
+      #education { padding: 0 0 60px; }
+      #experience { padding-bottom: 32px; }
       .svc-panel { padding: 48px 0; }
       .contact-form-wrap { padding: 24px; }
     }
@@ -723,6 +892,7 @@
       <div class="nav-dropdown">
         <a href="#services" class="nav-link nav-dropdown-toggle">Services</a>
         <div class="nav-dropdown-menu">
+          <div class="nav-dropdown-menu-inner">
           <a href="#svc-website" class="nav-dropdown-item">Website Design &amp; Build</a>
           <a href="#svc-meeting" class="nav-dropdown-item">Meeting Intelligence</a>
           <a href="#svc-inbox" class="nav-dropdown-item">Inbox &amp; Communication Ops</a>
@@ -732,6 +902,7 @@
           <a href="#svc-support" class="nav-dropdown-item">Customer Questions &amp; Chat Automation</a>
           <div class="nav-dropdown-divider"></div>
           <a href="#contact" class="nav-dropdown-item custom">Custom Service →</a>
+          </div>
         </div>
       </div>
       <a href="#work" class="nav-link">Client Work</a>
@@ -746,21 +917,21 @@
       </svg>
     </button>
   </div>
-  <div id="mobile-menu">
-    <a href="#about" class="mobile-link mobile-nav-link">About</a>
-    <a href="#services" class="mobile-link mobile-nav-link">Services</a>
-    <a href="#svc-website" class="mobile-link mobile-nav-sub">Website Design &amp; Build</a>
-    <a href="#svc-meeting" class="mobile-link mobile-nav-sub">Meeting Intelligence</a>
-    <a href="#svc-inbox" class="mobile-link mobile-nav-sub">Inbox &amp; Communication Ops</a>
-    <a href="#svc-reporting" class="mobile-link mobile-nav-sub">Custom Reporting &amp; Workflow Tools</a>
-    <a href="#svc-knowledge" class="mobile-link mobile-nav-sub">Shared Knowledge Base &amp; File AI</a>
-    <a href="#svc-trends" class="mobile-link mobile-nav-sub">Customer Data &amp; Trend Analysis</a>
-    <a href="#svc-support" class="mobile-link mobile-nav-sub">Customer Questions &amp; Chat Automation</a>
-    <a href="#work" class="mobile-link mobile-nav-link">Client Work</a>
-    <a href="#experience" class="mobile-link mobile-nav-link">Experience</a>
-    <a href="#contact" class="btn btn-primary mobile-nav-cta mobile-link">Book a free consultation</a>
-  </div>
 </nav>
+<div id="mobile-menu">
+  <a href="#about" class="mobile-link mobile-nav-link">About</a>
+  <a href="#services" class="mobile-link mobile-nav-link">Services</a>
+  <a href="#svc-website" class="mobile-link mobile-nav-sub">Website Design &amp; Build</a>
+  <a href="#svc-meeting" class="mobile-link mobile-nav-sub">Meeting Intelligence</a>
+  <a href="#svc-inbox" class="mobile-link mobile-nav-sub">Inbox &amp; Communication Ops</a>
+  <a href="#svc-reporting" class="mobile-link mobile-nav-sub">Custom Reporting &amp; Workflow Tools</a>
+  <a href="#svc-knowledge" class="mobile-link mobile-nav-sub">Shared Knowledge Base &amp; File AI</a>
+  <a href="#svc-trends" class="mobile-link mobile-nav-sub">Customer Data &amp; Trend Analysis</a>
+  <a href="#svc-support" class="mobile-link mobile-nav-sub">Customer Questions &amp; Chat Automation</a>
+  <a href="#work" class="mobile-link mobile-nav-link">Client Work</a>
+  <a href="#experience" class="mobile-link mobile-nav-link">Experience</a>
+  <a href="#contact" class="btn btn-primary mobile-nav-cta mobile-link">Book a free consultation</a>
+</div>
 
 
 <!-- ─── HERO ──────────────────────────────────────────────────── -->
@@ -994,43 +1165,90 @@
       <p class="section-sub">I've worked with service businesses, agencies, and e-commerce teams and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week.</p>
     </div>
     <div class="services-grid">
-      <a href="#svc-website" class="svc-card reveal reveal-delay-1">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+      <a href="#svc-website" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">web</span></div>
+            <div class="svc-card-name">Website Design &amp; Build</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">web</span></div>
         <div class="svc-card-name">Website Design &amp; Build</div>
-        <div class="svc-card-desc">A clean, fast site around your brand with an AI chat widget and analytics from day one.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">A clean, fast site around your brand with an AI chat widget and analytics from day one.<span class="svc-mobile-extra"> Custom design, SEO setup, and visitor analytics wired in from the start. Built to convert visitors, not just look good.</span></div></div>
       </a>
-      <a href="#svc-meeting" class="svc-card reveal reveal-delay-2">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <a href="#svc-meeting" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">mic</span></div>
+            <div class="svc-card-name">Meeting Intelligence</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">mic</span></div>
         <div class="svc-card-name">Meeting Intelligence</div>
-        <div class="svc-card-desc">Every meeting captured, summarized, and turned into action items automatically.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">Every meeting captured, summarized, and turned into action items automatically.<span class="svc-mobile-extra"> Each task goes to the right person by email or Slack within minutes of the call ending. No notes, no dropped follow-ups.</span></div></div>
       </a>
-      <a href="#svc-inbox" class="svc-card reveal reveal-delay-3">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
+      <a href="#svc-inbox" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">inbox</span></div>
+            <div class="svc-card-name">Inbox &amp; Communication Ops</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">inbox</span></div>
         <div class="svc-card-name">Inbox &amp; Communication Ops</div>
-        <div class="svc-card-desc">Business email triaged by AI. You see what needs a decision. Everything else is handled.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">Business email triaged by AI. You see what needs a decision. Everything else is handled.<span class="svc-mobile-extra"> All vendor, supplier, and contractor email pulled into one prioritized feed. Urgent items surface first, a morning digest lands in your inbox daily.</span></div></div>
       </a>
-      <a href="#svc-reporting" class="svc-card reveal reveal-delay-1">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+      <a href="#svc-reporting" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">bar_chart</span></div>
+            <div class="svc-card-name">Custom Reporting &amp; Workflow Tools</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">bar_chart</span></div>
         <div class="svc-card-name">Custom Reporting &amp; Workflow Tools</div>
-        <div class="svc-card-desc">Automate reports your team rebuilds manually every week.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">Automate reports your team rebuilds manually every week.<span class="svc-mobile-extra"> Client summaries, proposals, and inventory updates pulled from your existing sources and delivered on a schedule — before anyone gets to the office.</span></div></div>
       </a>
-      <a href="#svc-knowledge" class="svc-card reveal reveal-delay-2">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <a href="#svc-knowledge" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">folder_open</span></div>
+            <div class="svc-card-name">Shared Knowledge Base &amp; File AI</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">folder_open</span></div>
         <div class="svc-card-name">Shared Knowledge Base &amp; File AI</div>
-        <div class="svc-card-desc">One organized workspace with AI that reads your files and surfaces what matters.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">One organized workspace with AI that reads your files and surfaces what matters.<span class="svc-mobile-extra"> Ask a question in plain English, get the answer in seconds with the source file attached. No more folder hunting or pinging teammates for a doc.</span></div></div>
       </a>
-      <a href="#svc-trends" class="svc-card reveal reveal-delay-3">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      <a href="#svc-trends" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">trending_up</span></div>
+            <div class="svc-card-name">Customer Data &amp; Trend Analysis</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">trending_up</span></div>
         <div class="svc-card-name">Customer Data &amp; Trend Analysis</div>
-        <div class="svc-card-desc">Who buys, when they drop off, what they keep asking. No analyst needed.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">Who buys, when they drop off, what they keep asking. No analyst needed.<span class="svc-mobile-extra"> Customer data collected automatically across your channels and surfaced as a weekly digest or live dashboard. Patterns you'd never catch manually, delivered to your inbox.</span></div></div>
       </a>
-      <div class="svc-card" style="visibility:hidden; pointer-events:none;"></div>
-      <a href="#svc-support" class="svc-card reveal reveal-delay-2">
-        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <a href="#svc-support" class="svc-card">
+        <div class="svc-card-header">
+          <div class="svc-card-header-left">
+            <div class="svc-card-icon"><span class="material-icons-outlined">chat</span></div>
+            <div class="svc-card-name">Customer Questions &amp; Chat Automation</div>
+          </div>
+          <div class="svc-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
+        </div>
+        <div class="svc-card-icon"><span class="material-icons-outlined">chat</span></div>
         <div class="svc-card-name">Customer Questions &amp; Chat Automation</div>
-        <div class="svc-card-desc">A chat widget trained on your products and policies. Answers 24/7, no staff needed.</div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">A chat widget trained on your products and policies. Answers 24/7, no staff needed.<span class="svc-mobile-extra"> Common questions answered instantly. Anything complex gets routed to you with the full conversation attached, so you have context before you even reply.</span></div></div>
       </a>
-      <div class="svc-card" style="visibility:hidden; pointer-events:none;"></div>
     </div>
   </div>
 </section>
@@ -1039,15 +1257,24 @@
 <div id="svc-details">
 
   <div id="svc-website" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">01</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">web</span></span>
+        <span class="svc-panel-trigger-name">Website Design &amp; Build</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">01 — Website Design &amp; Build</div>
-        <h3 class="svc-panel-name">A site that works for you while you work.</h3>
+        <h3 class="svc-panel-name">A site that works for you and tells you about your customers while you work.</h3>
         <p class="svc-panel-desc">Most small businesses either have no website or one that actively loses them customers. I build a clean, fast site around your brand and goals, then wire it up to collect and understand visitor data from day one.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">✏️</div><div class="svc-feature-title">Custom design</div><div class="svc-feature-desc">Built around your brand, not a template</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">💬</div><div class="svc-feature-title">AI chat widget</div><div class="svc-feature-desc">Trained on your common questions and services</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🔍</div><div class="svc-feature-title">SEO included</div><div class="svc-feature-desc">So people can actually find you</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">brush</span></div><div class="svc-feature-title">Custom design</div><div class="svc-feature-desc">Built around your brand, not a template</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">chat_bubble_outline</span></div><div class="svc-feature-title">AI chat widget</div><div class="svc-feature-desc">Trained on your common questions and services</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">search</span></div><div class="svc-feature-title">SEO included</div><div class="svc-feature-desc">So people can actually find you</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1079,23 +1306,33 @@
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top traffic source: Google search. Most visited page: Services. AI chat handled 8 visitor questions without you.</div>
               </div>
             </div>
-            <div class="demo-caption">A site that works for you while you work.</div>
+            <div class="demo-caption">A site that works for you and tells you about your customers while you work.</div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-meeting" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">02</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">mic</span></span>
+        <span class="svc-panel-trigger-name">Meeting Intelligence</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">02 — Meeting Intelligence</div>
         <h3 class="svc-panel-name">Every meeting captured. Zero effort from you.</h3>
         <p class="svc-panel-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">📋</div><div class="svc-feature-title">AI recap</div><div class="svc-feature-desc">Decisions, owners, and deadlines captured automatically</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">📤</div><div class="svc-feature-title">Action routing</div><div class="svc-feature-desc">Tasks sent to each assignee via email or Slack</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🗂️</div><div class="svc-feature-title">Searchable archive</div><div class="svc-feature-desc">Every summary indexed and findable by topic</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">summarize</span></div><div class="svc-feature-title">AI recap</div><div class="svc-feature-desc">Decisions, owners, and deadlines captured automatically</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">send</span></div><div class="svc-feature-title">Action routing</div><div class="svc-feature-desc">Tasks sent to each assignee via email or Slack</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">archive</span></div><div class="svc-feature-title">Searchable archive</div><div class="svc-feature-desc">Every summary indexed and findable by topic</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1120,7 +1357,6 @@
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Jason:</span> send revised contract to legal by Oct 18</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Sara:</span> follow up with Acme on new timeline</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Mike:</span> confirm budget approval with finance by Oct 20</span></div>
-              <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">All:</span> reconvene Oct 22 for status update</span></div>
               <div style="margin-top:10px;"><div class="demo-section-label">Decision</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Push Acme deal to November. Legal review needed before any signatures.</div></div>
             </div>
             <div class="demo-caption">Delivered to attendees within 2 minutes of the call ending.</div>
@@ -1128,18 +1364,28 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-inbox" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">03</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">inbox</span></span>
+        <span class="svc-panel-trigger-name">Inbox &amp; Communication Ops</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">03 — Inbox &amp; Communication Ops</div>
         <h3 class="svc-panel-name">Your inbox, sorted. You see only what needs you.</h3>
         <p class="svc-panel-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">📥</div><div class="svc-feature-title">Unified inbox</div><div class="svc-feature-desc">All team email aggregated into one prioritized feed</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🏷️</div><div class="svc-feature-title">AI triage</div><div class="svc-feature-desc">Urgency tagged, owners assigned, actions surfaced</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🌅</div><div class="svc-feature-title">Morning digest</div><div class="svc-feature-desc">What needs attention today, delivered automatically</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">move_to_inbox</span></div><div class="svc-feature-title">Unified inbox</div><div class="svc-feature-desc">All team email aggregated into one prioritized feed</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">label_outline</span></div><div class="svc-feature-title">AI triage</div><div class="svc-feature-desc">Urgency tagged, owners assigned, actions surfaced</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">wb_sunny</span></div><div class="svc-feature-title">Morning digest</div><div class="svc-feature-desc">What needs attention today, delivered automatically</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1162,9 +1408,9 @@
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">AI-prioritized business digest · 8:00 AM</div>
-              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Supplier invoice due Friday · Pay or reply today</span></div>
-              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Partner revenue proposal · Decision needed</span></div>
-              <div class="demo-row"><span class="demo-badge badge-waiting">Review</span><span class="demo-row-text">Contractor quote · Draft comparison ready</span></div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Supplier invoice due Friday · Act today</span></div>
+              <div class="demo-row"><span class="demo-badge badge-urgent">Urgent</span><span class="demo-row-text">Revenue proposal · Decision needed today</span></div>
+              <div class="demo-row"><span class="demo-badge badge-waiting">Review</span><span class="demo-row-text">Contractor quote · Draft ready</span></div>
               <div class="demo-row"><span class="demo-badge badge-waiting">Review</span><span class="demo-row-text">Lease renewal · Key terms extracted</span></div>
               <div class="demo-row"><span class="demo-badge badge-auto">Handled</span><span class="demo-row-text">Staff schedule conflict · Auto-resolved</span></div>
             </div>
@@ -1173,18 +1419,28 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-reporting" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">04</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">bar_chart</span></span>
+        <span class="svc-panel-trigger-name">Custom Reporting &amp; Workflow Tools</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">04 — Custom Reporting &amp; Workflow Tools</div>
         <h3 class="svc-panel-name">Reports that write themselves. Done before you arrive.</h3>
         <p class="svc-panel-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">🔗</div><div class="svc-feature-title">Data pull</div><div class="svc-feature-desc">Pulls from your existing sources and spreadsheets</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">📄</div><div class="svc-feature-title">Doc generation</div><div class="svc-feature-desc">Proposals and reports built from structured inputs</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">⏰</div><div class="svc-feature-title">Scheduled delivery</div><div class="svc-feature-desc">Weekly, daily, or on-trigger (your call)</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">cable</span></div><div class="svc-feature-title">Data pull</div><div class="svc-feature-desc">Pulls from your existing sources and spreadsheets</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">description</span></div><div class="svc-feature-title">Doc generation</div><div class="svc-feature-desc">Proposals and reports built from structured inputs</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">schedule</span></div><div class="svc-feature-title">Scheduled delivery</div><div class="svc-feature-desc">Weekly, daily, or on-trigger (your call)</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1220,18 +1476,28 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-knowledge" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">05</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">folder_open</span></span>
+        <span class="svc-panel-trigger-name">Shared Knowledge Base &amp; File AI</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">05 — Shared Knowledge Base &amp; File AI</div>
         <h3 class="svc-panel-name">Ask a question. Get the answer in seconds.</h3>
         <p class="svc-panel-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">📁</div><div class="svc-feature-title">Organized workspace</div><div class="svc-feature-desc">Folder structure built around how your team actually works</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🤖</div><div class="svc-feature-title">AI summaries</div><div class="svc-feature-desc">Docs, folders, and contracts surfaced on demand</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🔒</div><div class="svc-feature-title">Access control</div><div class="svc-feature-desc">Everyone sees exactly what they need, nothing more</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">folder_special</span></div><div class="svc-feature-title">Organized workspace</div><div class="svc-feature-desc">Folder structure built around how your team actually works</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">auto_awesome</span></div><div class="svc-feature-title">AI summaries</div><div class="svc-feature-desc">Docs, folders, and contracts surfaced on demand</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">lock_outline</span></div><div class="svc-feature-title">Access control</div><div class="svc-feature-desc">Everyone sees exactly what they need, nothing more</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1246,7 +1512,7 @@
               <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Final docs v2 (Mike's copy)</span></div>
               <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Archive 2024</span></div>
               <div class="demo-file-row"><span class="demo-file-icon">📁</span><span class="demo-row-text">Contracts - OLD</span></div>
-              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_v3.pdf</span></div>
             </div>
             <div class="demo-caption">20 minutes to find a file that should take 20 seconds.</div>
           </div>
@@ -1256,25 +1522,35 @@
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
               <div style="margin-top:4px;"><div class="demo-section-label">Answer</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): payment due in 60 days, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div></div>
               <div class="demo-section-label" style="margin-top:10px;">Source</div>
-              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
+              <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_v3.pdf</span></div>
             </div>
-            <div class="demo-caption">Answer in seconds. No folder hunting.</div>
+            <div class="demo-caption">Answer in seconds with sources. No folder hunting.</div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-trends" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">06</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">trending_up</span></span>
+        <span class="svc-panel-trigger-name">Customer Data &amp; Trend Analysis</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">06 — Customer Data &amp; Trend Analysis</div>
         <h3 class="svc-panel-name">The data exists. Now it actually tells you something.</h3>
         <p class="svc-panel-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">📊</div><div class="svc-feature-title">Automated pulls</div><div class="svc-feature-desc">Data collected from forms, customer databases, and order systems</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">📈</div><div class="svc-feature-title">Trend reports</div><div class="svc-feature-desc">Behavior, retention, and demand signals surfaced by AI</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🗓️</div><div class="svc-feature-title">Digest or dashboard</div><div class="svc-feature-desc">Recurring email digest or live dashboard, your preference</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">storage</span></div><div class="svc-feature-title">Automated pulls</div><div class="svc-feature-desc">Data collected from forms, customer databases, and order systems</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">insights</span></div><div class="svc-feature-title">Trend reports</div><div class="svc-feature-desc">Behavior, retention, and demand signals surfaced by AI</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">dashboard</span></div><div class="svc-feature-title">Digest or dashboard</div><div class="svc-feature-desc">Recurring email digest or live dashboard, your preference</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1309,18 +1585,28 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <div id="svc-support" class="svc-panel">
+    <button class="svc-panel-trigger" aria-expanded="false">
+      <div class="svc-panel-trigger-left">
+        <span class="svc-panel-number">07</span>
+        <span class="svc-panel-trigger-icon"><span class="material-icons-outlined">chat</span></span>
+        <span class="svc-panel-trigger-name">Customer Questions &amp; Chat Automation</span>
+      </div>
+      <div class="svc-panel-chevron"><span class="material-icons-outlined">expand_more</span></div>
+    </button>
+    <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
         <div class="svc-panel-number">07 — Customer Questions &amp; Chat Automation</div>
         <h3 class="svc-panel-name">Customers get answers at midnight. You sleep.</h3>
         <p class="svc-panel-desc">A chat widget on your website trained on your products, policies, and common questions. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</p>
         <div class="svc-feature-cards">
-          <div class="svc-feature-card"><div class="svc-feature-icon">🧠</div><div class="svc-feature-title">Trained on your data</div><div class="svc-feature-desc">Products, pricing, policies, and past answers</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">⚡</div><div class="svc-feature-title">Instant answers</div><div class="svc-feature-desc">Common questions answered via website chat, 24/7, no staff needed</div></div>
-          <div class="svc-feature-card"><div class="svc-feature-icon">🔔</div><div class="svc-feature-title">Smart escalation</div><div class="svc-feature-desc">Edge cases routed to you with full conversation attached</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">model_training</span></div><div class="svc-feature-title">Trained on your data</div><div class="svc-feature-desc">Products, pricing, policies, and past answers</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">bolt</span></div><div class="svc-feature-title">Instant answers</div><div class="svc-feature-desc">Common questions answered via website chat, 24/7, no staff needed</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon"><span class="material-icons-outlined">notifications_none</span></div><div class="svc-feature-title">Smart escalation</div><div class="svc-feature-desc">Edge cases routed to you with full conversation attached</div></div>
         </div>
         <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
       </div>
@@ -1330,7 +1616,7 @@
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Website chat · no automation</div>
+              <div class="demo-section-label">No automation</div>
               <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">Do you ship to Canada? (11 PM)</span></div>
               <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">What's your return window? (1 AM)</span></div>
               <div class="demo-row"><span class="demo-badge badge-waiting">Missed</span><span class="demo-row-text">Is the blue version back in stock? (6 AM)</span></div>
@@ -1342,11 +1628,11 @@
           <div class="demo-panel after">
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
-              <div class="demo-section-label">Website chat · AI handled · last 24 hrs</div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Do you ship to Canada? · Yes, 5–7 days</span></div>
+              <div class="demo-section-label">AI handled · last 24 hrs</div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Ship to Canada? · Yes, 5–7 days</span></div>
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Return window? · 30 days, free returns</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Blue version restock? · Notified when available</span></div>
-              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">In-store pickup? · Directions sent automatically</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Product stock? · Notify when ready</span></div>
+              <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">In-store pickup? · Directions sent</span></div>
               <div style="margin-top:10px;"><div class="demo-section-label">Escalated to you</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Order #4821 delayed in transit. Customer frustrated. Full chat history attached.</div></div>
             </div>
             <div class="demo-caption">Shoppers get answers instantly. You only see what needs a human.</div>
@@ -1354,17 +1640,18 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- Custom service callout -->
-  <div style="padding: 80px 0; background: var(--surface);">
+  <div style="padding: 80px 0; background: #fff;">
     <div class="container">
       <div class="custom-svc-banner reveal">
         <div>
           <h3>Don't see what you need?</h3>
           <p>Every business runs differently. If your workflow doesn't fit the categories above, reach out and describe what you're dealing with. I'll tell you honestly if I can build it.</p>
         </div>
-        <a href="#contact" class="btn btn-white" style="flex-shrink:0;">Talk about a custom service →</a>
+        <a href="#contact" class="btn btn-primary" style="flex-shrink:0;">Talk about a custom service →</a>
       </div>
     </div>
   </div>
@@ -1386,18 +1673,23 @@
           <div class="work-card-logo"><img src="assets/logos/wintone.png" alt="WinTone" /></div>
           <div class="work-card-meta">
             <div class="work-card-name">WinTone</div>
-            <div class="work-card-sub"><a href="https://wintone.co" target="_blank" rel="noopener">wintone.co</a> · Retail expansion · Los Angeles</div>
+            <div class="work-card-sub"><a href="https://wintone.co" target="_blank" rel="noopener">wintone.co</a> · Retail expansion</div>
           </div>
+          <div class="work-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
         </div>
-        <div class="work-card-body">
-          <p><strong>Client database.</strong> Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
-          <p><strong>Meeting system.</strong> Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
-        </div>
-        <div class="chip-row">
-          <span class="chip chip-dark">AI Search</span>
-          <span class="chip chip-dark">Meeting Transcription</span>
-          <span class="chip chip-dark">Email Automation</span>
-          <span class="chip chip-dark">Google Workspace</span>
+        <div class="work-card-collapsible">
+          <div class="work-card-collapsible-inner">
+          <div class="work-card-body">
+            <p><strong>Client database.</strong> Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
+            <p><strong>Meeting system.</strong> Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
+          </div>
+          <div class="chip-row">
+            <span class="chip chip-dark">AI Search</span>
+            <span class="chip chip-dark">Meeting Transcription</span>
+            <span class="chip chip-dark">Email Automation</span>
+            <span class="chip chip-dark">Google Workspace</span>
+          </div>
+          </div>
         </div>
       </div>
 
@@ -1406,18 +1698,23 @@
           <div class="work-card-logo"><img src="assets/logos/keystone.svg" alt="Keystone Consulting" /></div>
           <div class="work-card-meta">
             <div class="work-card-name">Keystone Consulting</div>
-            <div class="work-card-sub"><a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
+            <div class="work-card-sub"><a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">keystoneconsultingllc.com</a> · College admissions coaching</div>
           </div>
+          <div class="work-card-chevron"><span class="material-icons-outlined">expand_more</span></div>
         </div>
-        <div class="work-card-body">
-          <p><strong>Meeting scheduler.</strong> Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
-          <p><strong>Retention dashboard.</strong> Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
-        </div>
-        <div class="chip-row">
-          <span class="chip chip-dark">Scheduling Automation</span>
-          <span class="chip chip-dark">Client Database</span>
-          <span class="chip chip-dark">Retention Dashboard</span>
-          <span class="chip chip-dark">AI Support Bot</span>
+        <div class="work-card-collapsible">
+          <div class="work-card-collapsible-inner">
+          <div class="work-card-body">
+            <p><strong>Meeting scheduler.</strong> Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
+            <p><strong>Retention dashboard.</strong> Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
+          </div>
+          <div class="chip-row">
+            <span class="chip chip-dark">Scheduling Automation</span>
+            <span class="chip chip-dark">Client Database</span>
+            <span class="chip chip-dark">Retention Dashboard</span>
+            <span class="chip chip-dark">AI Support Bot</span>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1428,11 +1725,19 @@
 <!-- ─── EXPERIENCE ─────────────────────────────────────────────── -->
 <section id="experience">
   <div class="container">
-    <div class="section-header left reveal">
-      <span class="eyebrow">Background</span>
+    <div class="section-header left reveal exp-section-header-mobile">
       <h2 class="section-h2">Experience</h2>
     </div>
-    <div class="exp-list reveal">
+    <div class="exp-accordion-wrap reveal">
+      <button class="exp-accordion-trigger" id="exp-trigger">
+        <span class="exp-accordion-trigger-left">
+          <span class="material-icons-outlined" style="font-size:26px; color:var(--brand); margin-right:10px;">work_outline</span>
+          <span class="exp-accordion-trigger-label">Experience</span>
+        </span>
+        <span class="exp-accordion-chevron"><span class="material-icons-outlined">expand_more</span></span>
+      </button>
+      <div class="exp-accordion-body">
+    <div class="exp-list">
       <div class="exp-item">
         <div class="exp-logo"><img src="assets/logos/google.svg" alt="Google" /></div>
         <div class="exp-content">
@@ -1497,20 +1802,30 @@
         </div>
       </div>
     </div>
+    </div><!-- /exp-accordion-body -->
+    </div><!-- /exp-accordion-wrap -->
   </div>
 </section>
 
 <section id="education">
   <div class="container">
-    <div class="section-header left reveal" style="margin-bottom:32px;">
-      <span class="eyebrow">Education</span>
+    <div class="section-header left reveal exp-section-header-mobile" style="margin-bottom:32px;">
       <h2 class="section-h2">Education</h2>
     </div>
-    <div class="exp-list reveal">
+    <div class="exp-accordion-wrap reveal">
+      <button class="exp-accordion-trigger" id="edu-trigger">
+        <span class="exp-accordion-trigger-left">
+          <span class="material-icons-outlined" style="font-size:26px; color:var(--brand); margin-right:10px;">school</span>
+          <span class="exp-accordion-trigger-label">Education</span>
+        </span>
+        <span class="exp-accordion-chevron"><span class="material-icons-outlined">expand_more</span></span>
+      </button>
+      <div class="exp-accordion-body">
+    <div class="exp-list">
       <div class="exp-item">
         <div class="exp-logo"><img src="assets/logos/ucla.svg" alt="UCLA" /></div>
         <div class="exp-content">
-          <div class="exp-title">University of California, Los Angeles</div>
+          <div class="exp-title">University of California, Los Angeles (UCLA)</div>
           <div class="exp-company">B.S. Computer Science</div>
           <div class="exp-meta">2022 – 2026 · Los Angeles, CA</div>
         </div>
@@ -1524,6 +1839,8 @@
         </div>
       </div>
     </div>
+      </div><!-- /exp-accordion-body -->
+    </div><!-- /exp-accordion-wrap -->
   </div>
 </section>
 
@@ -1537,48 +1854,39 @@
     </div>
     <div class="hobbies-grid">
       <div class="hobby-card reveal reveal-delay-1">
-        <div class="hobby-card-icon">🏃</div>
-        <div class="hobby-card-label">Running</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">directions_run</span></div><div class="hobby-card-label">Running</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Chasing a sub-16 5K. Also working toward a half marathon PR. I like progress you can measure in seconds.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-2">
-        <div class="hobby-card-icon">🎱</div>
-        <div class="hobby-card-label">Billiards</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">sports_bar</span></div><div class="hobby-card-label">Billiards</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Working on running out more often. Thinking through shot selection and position planning before I get to the table, not after.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-3">
-        <div class="hobby-card-icon">🏓</div>
-        <div class="hobby-card-label">Table Tennis</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">sports_tennis</span></div><div class="hobby-card-label">Table Tennis</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-1">
-        <div class="hobby-card-icon">🏸</div>
-        <div class="hobby-card-label">Pickleball</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">sports_handball</span></div><div class="hobby-card-label">Pickleball</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Playing on an RPM Friction Pro V2, no DUPR rating yet, but competing for the first time this year. Ask me how it goes.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-2">
-        <div class="hobby-card-icon">🎳</div>
-        <div class="hobby-card-label">Bowling</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">trip_origin</span></div><div class="hobby-card-label">Bowling</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Throwing a 14 lb Raw Hammer. PR is 194 and I'm chasing a 200 game. So close.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-3">
-        <div class="hobby-card-icon">🎲</div>
-        <div class="hobby-card-label">Board Games</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">casino</span></div><div class="hobby-card-label">Board Games</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Cambio, Hues &amp; Cues, Texas Hold'em, Dou Di Zhu, and Chess (1600+ on chess.com). I like games where thinking three moves ahead actually pays off.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-1">
-        <div class="hobby-card-icon">🍳</div>
-        <div class="hobby-card-label">Cooking</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">restaurant</span></div><div class="hobby-card-label">Cooking</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">Japanese Zwilling Miyabi knives and Demeyere pots. The right tools make a real difference and I take the equipment as seriously as the recipe.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-2">
-        <div class="hobby-card-icon">🧗</div>
-        <div class="hobby-card-label">Rock Climbing</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">terrain</span></div><div class="hobby-card-label">Rock Climbing</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">La Sportiva TC Pro shoes and Friction Labs Gorilla Grip chalk. Friction and footwork over brute strength every time.</div>
       </div>
       <div class="hobby-card reveal reveal-delay-3">
-        <div class="hobby-card-icon">🐱</div>
-        <div class="hobby-card-label">Cats</div>
+        <div class="hobby-card-header"><div class="hobby-card-header-left"><div class="hobby-card-icon"><span class="material-icons-outlined">pets</span></div><div class="hobby-card-label">Cats</div></div><div class="hobby-card-chevron"><span class="material-icons-outlined">expand_more</span></div></div>
         <div class="hobby-card-desc">I catsit whenever I can. I travel too much to own one, but the dream is a male calico (yes, I know how rare they are).</div>
       </div>
     </div>
@@ -1590,9 +1898,9 @@
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-header reveal">
-      <span class="eyebrow eyebrow-light">Free · No obligation</span>
-      <h2 class="section-h2 section-h2-light">Book a free consultation</h2>
-      <p class="section-sub section-sub-light">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it takes to build it.</p>
+      <span class="eyebrow">Free · No obligation</span>
+      <h2 class="section-h2">Book a free consultation</h2>
+      <p class="section-sub">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it takes to build it.</p>
     </div>
     <div class="contact-form-wrap reveal reveal-delay-1">
       <iframe data-tally-src="https://tally.so/embed/Ekbv7X?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1331" frameborder="0" marginheight="0" marginwidth="0" title="Book a Free Consultation"></iframe>
@@ -1619,6 +1927,127 @@
 
 
 <script>
+  // ── Shared height measurement (works even when element is collapsed) ──
+  function measureHeight(el) {
+    const prev = el.style.height;
+    el.style.height = 'auto';
+    const h = el.scrollHeight;
+    el.style.height = prev;
+    return h;
+  }
+
+  // ── Service grid card accordions (mobile only — desktop navigates) ──
+  function setSvcCardHeight(desc, open) {
+    desc.style.height = open ? measureHeight(desc) + 'px' : '0';
+  }
+  document.querySelectorAll('.svc-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (window.innerWidth > 900) return;
+      e.preventDefault();
+      const isOpen = card.classList.contains('open');
+      // Close all open cards
+      document.querySelectorAll('.svc-card.open').forEach(c => {
+        c.classList.remove('open');
+        setSvcCardHeight(c.querySelector('.svc-card-desc'), false);
+      });
+      // Open clicked card if it was closed
+      if (!isOpen) {
+        card.classList.add('open');
+        setSvcCardHeight(card.querySelector('.svc-card-desc'), true);
+      }
+    });
+  });
+
+  // ── Service panel accordions (mobile only) ────────────────────
+  document.querySelectorAll('.svc-panel').forEach(panel => {
+    const body = panel.querySelector('.svc-panel-body');
+    // Inject close button into each panel body
+    if (body) {
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'svc-panel-close';
+      closeBtn.innerHTML = '<span class="material-icons-outlined">expand_less</span> Close';
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const b = panel.querySelector('.svc-panel-body');
+        panel.classList.remove('panel-open');
+        b.style.height = '0';
+        panel.querySelector('.svc-panel-trigger')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      body.appendChild(closeBtn);
+    }
+  });
+  document.querySelectorAll('.svc-panel-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (window.innerWidth > 900) return;
+      const panel = btn.closest('.svc-panel');
+      const body = panel.querySelector('.svc-panel-body');
+      const isOpen = panel.classList.contains('panel-open');
+      document.querySelectorAll('.svc-panel.panel-open').forEach(p => {
+        p.classList.remove('panel-open');
+        p.querySelector('.svc-panel-body').style.height = '0';
+      });
+      if (!isOpen) {
+        panel.classList.add('panel-open');
+        body.style.height = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Work card accordions (mobile only) ───────────────────────
+  function setWorkCardHeight(collapsible, open) {
+    collapsible.style.height = open ? measureHeight(collapsible) + 'px' : '0';
+  }
+  document.querySelectorAll('.work-card').forEach(card => {
+    card.querySelector('.work-card-header').addEventListener('click', () => {
+      if (window.innerWidth > 900) return;
+      const collapsible = card.querySelector('.work-card-collapsible');
+      const isOpen = card.classList.contains('wc-open');
+      if (isOpen) {
+        card.classList.remove('wc-open');
+        setWorkCardHeight(collapsible, false);
+      } else {
+        card.classList.add('wc-open');
+        setWorkCardHeight(collapsible, true);
+      }
+    });
+  });
+
+  // ── Hobby card accordions (mobile only) ──────────────────────
+  document.querySelectorAll('.hobby-card').forEach(card => {
+    card.addEventListener('click', () => {
+      if (window.innerWidth > 900) return;
+      const desc = card.querySelector('.hobby-card-desc');
+      const isOpen = card.classList.contains('hc-open');
+      document.querySelectorAll('.hobby-card.hc-open').forEach(c => {
+        c.classList.remove('hc-open');
+        c.querySelector('.hobby-card-desc').style.height = '0';
+      });
+      if (!isOpen) {
+        card.classList.add('hc-open');
+        desc.style.height = desc.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ── Experience / Education accordions (mobile only — independent toggles) ──
+  ['exp-trigger', 'edu-trigger'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (window.innerWidth > 900) return;
+      const wrap = btn.closest('.exp-accordion-wrap');
+      const body = wrap.querySelector('.exp-accordion-body');
+      const isOpen = wrap.classList.contains('exp-accordion-open');
+      if (isOpen) {
+        wrap.classList.remove('exp-accordion-open');
+        body.style.height = '0';
+      } else {
+        wrap.classList.add('exp-accordion-open');
+        body.style.height = body.scrollHeight + 'px';
+      }
+    });
+  });
+
   // ── Nav: transparent over dark hero, solid on scroll ──────────
   const navbar = document.getElementById('navbar');
   function updateNav() {
@@ -1678,14 +2107,6 @@
     requestAnimationFrame(step);
   });
 
-  // ── Service card click → smooth scroll to panel ────────────────
-  document.querySelectorAll('.svc-card').forEach(card => {
-    card.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(card.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
 </script>
 
 </body>
