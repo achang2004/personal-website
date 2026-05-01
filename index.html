@@ -231,13 +231,61 @@
       margin-bottom: 32px;
       max-width: 700px;
     }
-    .hero-h1 span { color: var(--brand); }
+    .hero-word { color: var(--text); }
 
-    /* SVG flow dot animation */
-    @keyframes flowRight { 0%{transform:translateX(0);opacity:0.6} 100%{transform:translateX(260px);opacity:0} }
-    @keyframes flowRight2 { 0%{transform:translateX(0);opacity:0.6} 100%{transform:translateX(70px);opacity:0} }
-    .flow-dot { animation: flowRight 2.4s ease-in infinite; }
-    .flow-dot-2 { animation: flowRight2 2s ease-in infinite 1.2s; }
+    /* ── Hero text entrance ───────────────────────────────────── */
+    @keyframes heroWordIn {
+      0%   { opacity: 0; transform: translateY(28px); filter: blur(4px); }
+      100% { opacity: 1; transform: translateY(0);   filter: blur(0); }
+    }
+    .hero-word {
+      display: inline-block;
+      opacity: 0;
+      animation: heroWordIn 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-cta-wrap {
+      opacity: 0;
+      animation: heroWordIn 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    /* ── SVG card entrance ────────────────────────────────────── */
+    @keyframes cardRise {
+      0%   { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardFloat {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-6px); }
+    }
+    .svg-card-1 { animation: cardRise 0.6s 0.8s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4s 1.4s ease-in-out infinite; }
+    .svg-card-2 { animation: cardRise 0.6s 1.0s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.5s 1.6s ease-in-out infinite; }
+    .svg-card-3 { animation: cardRise 0.6s 1.2s cubic-bezier(0.16,1,0.3,1) both, cardFloat 5s 1.8s ease-in-out infinite; }
+    .svg-card-4 { animation: cardRise 0.6s 1.4s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.2s 2.0s ease-in-out infinite; }
+    .svg-card-5 { animation: cardRise 0.6s 1.6s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.8s 2.2s ease-in-out infinite; }
+
+    /* ── SVG connecting arrows pulse ─────────────────────────── */
+    @keyframes arrowPulse {
+      0%,100% { opacity: 0.15; }
+      50%      { opacity: 0.5; }
+    }
+    .svg-arrow { animation: arrowPulse 2s ease-in-out infinite; }
+
+    /* ── SVG flow dot animation ───────────────────────────────── */
+    @keyframes flowRight { 0%{transform:translateX(0);opacity:0.7} 100%{transform:translateX(260px);opacity:0} }
+    @keyframes flowRight2 { 0%{transform:translateX(0);opacity:0.7} 100%{transform:translateX(70px);opacity:0} }
+    .flow-dot { animation: flowRight 2.2s ease-in infinite; }
+    .flow-dot-2 { animation: flowRight2 1.8s ease-in infinite 1.1s; }
+
+    /* ── SVG bar chart grow ───────────────────────────────────── */
+    @keyframes barGrow {
+      0%   { transform: scaleY(0); transform-origin: bottom; }
+      100% { transform: scaleY(1); transform-origin: bottom; }
+    }
+    .svg-bar { animation: barGrow 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+    /* ── SVG typing cursor blink ──────────────────────────────── */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .svg-cursor { animation: blink 1s step-end infinite; }
 
     /* Hero CTA (above illustration) */
     .hero-cta-wrap {
@@ -937,14 +985,22 @@
 <!-- ─── HERO ──────────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-inner">
-    <h1 class="hero-h1 reveal">
-      Build the AI infrastructure your business <span>should already have.</span>
+    <h1 class="hero-h1">
+      <span class="hero-word" style="animation-delay:0.05s">Build</span>
+      <span class="hero-word" style="animation-delay:0.13s"> the</span>
+      <span class="hero-word" style="animation-delay:0.21s"> AI</span>
+      <span class="hero-word" style="animation-delay:0.29s"> infrastructure</span>
+      <span class="hero-word" style="animation-delay:0.37s"> your</span>
+      <span class="hero-word" style="animation-delay:0.45s"> business</span>
+      <span class="hero-word" style="animation-delay:0.53s; color:var(--brand)"> should</span>
+      <span class="hero-word" style="animation-delay:0.61s; color:var(--brand)"> already</span>
+      <span class="hero-word" style="animation-delay:0.69s; color:var(--brand)"> have.</span>
     </h1>
-    <div class="hero-cta-wrap reveal reveal-delay-1">
+    <div class="hero-cta-wrap" style="animation-delay:0.85s">
       <a href="#contact" class="btn btn-primary">Book a free consultation</a>
     </div>
     <!-- Decorative visual -->
-    <div class="hero-visual reveal reveal-delay-2">
+    <div class="hero-visual">
       <div class="hero-visual-inner">
         <svg viewBox="0 0 900 468" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <!-- Grid floor -->
@@ -974,8 +1030,8 @@
           </g>
 
           <!-- ── Card 1: Email triage (left) ── -->
+          <g class="svg-card-1">
           <rect x="28" y="52" width="230" height="172" rx="12" fill="white" filter="url(#cs)"/>
-          <!-- Header -->
           <rect x="28" y="52" width="230" height="36" rx="12" fill="#f5f9f8"/>
           <rect x="28" y="76" width="230" height="12" fill="#f5f9f8"/>
           <circle cx="48" cy="70" r="7" fill="#2B5F5C" opacity="0.15"/>
@@ -983,42 +1039,37 @@
           <rect x="62" y="65" width="72" height="8" rx="3" fill="#e2e8e7"/>
           <rect x="200" y="63" width="42" height="12" rx="6" fill="#2B5F5C" opacity="0.08"/>
           <rect x="207" y="67" width="28" height="4" rx="2" fill="#2B5F5C" opacity="0.35"/>
-          <!-- Email rows -->
           <rect x="40" y="100" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.6"/>
           <rect x="56" y="101" width="88" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
           <rect x="56" y="111" width="130" height="5" rx="2" fill="#9aadab"/>
           <rect x="196" y="98" width="46" height="16" rx="8" fill="#e6f2f1"/>
           <rect x="204" y="103" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
-
           <rect x="40" y="128" width="8" height="8" rx="2" fill="#ccc" opacity="0.5"/>
           <rect x="56" y="129" width="70" height="6" rx="2" fill="#1a1a1a" opacity="0.5"/>
           <rect x="56" y="139" width="110" height="5" rx="2" fill="#c8d8d7"/>
           <rect x="196" y="126" width="46" height="16" rx="8" fill="#f0f0f0"/>
           <rect x="203" y="131" width="32" height="6" rx="2" fill="#aaa" opacity="0.5"/>
-
           <rect x="40" y="156" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.8"/>
           <rect x="56" y="157" width="96" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
           <rect x="56" y="167" width="118" height="5" rx="2" fill="#9aadab"/>
           <rect x="196" y="154" width="46" height="16" rx="8" fill="#e6f2f1"/>
           <rect x="204" y="159" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
+          </g>
 
           <!-- ── Card 2: Meeting summary (center-top) ── -->
+          <g class="svg-card-2">
           <rect x="290" y="28" width="320" height="200" rx="12" fill="white" filter="url(#cs)"/>
           <rect x="290" y="28" width="320" height="36" rx="12" fill="#f5f9f8"/>
           <rect x="290" y="52" width="320" height="12" fill="#f5f9f8"/>
-          <!-- mic icon -->
           <rect x="308" y="57" width="6" height="12" rx="3" fill="#2B5F5C" opacity="0.5"/>
           <path d="M305 66 q3 5 9 0" stroke="#2B5F5C" stroke-width="1.5" fill="none" opacity="0.5"/>
           <rect x="311" y="72" width="1" height="4" fill="#2B5F5C" opacity="0.4"/>
           <rect x="320" y="61" width="100" height="8" rx="3" fill="#e2e8e7"/>
           <rect x="560" y="61" width="36" height="8" rx="3" fill="#2B5F5C" opacity="0.12"/>
-          <!-- Section label -->
           <rect x="306" y="84" width="60" height="5" rx="2" fill="#9aadab"/>
-          <!-- Summary text lines -->
           <rect x="306" y="96" width="288" height="6" rx="2" fill="#d0dcdb"/>
           <rect x="306" y="108" width="260" height="6" rx="2" fill="#d0dcdb"/>
           <rect x="306" y="120" width="200" height="6" rx="2" fill="#d0dcdb"/>
-          <!-- Action items -->
           <rect x="306" y="140" width="70" height="5" rx="2" fill="#9aadab"/>
           <circle cx="312" cy="158" r="3" fill="#2B5F5C" opacity="0.5"/>
           <rect x="320" y="154" width="180" height="6" rx="2" fill="#d0dcdb"/>
@@ -1026,28 +1077,29 @@
           <rect x="320" y="170" width="220" height="6" rx="2" fill="#d0dcdb"/>
           <circle cx="312" cy="190" r="3" fill="#2B5F5C" opacity="0.3"/>
           <rect x="320" y="186" width="160" height="6" rx="2" fill="#d0dcdb"/>
-          <!-- "AI generated" badge -->
+          <!-- blinking cursor -->
+          <rect x="480" y="186" width="2" height="10" rx="1" fill="#2B5F5C" opacity="0.6" class="svg-cursor"/>
           <rect x="536" y="196" width="58" height="16" rx="8" fill="#2B5F5C" opacity="0.1"/>
           <rect x="546" y="200" width="38" height="8" rx="3" fill="#2B5F5C" opacity="0.4"/>
+          </g>
 
           <!-- ── Card 3: Analytics dashboard (right) ── -->
+          <g class="svg-card-3">
           <rect x="642" y="52" width="232" height="180" rx="12" fill="white" filter="url(#cs)"/>
           <rect x="642" y="52" width="232" height="36" rx="12" fill="#f5f9f8"/>
           <rect x="642" y="76" width="232" height="12" fill="#f5f9f8"/>
           <rect x="658" y="64" width="80" height="8" rx="3" fill="#e2e8e7"/>
-          <!-- Bar chart -->
-          <rect x="658" y="168" width="16" height="44" rx="3" fill="#2B5F5C" opacity="0.18"/>
-          <rect x="680" y="148" width="16" height="64" rx="3" fill="#2B5F5C" opacity="0.35"/>
-          <rect x="702" y="136" width="16" height="76" rx="3" fill="#2B5F5C" opacity="0.55"/>
-          <rect x="724" y="110" width="16" height="102" rx="3" fill="#2B5F5C" opacity="0.80"/>
-          <rect x="746" y="125" width="16" height="87" rx="3" fill="#2B5F5C" opacity="0.60"/>
-          <rect x="768" y="140" width="16" height="72" rx="3" fill="#2B5F5C" opacity="0.40"/>
-          <rect x="790" y="155" width="16" height="57" rx="3" fill="#2B5F5C" opacity="0.25"/>
-          <rect x="812" y="145" width="16" height="67" rx="3" fill="#2B5F5C" opacity="0.45"/>
-          <!-- Trend line overlay -->
+          <!-- Bar chart with grow animation -->
+          <rect x="658" y="168" width="16" height="44" rx="3" fill="#2B5F5C" opacity="0.18" class="svg-bar" style="animation-delay:1.2s"/>
+          <rect x="680" y="148" width="16" height="64" rx="3" fill="#2B5F5C" opacity="0.35" class="svg-bar" style="animation-delay:1.3s"/>
+          <rect x="702" y="136" width="16" height="76" rx="3" fill="#2B5F5C" opacity="0.55" class="svg-bar" style="animation-delay:1.4s"/>
+          <rect x="724" y="110" width="16" height="102" rx="3" fill="#2B5F5C" opacity="0.80" class="svg-bar" style="animation-delay:1.5s"/>
+          <rect x="746" y="125" width="16" height="87" rx="3" fill="#2B5F5C" opacity="0.60" class="svg-bar" style="animation-delay:1.6s"/>
+          <rect x="768" y="140" width="16" height="72" rx="3" fill="#2B5F5C" opacity="0.40" class="svg-bar" style="animation-delay:1.7s"/>
+          <rect x="790" y="155" width="16" height="57" rx="3" fill="#2B5F5C" opacity="0.25" class="svg-bar" style="animation-delay:1.8s"/>
+          <rect x="812" y="145" width="16" height="67" rx="3" fill="#2B5F5C" opacity="0.45" class="svg-bar" style="animation-delay:1.9s"/>
           <polyline points="666,166 688,148 710,136 732,112 754,128 776,142 798,156 820,146"
             stroke="#2B5F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.7"/>
-          <!-- Stat pills -->
           <rect x="658" y="96" width="56" height="26" rx="6" fill="#edf6f5"/>
           <rect x="662" y="101" width="28" height="7" rx="2" fill="#2B5F5C" opacity="0.5"/>
           <rect x="662" y="111" width="42" height="5" rx="2" fill="#9aadab"/>
@@ -1057,32 +1109,35 @@
           <rect x="786" y="96" width="56" height="26" rx="6" fill="#f5f5f5"/>
           <rect x="790" y="101" width="32" height="7" rx="2" fill="#555" opacity="0.35"/>
           <rect x="790" y="111" width="42" height="5" rx="2" fill="#c8d0cf"/>
+          </g>
 
           <!-- ── Card 4: Chat widget (bottom-left) ── -->
+          <g class="svg-card-4">
           <rect x="28" y="256" width="230" height="182" rx="12" fill="white" filter="url(#cs2)"/>
           <rect x="28" y="256" width="230" height="36" rx="12" fill="#2B5F5C"/>
           <rect x="28" y="280" width="230" height="12" fill="#2B5F5C"/>
           <circle cx="46" cy="274" r="8" fill="rgba(255,255,255,0.2)"/>
           <rect x="60" y="269" width="70" height="7" rx="3" fill="rgba(255,255,255,0.6)"/>
           <rect x="60" y="279" width="44" height="5" rx="2" fill="rgba(255,255,255,0.35)"/>
-          <!-- Chat bubbles -->
-          <rect x="40" y="304" width="130" height="28" rx="10" rx="10" fill="#f0f7f6"/>
+          <rect x="40" y="304" width="130" height="28" rx="10" fill="#f0f7f6"/>
           <rect x="48" y="311" width="114" height="7" rx="3" fill="#2B5F5C" opacity="0.35"/>
           <rect x="48" y="321" width="80" height="5" rx="2" fill="#2B5F5C" opacity="0.2"/>
           <rect x="106" y="342" width="106" height="24" rx="10" fill="#2B5F5C"/>
           <rect x="114" y="349" width="90" height="6" rx="3" fill="rgba(255,255,255,0.75)"/>
           <rect x="40" y="376" width="110" height="24" rx="10" fill="#f0f7f6"/>
           <rect x="48" y="383" width="94" height="6" rx="3" fill="#2B5F5C" opacity="0.35"/>
-          <!-- Input bar -->
           <rect x="36" y="412" width="198" height="18" rx="9" fill="#f5f7f6" stroke="#e2e8e7" stroke-width="1"/>
           <rect x="44" y="417" width="80" height="6" rx="3" fill="#c8d8d7"/>
+          <!-- typing cursor in input -->
+          <rect x="126" y="414" width="2" height="14" rx="1" fill="#2B5F5C" opacity="0.4" class="svg-cursor"/>
+          </g>
 
           <!-- ── Card 5: Workflow automation (bottom-right) ── -->
+          <g class="svg-card-5">
           <rect x="642" y="264" width="232" height="168" rx="12" fill="white" filter="url(#cs2)"/>
           <rect x="642" y="264" width="232" height="36" rx="12" fill="#f5f9f8"/>
           <rect x="642" y="288" width="232" height="12" fill="#f5f9f8"/>
           <rect x="658" y="276" width="80" height="8" rx="3" fill="#e2e8e7"/>
-          <!-- Workflow nodes -->
           <circle cx="680" cy="330" r="18" fill="#edf6f5" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.4"/>
           <rect x="672" y="325" width="16" height="10" rx="2" fill="#2B5F5C" opacity="0.4"/>
           <line x1="698" y1="330" x2="722" y2="330" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
@@ -1094,25 +1149,26 @@
           <rect x="795" y="328" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
           <rect x="795" y="331" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
           <rect x="795" y="334" width="6" height="1.5" rx="1" fill="white" opacity="0.8"/>
-          <!-- Labels -->
           <rect x="660" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
           <rect x="720" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
           <rect x="779" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
-          <!-- Status bar -->
           <rect x="658" y="376" width="100" height="8" rx="4" fill="#e8f3f2"/>
           <rect x="658" y="376" width="72" height="8" rx="4" fill="#2B5F5C" opacity="0.5"/>
           <rect x="658" y="394" width="60" height="6" rx="3" fill="#d0dcdb"/>
           <rect x="658" y="404" width="130" height="6" rx="3" fill="#d0dcdb"/>
+          </g>
 
-          <!-- ── Connecting arrows between cards ── -->
-          <line x1="258" y1="138" x2="290" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.35"/>
-          <polygon points="286,134 294,138 286,142" fill="#2B5F5C" opacity="0.35"/>
-          <line x1="610" y1="138" x2="642" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.35"/>
-          <polygon points="638,134 646,138 638,142" fill="#2B5F5C" opacity="0.35"/>
-          <line x1="143" y1="224" x2="143" y2="256" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.25"/>
-          <polygon points="139,252 143,260 147,252" fill="#2B5F5C" opacity="0.25"/>
-          <line x1="758" y1="232" x2="758" y2="264" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.25"/>
-          <polygon points="754,260 758,268 762,260" fill="#2B5F5C" opacity="0.25"/>
+          <!-- ── Connecting arrows ── -->
+          <g class="svg-arrow">
+          <line x1="258" y1="138" x2="290" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <polygon points="286,134 294,138 286,142" fill="#2B5F5C"/>
+          <line x1="610" y1="138" x2="642" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <polygon points="638,134 646,138 638,142" fill="#2B5F5C"/>
+          <line x1="143" y1="224" x2="143" y2="256" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <polygon points="139,252 143,260 147,252" fill="#2B5F5C"/>
+          <line x1="758" y1="232" x2="758" y2="264" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <polygon points="754,260 758,268 762,260" fill="#2B5F5C"/>
+          </g>
         </svg>
       </div>
     </div>
@@ -1211,7 +1267,7 @@
         </div>
         <div class="svc-card-icon"><span class="material-icons-outlined">bar_chart</span></div>
         <div class="svc-card-name">Custom Reporting &amp; Workflow Tools</div>
-        <div class="svc-card-desc"><div class="svc-desc-inner">Automate reports your team rebuilds manually every week.<span class="svc-mobile-extra"> Client summaries, proposals, and inventory updates pulled from your existing sources and delivered on a schedule — before anyone gets to the office.</span></div></div>
+        <div class="svc-card-desc"><div class="svc-desc-inner">Automate reports your team rebuilds manually every week.<span class="svc-mobile-extra"> Client summaries, proposals, and inventory updates pulled from your existing sources and delivered on a schedule, before anyone gets to the office.</span></div></div>
       </a>
       <a href="#svc-knowledge" class="svc-card">
         <div class="svc-card-header">
@@ -1268,7 +1324,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">01 — Website Design &amp; Build</div>
+        <div class="svc-panel-number">01 · Website Design &amp; Build</div>
         <h3 class="svc-panel-name">A site that works for you and tells you about your customers while you work.</h3>
         <p class="svc-panel-desc">Most small businesses either have no website or one that actively loses them customers. I build a clean, fast site around your brand and goals, then wire it up to collect and understand visitor data from day one.</p>
         <div class="svc-feature-cards">
@@ -1326,7 +1382,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">02 — Meeting Intelligence</div>
+        <div class="svc-panel-number">02 · Meeting Intelligence</div>
         <h3 class="svc-panel-name">Every meeting captured. Zero effort from you.</h3>
         <p class="svc-panel-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</p>
         <div class="svc-feature-cards">
@@ -1379,7 +1435,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">03 — Inbox &amp; Communication Ops</div>
+        <div class="svc-panel-number">03 · Inbox &amp; Communication Ops</div>
         <h3 class="svc-panel-name">Your inbox, sorted. You see only what needs you.</h3>
         <p class="svc-panel-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</p>
         <div class="svc-feature-cards">
@@ -1434,7 +1490,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">04 — Custom Reporting &amp; Workflow Tools</div>
+        <div class="svc-panel-number">04 · Custom Reporting &amp; Workflow Tools</div>
         <h3 class="svc-panel-name">Reports that write themselves. Done before you arrive.</h3>
         <p class="svc-panel-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</p>
         <div class="svc-feature-cards">
@@ -1491,7 +1547,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">05 — Shared Knowledge Base &amp; File AI</div>
+        <div class="svc-panel-number">05 · Shared Knowledge Base &amp; File AI</div>
         <h3 class="svc-panel-name">Ask a question. Get the answer in seconds.</h3>
         <p class="svc-panel-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</p>
         <div class="svc-feature-cards">
@@ -1544,7 +1600,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">06 — Customer Data &amp; Trend Analysis</div>
+        <div class="svc-panel-number">06 · Customer Data &amp; Trend Analysis</div>
         <h3 class="svc-panel-name">The data exists. Now it actually tells you something.</h3>
         <p class="svc-panel-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</p>
         <div class="svc-feature-cards">
@@ -1600,7 +1656,7 @@
     <div class="svc-panel-body">
     <div class="svc-panel-inner">
       <div class="svc-panel-left reveal">
-        <div class="svc-panel-number">07 — Customer Questions &amp; Chat Automation</div>
+        <div class="svc-panel-number">07 · Customer Questions &amp; Chat Automation</div>
         <h3 class="svc-panel-name">Customers get answers at midnight. You sleep.</h3>
         <p class="svc-panel-desc">A chat widget on your website trained on your products, policies, and common questions. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</p>
         <div class="svc-feature-cards">
