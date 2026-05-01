@@ -1,357 +1,720 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aaron Chang</title>
+  <title>Aaron Chang — AI Systems Builder</title>
   <meta name="description" content="I build AI workflows that save small businesses 20+ hours a week. UCLA CS grad, ex-Google, Amazon, TikTok." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ─── RESET & TOKENS ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      background: #ffffff;
-      color: #191919;
-      font-family: 'Inter', -apple-system, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+
+    :root {
+      --dark:        #0d1917;
+      --dark-card:   #162420;
+      --brand:       #2B5F5C;
+      --brand-light: #3a7a76;
+      --brand-muted: #8ab5b2;
+      --brand-dim:   rgba(43,95,92,0.15);
+      --surface:     #f5f7f6;
+      --white:       #ffffff;
+      --text:        #0f1917;
+      --text-muted:  #4a5e5c;
+      --text-faint:  #8a9e9c;
+      --border:      #e2e8e7;
+      --border-dark: rgba(255,255,255,0.1);
+
+      --fs-xs:   0.72rem;
+      --fs-sm:   0.84rem;
+      --fs-base: 1rem;
+      --fs-lg:   1.125rem;
+      --fs-xl:   1.375rem;
+      --fs-2xl:  1.75rem;
+      --fs-3xl:  2.25rem;
+      --fs-4xl:  3rem;
+      --fs-5xl:  3.75rem;
+
+      --container: 1120px;
+      --nav-h: 64px;
+      --radius: 12px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow:    0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+      --shadow-dark: 0 0 0 1px rgba(255,255,255,0.04), 0 8px 24px rgba(0,0,0,0.4);
     }
 
-    /* Fade-in */
-    .fade-in { opacity: 0; transform: translateY(10px); transition: opacity 0.35s ease, transform 0.35s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: var(--fs-base);
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
 
-    /* Nav */
+    /* ─── UTILITIES ──────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+    [id] { scroll-margin-top: var(--nav-h); }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 14px;
+    }
+    .eyebrow-light { color: var(--brand-muted); }
+
+    .section-label {
+      font-size: var(--fs-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 10px;
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: var(--fs-sm); font-weight: 600; font-family: inherit;
+      text-decoration: none; border: none; cursor: pointer;
+      padding: 11px 22px; border-radius: var(--radius-sm);
+      transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+      letter-spacing: 0.01em;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--brand); color: #fff; box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: var(--brand-light); box-shadow: var(--shadow); }
+    .btn-ghost { background: transparent; color: var(--brand); border: 1.5px solid var(--brand); border-radius: 100px; }
+    .btn-ghost:hover { background: var(--brand-dim); border-color: var(--brand); }
+    .btn-outline { background: transparent; color: var(--brand); border: 1.5px solid var(--brand); }
+    .btn-outline:hover { background: var(--brand-dim); }
+    .btn-white { background: #fff; color: var(--brand); box-shadow: var(--shadow); }
+    .btn-white:hover { box-shadow: var(--shadow-lg); }
+
+    /* Tags / chips */
+    .chip {
+      display: inline-block; font-size: 0.71rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 100px;
+      background: rgba(43,95,92,0.1); color: var(--brand);
+    }
+    .chip-dark {
+      background: rgba(43,95,92,0.08); color: var(--brand);
+    }
+    .chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
     #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e5e5e5;
-      height: 52px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
       display: flex; align-items: center;
+      transition: background 0.25s, box-shadow 0.25s, border-color 0.25s;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
     }
     .nav-inner {
-      max-width: 75vw; margin: 0 auto; padding: 0 20px;
-      display: flex; align-items: center; justify-content: space-between; width: 100%;
+      max-width: var(--container); width: 100%; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
     }
-    .nav-logo {
-      text-decoration: none; display: flex; align-items: center;
-      flex-shrink: 0;
+    .nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      font-size: var(--fs-sm); font-weight: 500; color: var(--text-muted);
+      text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm);
+      transition: color 0.15s, background 0.15s;
     }
-    .nav-logo img { visibility: visible; height: 36px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 24px; }
-    .nav-link { font-size: 0.82rem; font-weight: 500; color: #666; text-decoration: none; transition: color 0.15s; }
-    .nav-link:hover { color: #2B5F5C; }
+    .nav-link:hover { color: var(--brand); background: var(--brand-dim); }
+    #navbar.scrolled .nav-link { color: var(--text-muted); }
+    #navbar.scrolled .nav-link:hover { color: var(--brand); background: var(--brand-dim); }
+
+    /* Dropdown */
     .nav-dropdown { position: relative; }
-    .nav-dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 4px; }
-    .nav-dropdown-toggle::after { content: '▾'; font-size: 0.65rem; opacity: 0.6; }
+    .nav-dropdown-toggle { display: flex; align-items: center; gap: 3px; cursor: pointer; }
+    .nav-dropdown-toggle::after { content: '▾'; font-size: 0.6rem; opacity: 0.7; }
     .nav-dropdown-menu {
-      display: none; position: absolute; top: 100%; left: -12px;
-      background: #fff; border: 1px solid #e5e5e5; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      min-width: 240px; z-index: 200; padding: 6px 0;
-      padding-top: 12px; margin-top: 0;
-    }
-    .nav-dropdown-menu::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 12px;
+      display: none; position: absolute; top: calc(100% + 8px); left: -8px;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow-lg); min-width: 260px; z-index: 300;
+      padding: 8px;
     }
     .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-    .nav-dropdown-item { display: block; padding: 8px 16px; font-size: 0.8rem; color: #444; text-decoration: none; transition: background 0.12s, color 0.12s; white-space: nowrap; }
-    .nav-dropdown-item:hover { background: #f0f7f7; color: #2B5F5C; }
-    .nav-dropdown-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
-    .nav-dropdown-item.custom { color: #2B5F5C; font-weight: 600; }
-    .nav-cta {
-      font-size: 0.82rem; font-weight: 600; color: #fff;
-      background: #2B5F5C; border: none; border-radius: 6px;
-      padding: 7px 18px; text-decoration: none; letter-spacing: 0.01em;
-      transition: background 0.15s, box-shadow 0.15s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+    .nav-dropdown-item {
+      display: block; padding: 8px 12px; font-size: var(--fs-sm); color: var(--text-muted);
+      text-decoration: none; border-radius: var(--radius-sm);
+      transition: background 0.12s, color 0.12s;
     }
-    .nav-cta:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .nav-dropdown-item:hover { background: var(--surface); color: var(--brand); }
+    .nav-dropdown-divider { height: 1px; background: var(--border); margin: 6px 0; }
+    .nav-dropdown-item.custom { color: var(--brand); font-weight: 600; }
 
-    /* Mobile nav */
+    .nav-cta-wrap { display: flex; align-items: center; gap: 10px; }
+    #navbar .btn-primary { padding: 8px 18px; font-size: var(--fs-sm); }
+    #navbar.scrolled .btn-ghost { background: transparent; color: var(--brand); border-color: var(--brand); }
+    #navbar.scrolled .btn-ghost:hover { background: var(--brand-dim); }
+
+    /* Hamburger */
+    #hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 4px; }
+    #navbar.scrolled #hamburger { color: var(--text-muted); }
     #mobile-menu { display: none; }
-    #mobile-menu.open { display: flex; }
-    #hamburger { display: none; background: none; border: none; cursor: pointer; color: #666; }
-    @media (max-width: 640px) {
-      .nav-links, .nav-cta { display: none !important; }
-      #hamburger { display: block; }
-      .nav-inner, .page-wrap, footer { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding-left: 12px !important; padding-right: 12px !important; }
+    #mobile-menu.open { display: block; }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta-wrap { display: none; }
+      #hamburger { display: flex; }
+      #mobile-menu {
+        position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+        background: #fff; z-index: 190; overflow-y: auto;
+        padding: 20px 24px 40px; border-top: 1px solid var(--border);
+      }
+      .mobile-nav-link {
+        display: block; padding: 14px 0; font-size: var(--fs-lg);
+        font-weight: 500; color: var(--text); text-decoration: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-nav-sub {
+        display: block; padding: 10px 0 10px 14px; font-size: var(--fs-sm);
+        color: var(--text-muted); text-decoration: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .mobile-nav-cta { margin-top: 24px; display: block; text-align: center; }
     }
 
-    /* Layout shell */
-    .page-wrap { max-width: 75vw; margin: 0 auto; padding: 52px 16px 80px; }
-
-    /* Profile card */
-    .profile-card {
+    /* ─── HERO ───────────────────────────────────────────────── */
+    #hero {
       background: #fff;
-      border-radius: 0;
-      border: 1px solid #e5e5e5;
-      overflow: hidden;
-      margin-top: 16px;
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: calc(var(--nav-h) + 40px) 0 56px;
+      position: relative; overflow: hidden;
     }
-    .cover-banner {
-      height: 160px;
-      background: url('assets/images/background.jpg') center center / cover no-repeat;
-      position: relative;
+    .hero-inner {
+      max-width: var(--container); margin: 0 auto; padding: 0 28px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 0;
+      position: relative; z-index: 1;
     }
-    .avatar-wrap {
-      position: absolute;
-      bottom: -52px;
-      left: 24px;
+    .hero-left { display: flex; flex-direction: column; align-items: center; }
+    .hero-h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+      max-width: 700px;
     }
-    .avatar {
-      width: 112px; height: 112px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      background: #e5e5e5;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .avatar svg { color: #aaa; }
-    .profile-body { padding: 64px 24px 24px; }
-    .profile-name { font-size: 1.4rem; font-weight: 700; color: #191919; margin-bottom: 4px; }
-    .profile-headline { font-size: 0.97rem; color: #191919; margin-bottom: 6px; font-weight: 400; }
-    .profile-location { font-size: 0.83rem; color: #666; margin-bottom: 14px; }
-    .profile-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
-    .btn-connect {
-      font-size: 0.85rem; font-weight: 600; color: #fff;
-      background: #2B5F5C; border: none; border-radius: 6px;
-      padding: 7px 20px; cursor: pointer; text-decoration: none; letter-spacing: 0.01em;
-      transition: background 0.15s, box-shadow 0.15s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.10);
-    }
-    .btn-connect:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    .btn-message {
-      font-size: 0.85rem; font-weight: 600; color: #2B5F5C;
-      background: transparent; border: 1.5px solid #2B5F5C; border-radius: 0;
-      padding: 6px 18px; cursor: pointer; text-decoration: none;
-      transition: background 0.15s, color 0.15s;
-    }
-    .btn-message:hover { background: #d0e8e7; }
+    .hero-h1 span { color: var(--brand); }
 
-    /* Logo marquee */
+    /* SVG flow dot animation */
+    @keyframes flowRight { 0%{transform:translateX(0);opacity:0.6} 100%{transform:translateX(260px);opacity:0} }
+    @keyframes flowRight2 { 0%{transform:translateX(0);opacity:0.6} 100%{transform:translateX(70px);opacity:0} }
+    .flow-dot { animation: flowRight 2.4s ease-in infinite; }
+    .flow-dot-2 { animation: flowRight2 2s ease-in infinite 1.2s; }
+
+    /* Hero CTA (above illustration) */
+    .hero-cta-wrap {
+      margin-bottom: 48px;
+    }
+    .hero-cta-wrap .btn-primary {
+      padding: 14px 40px; font-size: var(--fs-base);
+      border-radius: 100px;
+    }
+
+    /* Hero illustration area */
+    .hero-visual {
+      width: 100%; max-width: 960px; position: relative;
+    }
+    .hero-visual-inner {
+      width: 100%; padding-bottom: 46%;
+      position: relative; overflow: hidden;
+      border-radius: 16px;
+      background: linear-gradient(160deg, #f0f7f6 0%, #e8f3f2 50%, #ddeeed 100%);
+      border: 1px solid var(--border);
+    }
+    .hero-visual svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+
+    @media (max-width: 640px) {
+      #hero { padding-top: calc(var(--nav-h) + 28px); min-height: 100svh; }
+      .hero-h1 { font-size: 1.9rem; }
+      .hero-visual-inner { padding-bottom: 65%; }
+    }
     .logo-marquee-wrap {
       overflow: hidden;
-      margin-top: 16px;
+      mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+    .logo-marquee-track {
+      display: flex; align-items: center; gap: 36px;
+      width: max-content; will-change: transform;
+    }
+    .logo-marquee-track img {
+      height: 20px; width: auto; flex-shrink: 0;
+      opacity: 0.35; filter: brightness(0) invert(1);
+      transition: opacity 0.2s;
+    }
+    .logo-marquee-track img:hover { opacity: 0.65; }
+
+    /* Hero stats row */
+    .hero-stats {
+      display: flex; align-items: center; gap: 0;
+      margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap; justify-content: center;
+    }
+    .hero-stat { padding: 0 28px; text-align: center; }
+    .hero-stat-val {
+      font-size: var(--fs-base); font-weight: 700; color: var(--text);
+      letter-spacing: -0.01em; line-height: 1.3;
+    }
+    .hero-stat-label {
+      font-size: var(--fs-xs); color: var(--text-faint);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      margin-top: 4px;
+    }
+    .hero-stat-divider {
+      width: 1px; height: 36px; background: var(--border);
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .hero-stat { padding: 12px 16px; }
+      .hero-stat-divider { display: none; }
+    }
+
+    /* Proof / logo marquee bar */
+    #proof {
+      background: var(--surface); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); padding: 24px 0;
+    }
+    .proof-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .proof-label {
+      font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-faint);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .proof-divider {
+      width: 1px; height: 28px; background: var(--border); flex-shrink: 0;
+    }
+    .proof-marquee-wrap {
+      flex: 1; overflow: hidden;
       mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
-    .logo-marquee-track {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      width: max-content;
-      will-change: transform;
+    .proof-marquee-track {
+      display: flex; align-items: center; gap: 48px;
+      width: max-content; will-change: transform;
     }
-    .logo-marquee-track img {
-      height: 18px;
-      width: auto;
-      opacity: 0.8;
-      flex-shrink: 0;
-      transition: opacity 0.2s;
+    .proof-marquee-track img {
+      height: 28px; width: auto; flex-shrink: 0;
+      opacity: 0.85; transition: opacity 0.2s;
     }
-    .logo-marquee-track img:hover { opacity: 1; }
+    .proof-marquee-track img:hover { opacity: 1; }
+    @media (max-width: 640px) {
+      .proof-inner { flex-wrap: wrap; gap: 12px; }
+      .proof-label { font-size: 0.65rem; }
+    }
 
-    /* Scroll offset for fixed nav */
-    [id] { scroll-margin-top: 64px; }
+    /* Nav logo — hero is now white, no invert needed */
+    .nav-logo img { filter: none; transition: filter 0.25s; }
+    .nav-link { color: var(--text-muted); }
+    .nav-link:hover { color: var(--brand); background: var(--brand-dim); }
+    #navbar { background: rgba(255,255,255,0.95); border-color: var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.05); backdrop-filter: blur(12px); }
 
-    /* Sections */
-    .section-card {
-      background: #fff;
-      border-radius: 0;
-      border: 1px solid #e5e5e5;
-      padding: 20px 24px;
-      margin-top: 12px;
+    /* Hero right: floating demo card */
+    .hero-right { position: relative; align-self: center; }
+    .hero-demo-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-dark);
+      overflow: hidden;
+      transform: perspective(1000px) rotateY(-6deg) rotateX(2deg);
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      max-height: 520px;
+      overflow-y: auto;
+      scrollbar-width: none;
     }
-    .section-title {
-      font-size: 1.05rem; font-weight: 700; color: #191919;
+    .hero-demo-card::-webkit-scrollbar { display: none; }
+    .hero-demo-card:hover { transform: perspective(1000px) rotateY(-2deg) rotateX(1deg); }
+    .hero-demo-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+    }
+    .hero-demo-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .hero-demo-title { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .hero-demo-title.before { color: rgba(255,255,255,0.35); }
+    .hero-demo-title.after { color: var(--brand-muted); }
+    .hero-demo-body { padding: 16px; }
+    .hero-demo-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: var(--fs-xs); color: rgba(255,255,255,0.7);
+    }
+    .hero-demo-row:last-child { border-bottom: none; }
+    .hero-demo-badge {
+      font-size: 0.65rem; font-weight: 600; padding: 2px 7px;
+      border-radius: 3px; white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-bad { background: rgba(220,38,38,0.2); color: #f87171; }
+    .badge-good { background: rgba(43,95,92,0.3); color: var(--brand-muted); }
+    .badge-muted { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.45); }
+    .hero-demo-stat-row { display: flex; gap: 0; margin: 12px 0; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; }
+    .hero-demo-stat { flex: 1; padding: 10px 12px; border-right: 1px solid rgba(255,255,255,0.07); }
+    .hero-demo-stat:last-child { border-right: none; }
+    .hero-demo-stat-val { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .hero-demo-stat-label { font-size: 0.62rem; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .hero-demo-insight {
+      background: rgba(43,95,92,0.15); border-left: 2px solid var(--brand);
+      padding: 10px 12px; border-radius: 0 4px 4px 0;
+      font-size: var(--fs-xs); color: rgba(255,255,255,0.65); line-height: 1.55;
+      margin-top: 10px;
+    }
+    .hero-demo-caption {
+      font-size: 0.68rem; color: rgba(255,255,255,0.3); padding: 10px 16px;
+      border-top: 1px solid rgba(255,255,255,0.06); font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+    }
+
+    /* ─── SOCIAL PROOF BAR — defined above near logo-marquee ─── */
+
+    /* ─── SECTION COMMON ─────────────────────────────────────── */
+    .section { padding: 96px 0; }
+    .section-alt { background: var(--surface); }
+    .section-dark { background: var(--dark); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header.left { text-align: left; }
+    .section-h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800; color: var(--text);
+      letter-spacing: -0.02em; line-height: 1.15;
       margin-bottom: 16px;
     }
+    .section-h2-light { color: #fff; }
+    .section-sub { font-size: var(--fs-lg); color: var(--text-muted); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+    .section-sub-light { color: rgba(255,255,255,0.5); }
+    .section-sub.left { margin: 0; }
 
-    /* About prose */
-    .about-text { font-size: 0.93rem; color: #444; line-height: 1.75; }
-    .about-text p + p { margin-top: 12px; }
-    .about-text a { color: #0a66c2; text-decoration: none; }
-    .about-text a:hover { text-decoration: underline; }
-
-    /* Experience items */
-    .exp-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
-    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .exp-item:first-child { padding-top: 0; }
-    .exp-logo {
-      width: 44px; height: 44px; border-radius: 0;
-      border: 1px solid #e5e5e5;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; background: #fafafa; overflow: hidden;
+    /* ─── ABOUT ──────────────────────────────────────────────── */
+    #about { padding: 96px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
+    .about-quote-wrap {
+      position: sticky; top: calc(var(--nav-h) + 32px);
     }
-    .exp-logo img { width: 28px; height: 28px; object-fit: contain; }
-    .exp-content { flex: 1; min-width: 0; }
-    .exp-title { font-size: 0.93rem; font-weight: 600; color: #191919; }
-    .exp-company { font-size: 0.87rem; color: #444; margin-top: 1px; }
-    .exp-meta { font-size: 0.8rem; color: #888; margin-top: 2px; }
-    .exp-desc { font-size: 0.87rem; color: #555; margin-top: 6px; line-height: 1.6; }
+    .about-quote {
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      font-weight: 800; color: var(--brand);
+      line-height: 1.2; letter-spacing: -0.02em;
+      border-left: 4px solid var(--brand);
+      padding-left: 24px;
+    }
+    .about-quote-sub {
+      margin-top: 16px; padding-left: 24px;
+      font-size: var(--fs-sm); color: var(--text-faint); line-height: 1.65;
+    }
+    .about-prose p { font-size: var(--fs-base); color: var(--text-muted); line-height: 1.8; }
+    .about-prose p + p { margin-top: 18px; }
+    .about-prose a { color: var(--brand); text-decoration: none; border-bottom: 1px solid rgba(43,95,92,0.3); transition: border-color 0.15s; }
+    .about-prose a:hover { border-color: var(--brand); }
+    .about-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+    .about-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: var(--fs-xs); font-weight: 600;
+      padding: 6px 12px; border-radius: 100px;
+      border: 1px solid var(--border); color: var(--text-muted);
+      background: #fff;
+    }
 
-    /* Services rows */
-    .services-subhead { font-size: 0.88rem; color: #555; line-height: 1.75; margin-bottom: 24px; }
-    .svc-row { display: flex; gap: 32px; padding: 24px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
-    .svc-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .svc-row:first-child { padding-top: 0; }
-    .svc-left { flex: 1; min-width: 0; }
-    .svc-right { width: 42%; flex-shrink: 0; }
-    .svc-demo-img { width: 100%; border: 1px solid #e5e5e5; display: block; }
-    .svc-name { font-size: 1rem; font-weight: 700; color: #191919; margin-bottom: 12px; line-height: 1.25; }
-    .svc-desc { font-size: 0.84rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
-    .svc-bullets { list-style: none; padding: 0; margin: 0 0 20px 0; display: flex; flex-direction: column; gap: 7px; }
-    .svc-bullets li { font-size: 0.81rem; color: #555; padding-left: 14px; position: relative; line-height: 1.5; }
-    .svc-bullets li::before { content: '●'; position: absolute; left: 0; color: #2B5F5C; font-size: 0.5rem; top: 4px; }
-    .svc-cta { font-size: 0.82rem; font-weight: 600; color: #fff; background: #2B5F5C; text-decoration: none; padding: 9px 20px; border-radius: 6px; display: inline-block; margin-top: 20px; transition: background 0.15s, box-shadow 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.10); letter-spacing: 0.01em; }
-    .svc-cta:hover { background: #1e4744; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    @media (max-width: 640px) { .svc-row { flex-direction: column; } .svc-right { width: 100%; } }
-    .svc-icon-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-    .svc-icon-card { border: 1px solid #e5e5e5; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; }
-    .svc-icon-card-icon { font-size: 1.1rem; line-height: 1; }
-    .svc-icon-card-title { font-size: 0.78rem; font-weight: 700; color: #191919; }
-    .svc-icon-card-desc { font-size: 0.74rem; color: #555; line-height: 1.5; }
-    @media (max-width: 640px) { .svc-icon-cards { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-quote-wrap { position: static; }
+    }
 
-    /* Before/after demo panels */
-    .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 20px; border: 1px solid #999; }
+    /* ─── SERVICES GRID ──────────────────────────────────────── */
+    #services { padding: 96px 0 64px; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 0;
+    }
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .svc-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+      border-color: var(--brand);
+    }
+    .svc-card-icon { width: 22px; height: 22px; display: block; }
+    .svc-card-icon svg { width: 22px; height: 22px; stroke: var(--brand); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; display: block; }
+    .svc-card-name { font-size: var(--fs-base); font-weight: 700; color: var(--text); }
+    .svc-card-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.5; }
+
+    @media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .services-grid { grid-template-columns: 1fr; } }
+
+    /* ─── SERVICE DETAIL PANELS ──────────────────────────────── */
+    .svc-panel { padding: 72px 0; border-top: 1px solid var(--border); }
+    .svc-panel:nth-child(even) { background: var(--surface); }
+    .svc-panel-inner {
+      max-width: var(--container); margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+    }
+    .svc-panel-left { display: flex; flex-direction: column; }
+    .svc-panel-number {
+      font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 10px;
+    }
+    .svc-panel-name { font-size: var(--fs-2xl); font-weight: 800; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
+    .svc-panel-desc { font-size: var(--fs-base); color: var(--text-muted); line-height: 1.75; margin-bottom: 24px; }
+    .svc-feature-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+    .svc-feature-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 12px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .svc-panel:nth-child(even) .svc-feature-card { background: var(--white); }
+    .svc-feature-icon { font-size: 1.1rem; }
+    .svc-feature-title { font-size: var(--fs-xs); font-weight: 700; color: var(--text); }
+    .svc-feature-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+
+    .demo-label {
+      font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px;
+    }
+
+    /* Before/after demo panels — preserved from original */
+    .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #ccc; border-radius: var(--radius-sm); overflow: hidden; }
     .demo-panel { overflow: hidden; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; }
-    .demo-panel.before { background: #fff; border-right: 1px solid #999; }
+    .demo-panel.before { background: #fff; border-right: 1px solid #ccc; }
     .demo-panel.after { background: #fff; }
-    .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #999; }
-    .demo-panel-header.before { background: #fff; }
+    .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #ccc; }
+    .demo-panel-header.before { background: #f9f9f9; }
     .demo-panel-header.after { background: #f0f7f6; }
     .demo-panel-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
-    .demo-panel-label.before { color: #666; }
-    .demo-panel-label.after { color: #2B5F5C; }
+    .demo-panel-label.before { color: #888; }
+    .demo-panel-label.after { color: var(--brand); }
     .demo-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .demo-dot.before { background: #ddd; }
-    .demo-dot.after { background: #2B5F5C; }
+    .demo-dot.before { background: #ccc; }
+    .demo-dot.after { background: var(--brand); }
     .demo-panel-body { padding: 16px; display: flex; flex-direction: column; gap: 0; flex: 1; }
-    /* Rows */
-    .demo-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #e0e0e0; }
+    .demo-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #ebebeb; }
     .demo-row:last-child { border-bottom: none; }
     .demo-row-text { font-size: 0.8rem; color: #222; line-height: 1.4; flex: 1; }
-    .demo-panel.before .demo-row-text { color: #222; }
-    /* Badges */
     .demo-badge { font-size: 0.65rem; font-weight: 600; padding: 3px 9px; white-space: nowrap; flex-shrink: 0; border-radius: 4px; }
     .badge-urgent { background: #fde8e8; color: #a02020; }
     .badge-waiting { background: #ebebeb; color: #444; }
     .badge-auto { background: #e6f2f1; color: #1f4a47; }
     .badge-you { background: #dbeafe; color: #1d4ed8; }
-    /* Caption */
-    .demo-caption { font-size: 0.72rem; color: #444; padding: 12px 16px; border-top: 1px solid #e0e0e0; min-height: 44px; display: flex; align-items: center; }
-    /* Stats */
-    .demo-stat-row { display: flex; gap: 0; border: 1px solid #e0e0e0; margin-bottom: 12px; }
-    .demo-stat { flex: 1; padding: 12px 14px; border-right: 1px solid #e0e0e0; }
+    .demo-caption { font-size: 0.72rem; color: #666; padding: 10px 16px; border-top: 1px solid #ebebeb; min-height: 40px; display: flex; align-items: center; font-style: italic; }
+    .demo-stat-row { display: flex; gap: 0; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 12px; overflow: hidden; }
+    .demo-stat { flex: 1; padding: 10px 12px; border-right: 1px solid #e0e0e0; }
     .demo-stat:last-child { border-right: none; }
-    .demo-stat-val { font-size: 1.1rem; font-weight: 700; color: #111; line-height: 1; }
-    .demo-stat-label { font-size: 0.64rem; color: #444; margin-top: 4px; }
+    .demo-stat-val { font-size: 1.05rem; font-weight: 700; color: #111; }
+    .demo-stat-label { font-size: 0.63rem; color: #666; margin-top: 3px; }
     .demo-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; padding: 1px 5px; border-radius: 3px; }
     .demo-tag.up { background: #e6f2f1; color: #1f4a47; }
     .demo-tag.down { background: #fde8e8; color: #a02020; }
-    /* Section label */
-    .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #555; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; margin-top: 4px; }
-    /* Summary */
-    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 11px 13px; background: #f5faf9; border-left: 2px solid #2B5F5C; margin-top: 6px; }
-    .demo-panel.before .demo-summary-box { border-left-color: #ccc; background: #fff; color: #666; }
-    /* File rows */
-    .demo-file-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #333; }
-    .demo-panel.before .demo-file-row { color: #222; }
+    .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #777; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; margin-top: 4px; }
+    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 10px 12px; background: #f5faf9; border-left: 2px solid var(--brand); margin-top: 6px; border-radius: 0 4px 4px 0; }
+    .demo-panel.before .demo-summary-box { border-left-color: #ccc; background: #fafafa; color: #666; }
+    .demo-file-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #333; }
     .demo-file-row:last-child { border-bottom: none; }
-    .demo-file-icon { font-size: 0.9rem; opacity: 0.55; }
-    /* Meeting rows */
-    .demo-meeting-row { padding: 10px 0; border-bottom: 1px solid #ebebeb; }
+    .demo-file-icon { font-size: 0.9rem; opacity: 0.5; }
+    .demo-meeting-row { padding: 9px 0; border-bottom: 1px solid #ebebeb; }
     .demo-meeting-row:last-child { border-bottom: none; }
     .demo-meeting-title { font-size: 0.8rem; font-weight: 600; color: #191919; }
-    .demo-panel.before .demo-meeting-title { color: #222; }
-    .demo-meeting-sub { font-size: 0.71rem; color: #777; margin-top: 3px; }
-    .demo-meeting-note { font-size: 0.7rem; color: #666; margin-top: 3px; }
-    /* Action items */
-    .demo-action-item { display: flex; align-items: flex-start; gap: 9px; padding: 8px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #222; line-height: 1.5; }
+    .demo-meeting-sub { font-size: 0.71rem; color: #888; margin-top: 2px; }
+    .demo-meeting-note { font-size: 0.69rem; color: #aaa; margin-top: 2px; }
+    .demo-action-item { display: flex; align-items: flex-start; gap: 9px; padding: 7px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #222; line-height: 1.5; }
     .demo-action-item:last-child { border-bottom: none; }
-    .demo-action-dot { width: 6px; height: 6px; border-radius: 50%; background: #2B5F5C; flex-shrink: 0; margin-top: 5px; }
-    .demo-assignee { font-weight: 600; color: #2B5F5C; margin-right: 2px; }
-    /* Card (draft) */
-    .demo-card { background: #f5faf9; border: 1px solid #c8e0de; padding: 11px 13px; margin-top: 8px; }
-    .demo-card-title { font-size: 0.78rem; font-weight: 600; color: #1a3a38; margin-bottom: 4px; }
+    .demo-action-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); flex-shrink: 0; margin-top: 5px; }
+    .demo-assignee { font-weight: 600; color: var(--brand); margin-right: 2px; }
+    .demo-card { background: #f5faf9; border: 1px solid #c8e0de; padding: 10px 12px; margin-top: 8px; border-radius: 4px; }
+    .demo-card-title { font-size: 0.78rem; font-weight: 600; color: #1a3a38; margin-bottom: 3px; }
     .demo-card-sub { font-size: 0.74rem; color: #444; line-height: 1.5; }
-    .demo-approval { font-size: 0.69rem; color: #2B5F5C; padding: 6px 0 0; font-weight: 500; }
-    @media (max-width: 640px) { .demo-panels { grid-template-columns: 1fr; } .demo-panel.before { border-right: none; border-bottom: 1px solid #e5e5e5; } }
-
-    /* Work/projects */
-    .project-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
-    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .project-item:first-child { padding-top: 0; }
-    .project-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-    .project-name { font-size: 0.93rem; font-weight: 600; color: #191919; }
-    .project-name a { color: #0a66c2; text-decoration: none; }
-    .project-name a:hover { text-decoration: underline; }
-    .project-sub { font-size: 0.82rem; color: #888; margin-top: 2px; }
-    .project-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
-    .project-desc p + p { margin-top: 8px; }
-    .tag {
-      display: inline-block; font-size: 0.72rem; font-weight: 500;
-      padding: 2px 9px; border-radius: 0;
-      background: #d0e8e7; color: #2B5F5C;
+    .demo-approval { font-size: 0.69rem; color: var(--brand); padding: 5px 0 0; font-weight: 500; }
+    @media (max-width: 640px) {
+      .demo-panels { grid-template-columns: 1fr; }
+      .demo-panel.before { border-right: none; border-bottom: 1px solid #ccc; }
     }
-    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 
-    /* Hobbies */
-    .hobby-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
-    .hobby-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .hobby-item:first-child { padding-top: 0; }
-    .hobby-label { font-size: 0.87rem; font-weight: 600; color: #191919; min-width: 130px; flex-shrink: 0; padding-top: 1px; }
-    .hobby-desc { font-size: 0.87rem; color: #555; line-height: 1.65; }
+    .svc-cta { margin-top: 24px; }
 
-
-    /* CTA card */
-    .cta-card {
-      background: #2B5F5C;
-      border-radius: 0;
-      padding: 32px 28px;
-      margin-top: 12px;
-      text-align: center;
+    @media (max-width: 900px) {
+      .svc-panel-inner { grid-template-columns: 1fr; gap: 36px; }
+      .svc-feature-cards { grid-template-columns: repeat(3, 1fr); }
     }
-    .cta-card h2 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .cta-card p { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin-bottom: 20px; line-height: 1.6; }
-    .btn-cta-white {
-      display: inline-block; background: #fff; color: #2B5F5C;
-      font-size: 0.88rem; font-weight: 700; border-radius: 0;
-      padding: 10px 28px; text-decoration: none;
-      transition: opacity 0.15s;
+    @media (max-width: 580px) {
+      .svc-feature-cards { grid-template-columns: 1fr; }
     }
-    .btn-cta-white:hover { opacity: 0.9; }
 
-    /* Footer */
+    /* Custom CTA banner */
+    .custom-svc-banner {
+      background: var(--dark); border-radius: var(--radius);
+      padding: 48px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .custom-svc-banner h3 { font-size: var(--fs-xl); font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .custom-svc-banner p { font-size: var(--fs-sm); color: rgba(255,255,255,0.5); line-height: 1.65; max-width: 480px; margin: 0; }
+
+    /* ─── CLIENT WORK ────────────────────────────────────────── */
+    #work { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 0; }
+    .work-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .work-card:hover { box-shadow: var(--shadow); border-color: var(--brand-muted); }
+    .work-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .work-card-logo {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .work-card-logo img { width: 30px; height: 30px; object-fit: contain; }
+    .work-card-meta { flex: 1; min-width: 0; }
+    .work-card-name { font-size: var(--fs-lg); font-weight: 700; color: var(--text); }
+    .work-card-sub { font-size: var(--fs-sm); color: var(--text-faint); margin-top: 2px; }
+    .work-card-sub a { color: var(--brand); text-decoration: none; }
+    .work-card-sub a:hover { text-decoration: underline; }
+    .work-card-body { flex: 1; }
+    .work-card-body p { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.75; }
+    .work-card-body p + p { margin-top: 14px; }
+    .work-card-body strong { color: var(--text); font-weight: 600; }
+
+    @media (max-width: 768px) { .work-grid { grid-template-columns: 1fr; } }
+
+    /* ─── EXPERIENCE ─────────────────────────────────────────── */
+    #experience { padding: 96px 0; }
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: flex; gap: 18px; padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-logo {
+      width: 48px; height: 48px; border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fafafa;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .exp-logo img { width: 30px; height: 30px; object-fit: contain; }
+    .exp-content { flex: 1; min-width: 0; }
+    .exp-title { font-size: var(--fs-base); font-weight: 600; color: var(--text); }
+    .exp-company { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 1px; }
+    .exp-meta { font-size: var(--fs-xs); color: var(--text-faint); margin-top: 3px; letter-spacing: 0.02em; }
+    .exp-desc { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 6px; line-height: 1.65; }
+    .exp-desc a { color: var(--brand); text-decoration: none; }
+    .exp-desc a:hover { text-decoration: underline; }
+
+    /* ─── EDUCATION ──────────────────────────────────────────── */
+    #education { padding: 0 0 96px; }
+
+    /* ─── HOBBIES ────────────────────────────────────────────── */
+    #hobbies { background: #fff; padding: 96px 0; border-top: 1px solid var(--border); }
+    .hobbies-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; background: var(--border); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .hobby-card {
+      background: #fff; padding: 26px 24px;
+    }
+    .hobby-card-icon { display: none; }
+    .hobby-card-label { font-size: var(--fs-base); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .hobby-card-desc { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.65; }
+
+    @media (max-width: 900px) { .hobbies-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .hobbies-grid { grid-template-columns: 1fr; } }
+
+    /* ─── CONTACT ────────────────────────────────────────────── */
+    #contact { background: var(--dark); padding: 96px 0; }
+    .contact-inner { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+    .contact-header { text-align: center; margin-bottom: 48px; }
+    .contact-form-wrap {
+      background: #fff; border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow-dark);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
-      max-width: 75vw; margin: 0 auto;
-      padding: 24px 16px 0;
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-      border-top: 1px solid #e5e5e5;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 32px 0;
     }
-    footer a, footer span { font-size: 0.78rem; color: #888; text-decoration: none; transition: color 0.15s; }
-    footer a:hover { color: #2B5F5C; }
+    .footer-inner {
+      max-width: var(--container); margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-copy { font-size: var(--fs-xs); color: rgba(255,255,255,0.3); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: var(--fs-xs); color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--brand-muted); }
+    .footer-email { font-size: var(--fs-xs); color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.15s; }
+    .footer-email:hover { color: var(--brand-muted); }
 
-    @media (max-width: 560px) {
-      .cover-banner { height: 110px; }
-      .avatar { width: 88px; height: 88px; }
-      .avatar-wrap { bottom: -44px; }
-      .profile-body { padding: 54px 16px 20px; }
-      .section-card { padding: 16px; }
-      .hobby-item { flex-direction: column; gap: 4px; }
-      .hobby-label { min-width: unset; }
+    /* ─── MOBILE ADJUSTMENTS ─────────────────────────────────── */
+    @media (max-width: 640px) {
+      .section { padding: 60px 0; }
+      .section-header { margin-bottom: 40px; }
+      #about, #experience, #education, #hobbies, #contact, #work { padding: 60px 0; }
+      #education { padding-bottom: 60px; }
+      .svc-panel { padding: 48px 0; }
+      .contact-form-wrap { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo"><img src="assets/images/nerdcat.png" alt="Aaron Chang" /></a>
@@ -366,120 +729,330 @@
           <a href="#svc-reporting" class="nav-dropdown-item">Custom Reporting &amp; Workflow Tools</a>
           <a href="#svc-knowledge" class="nav-dropdown-item">Shared Knowledge Base &amp; File AI</a>
           <a href="#svc-trends" class="nav-dropdown-item">Customer Data &amp; Trend Analysis</a>
-          <a href="#svc-support" class="nav-dropdown-item">AI-Powered Customer Support</a>
+          <a href="#svc-support" class="nav-dropdown-item">Customer Questions &amp; Chat Automation</a>
           <div class="nav-dropdown-divider"></div>
-          <div style="padding: 6px 16px 2px; font-size: 0.7rem; color: #aaa;">Don't see what you need?</div>
           <a href="#contact" class="nav-dropdown-item custom">Custom Service →</a>
         </div>
       </div>
       <a href="#work" class="nav-link">Client Work</a>
       <a href="#experience" class="nav-link">Experience</a>
     </div>
-    <a href="#contact" class="nav-cta">Get in touch</a>
+    <div class="nav-cta-wrap">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+    </div>
     <button id="hamburger" aria-label="Menu">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
   </div>
-  <div id="mobile-menu" class="flex-col" style="background:#fff; border-top:1px solid #e5e5e5; padding:12px 20px; gap:0; position:absolute; top:52px; left:0; right:0; z-index:99; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-    <a href="#about" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">About</a>
-    <a href="#services" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Services</a>
-    <a href="#svc-website" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Website Design &amp; Build</a>
-    <a href="#svc-meeting" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Meeting Intelligence</a>
-    <a href="#svc-inbox" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Inbox &amp; Communication Ops</a>
-    <a href="#svc-reporting" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Custom Reporting &amp; Workflow Tools</a>
-    <a href="#svc-knowledge" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Shared Knowledge Base &amp; File AI</a>
-    <a href="#svc-trends" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">Customer Data &amp; Trend Analysis</a>
-    <a href="#svc-support" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#888;">AI-Powered Customer Support</a>
-    <a href="#contact" class="mobile-link nav-link" style="border-bottom:1px solid #f0f0f0; padding:9px 0 9px 14px; display:block; font-size:0.78rem; color:#2B5F5C; font-weight:600;">Custom Service →</a>
-    <a href="#work" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Client Work</a>
-    <a href="#experience" class="mobile-link block py-3 nav-link" style="border-bottom:1px solid #f0f0f0; padding:12px 0; display:block;">Experience</a>
-    <a href="#contact" class="mobile-link block py-3" style="font-size:0.85rem; color:#2B5F5C; font-weight:600; padding:12px 0; display:block;">Get in touch →</a>
+  <div id="mobile-menu">
+    <a href="#about" class="mobile-link mobile-nav-link">About</a>
+    <a href="#services" class="mobile-link mobile-nav-link">Services</a>
+    <a href="#svc-website" class="mobile-link mobile-nav-sub">Website Design &amp; Build</a>
+    <a href="#svc-meeting" class="mobile-link mobile-nav-sub">Meeting Intelligence</a>
+    <a href="#svc-inbox" class="mobile-link mobile-nav-sub">Inbox &amp; Communication Ops</a>
+    <a href="#svc-reporting" class="mobile-link mobile-nav-sub">Custom Reporting &amp; Workflow Tools</a>
+    <a href="#svc-knowledge" class="mobile-link mobile-nav-sub">Shared Knowledge Base &amp; File AI</a>
+    <a href="#svc-trends" class="mobile-link mobile-nav-sub">Customer Data &amp; Trend Analysis</a>
+    <a href="#svc-support" class="mobile-link mobile-nav-sub">Customer Questions &amp; Chat Automation</a>
+    <a href="#work" class="mobile-link mobile-nav-link">Client Work</a>
+    <a href="#experience" class="mobile-link mobile-nav-link">Experience</a>
+    <a href="#contact" class="btn btn-primary mobile-nav-cta mobile-link">Book a free consultation</a>
   </div>
 </nav>
 
 
-<div class="page-wrap">
-
-  <!-- PROFILE CARD -->
-  <div class="profile-card fade-in">
-    <div class="cover-banner">
-      <div class="avatar-wrap">
-        <div class="avatar">
-          <img src="assets/images/nerdcat.png" alt="Aaron Chang" style="width:90%;height:90%;object-fit:contain;" />
-        </div>
-      </div>
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-inner">
+    <h1 class="hero-h1 reveal">
+      Build the AI infrastructure your business <span>should already have.</span>
+    </h1>
+    <div class="hero-cta-wrap reveal reveal-delay-1">
+      <a href="#contact" class="btn btn-primary">Book a free consultation</a>
     </div>
+    <!-- Decorative visual -->
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-visual-inner">
+        <svg viewBox="0 0 900 468" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <!-- Grid floor -->
+          <rect width="900" height="468" fill="url(#heroGrad)"/>
+          <defs>
+            <linearGradient id="heroGrad" x1="0" y1="0" x2="0" y2="468" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f8fafa"/>
+              <stop offset="100%" stop-color="#edf4f3"/>
+            </linearGradient>
+            <filter id="cs" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#1a3a38" flood-opacity="0.10"/>
+            </filter>
+            <filter id="cs2" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1a3a38" flood-opacity="0.08"/>
+            </filter>
+          </defs>
 
-    <div class="profile-body">
-      <div class="profile-name">Aaron Chang</div>
-      <div class="profile-headline">Software Engineer & AI Systems Builder · Helping small businesses eliminate operational overhead with AI</div>
-      <div class="profile-location">Los Angeles, California · <a href="mailto:aaron@aaronchang.dev" style="color:#0a66c2; text-decoration:none;">aaron@aaronchang.dev</a></div>
+          <!-- Background -->
+          <rect width="900" height="468" fill="url(#heroGrad)"/>
 
-      <div style="display:flex; align-items:center; gap:16px; margin-top:16px;">
-        <span style="font-size:0.75rem; font-weight:600; color:#888; white-space:nowrap; flex-shrink:0; text-transform:uppercase; letter-spacing:0.05em;">Places I've worked at</span>
-        <div style="width:1px; height:28px; background:#e5e5e5; flex-shrink:0;"></div>
-      <div class="logo-marquee-wrap" style="margin-top:0; flex:1; min-width:0;">
-        <div class="logo-marquee-track" data-speed="30">
-          <img src="assets/logos/ucla.svg" alt="UCLA" title="UCLA" />
-          <img src="assets/logos/google.svg" alt="Google" title="Google" />
-          <img src="assets/logos/amazon.svg" alt="Amazon" title="Amazon" />
-          <img src="assets/logos/tiktok.svg" alt="TikTok" title="TikTok" />
-          <img src="assets/logos/ucsd.svg" alt="UC San Diego" title="UC San Diego" />
-          <img src="assets/logos/doheny.png" alt="Doheny Eye Institute" title="Doheny Eye Institute" style="height:22px;" />
-        </div>
-      </div>
-      </div>
+          <!-- Subtle dot grid -->
+          <g opacity="0.18">
+            <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="16" cy="16" r="1.2" fill="#2B5F5C"/>
+            </pattern>
+            <rect width="900" height="468" fill="url(#dots)"/>
+          </g>
 
-      <div class="profile-actions">
-        <a href="#contact" class="btn-connect">Get in touch</a>
+          <!-- ── Card 1: Email triage (left) ── -->
+          <rect x="28" y="52" width="230" height="172" rx="12" fill="white" filter="url(#cs)"/>
+          <!-- Header -->
+          <rect x="28" y="52" width="230" height="36" rx="12" fill="#f5f9f8"/>
+          <rect x="28" y="76" width="230" height="12" fill="#f5f9f8"/>
+          <circle cx="48" cy="70" r="7" fill="#2B5F5C" opacity="0.15"/>
+          <path d="M44 70 l4-3 4 3 v5 h-8z" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="62" y="65" width="72" height="8" rx="3" fill="#e2e8e7"/>
+          <rect x="200" y="63" width="42" height="12" rx="6" fill="#2B5F5C" opacity="0.08"/>
+          <rect x="207" y="67" width="28" height="4" rx="2" fill="#2B5F5C" opacity="0.35"/>
+          <!-- Email rows -->
+          <rect x="40" y="100" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.6"/>
+          <rect x="56" y="101" width="88" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
+          <rect x="56" y="111" width="130" height="5" rx="2" fill="#9aadab"/>
+          <rect x="196" y="98" width="46" height="16" rx="8" fill="#e6f2f1"/>
+          <rect x="204" y="103" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
+
+          <rect x="40" y="128" width="8" height="8" rx="2" fill="#ccc" opacity="0.5"/>
+          <rect x="56" y="129" width="70" height="6" rx="2" fill="#1a1a1a" opacity="0.5"/>
+          <rect x="56" y="139" width="110" height="5" rx="2" fill="#c8d8d7"/>
+          <rect x="196" y="126" width="46" height="16" rx="8" fill="#f0f0f0"/>
+          <rect x="203" y="131" width="32" height="6" rx="2" fill="#aaa" opacity="0.5"/>
+
+          <rect x="40" y="156" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.8"/>
+          <rect x="56" y="157" width="96" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
+          <rect x="56" y="167" width="118" height="5" rx="2" fill="#9aadab"/>
+          <rect x="196" y="154" width="46" height="16" rx="8" fill="#e6f2f1"/>
+          <rect x="204" y="159" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
+
+          <!-- ── Card 2: Meeting summary (center-top) ── -->
+          <rect x="290" y="28" width="320" height="200" rx="12" fill="white" filter="url(#cs)"/>
+          <rect x="290" y="28" width="320" height="36" rx="12" fill="#f5f9f8"/>
+          <rect x="290" y="52" width="320" height="12" fill="#f5f9f8"/>
+          <!-- mic icon -->
+          <rect x="308" y="57" width="6" height="12" rx="3" fill="#2B5F5C" opacity="0.5"/>
+          <path d="M305 66 q3 5 9 0" stroke="#2B5F5C" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <rect x="311" y="72" width="1" height="4" fill="#2B5F5C" opacity="0.4"/>
+          <rect x="320" y="61" width="100" height="8" rx="3" fill="#e2e8e7"/>
+          <rect x="560" y="61" width="36" height="8" rx="3" fill="#2B5F5C" opacity="0.12"/>
+          <!-- Section label -->
+          <rect x="306" y="84" width="60" height="5" rx="2" fill="#9aadab"/>
+          <!-- Summary text lines -->
+          <rect x="306" y="96" width="288" height="6" rx="2" fill="#d0dcdb"/>
+          <rect x="306" y="108" width="260" height="6" rx="2" fill="#d0dcdb"/>
+          <rect x="306" y="120" width="200" height="6" rx="2" fill="#d0dcdb"/>
+          <!-- Action items -->
+          <rect x="306" y="140" width="70" height="5" rx="2" fill="#9aadab"/>
+          <circle cx="312" cy="158" r="3" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="320" y="154" width="180" height="6" rx="2" fill="#d0dcdb"/>
+          <circle cx="312" cy="174" r="3" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="320" y="170" width="220" height="6" rx="2" fill="#d0dcdb"/>
+          <circle cx="312" cy="190" r="3" fill="#2B5F5C" opacity="0.3"/>
+          <rect x="320" y="186" width="160" height="6" rx="2" fill="#d0dcdb"/>
+          <!-- "AI generated" badge -->
+          <rect x="536" y="196" width="58" height="16" rx="8" fill="#2B5F5C" opacity="0.1"/>
+          <rect x="546" y="200" width="38" height="8" rx="3" fill="#2B5F5C" opacity="0.4"/>
+
+          <!-- ── Card 3: Analytics dashboard (right) ── -->
+          <rect x="642" y="52" width="232" height="180" rx="12" fill="white" filter="url(#cs)"/>
+          <rect x="642" y="52" width="232" height="36" rx="12" fill="#f5f9f8"/>
+          <rect x="642" y="76" width="232" height="12" fill="#f5f9f8"/>
+          <rect x="658" y="64" width="80" height="8" rx="3" fill="#e2e8e7"/>
+          <!-- Bar chart -->
+          <rect x="658" y="168" width="16" height="44" rx="3" fill="#2B5F5C" opacity="0.18"/>
+          <rect x="680" y="148" width="16" height="64" rx="3" fill="#2B5F5C" opacity="0.35"/>
+          <rect x="702" y="136" width="16" height="76" rx="3" fill="#2B5F5C" opacity="0.55"/>
+          <rect x="724" y="110" width="16" height="102" rx="3" fill="#2B5F5C" opacity="0.80"/>
+          <rect x="746" y="125" width="16" height="87" rx="3" fill="#2B5F5C" opacity="0.60"/>
+          <rect x="768" y="140" width="16" height="72" rx="3" fill="#2B5F5C" opacity="0.40"/>
+          <rect x="790" y="155" width="16" height="57" rx="3" fill="#2B5F5C" opacity="0.25"/>
+          <rect x="812" y="145" width="16" height="67" rx="3" fill="#2B5F5C" opacity="0.45"/>
+          <!-- Trend line overlay -->
+          <polyline points="666,166 688,148 710,136 732,112 754,128 776,142 798,156 820,146"
+            stroke="#2B5F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.7"/>
+          <!-- Stat pills -->
+          <rect x="658" y="96" width="56" height="26" rx="6" fill="#edf6f5"/>
+          <rect x="662" y="101" width="28" height="7" rx="2" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="662" y="111" width="42" height="5" rx="2" fill="#9aadab"/>
+          <rect x="722" y="96" width="56" height="26" rx="6" fill="#edf6f5"/>
+          <rect x="726" y="101" width="20" height="7" rx="2" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="726" y="111" width="38" height="5" rx="2" fill="#9aadab"/>
+          <rect x="786" y="96" width="56" height="26" rx="6" fill="#f5f5f5"/>
+          <rect x="790" y="101" width="32" height="7" rx="2" fill="#555" opacity="0.35"/>
+          <rect x="790" y="111" width="42" height="5" rx="2" fill="#c8d0cf"/>
+
+          <!-- ── Card 4: Chat widget (bottom-left) ── -->
+          <rect x="28" y="256" width="230" height="182" rx="12" fill="white" filter="url(#cs2)"/>
+          <rect x="28" y="256" width="230" height="36" rx="12" fill="#2B5F5C"/>
+          <rect x="28" y="280" width="230" height="12" fill="#2B5F5C"/>
+          <circle cx="46" cy="274" r="8" fill="rgba(255,255,255,0.2)"/>
+          <rect x="60" y="269" width="70" height="7" rx="3" fill="rgba(255,255,255,0.6)"/>
+          <rect x="60" y="279" width="44" height="5" rx="2" fill="rgba(255,255,255,0.35)"/>
+          <!-- Chat bubbles -->
+          <rect x="40" y="304" width="130" height="28" rx="10" rx="10" fill="#f0f7f6"/>
+          <rect x="48" y="311" width="114" height="7" rx="3" fill="#2B5F5C" opacity="0.35"/>
+          <rect x="48" y="321" width="80" height="5" rx="2" fill="#2B5F5C" opacity="0.2"/>
+          <rect x="106" y="342" width="106" height="24" rx="10" fill="#2B5F5C"/>
+          <rect x="114" y="349" width="90" height="6" rx="3" fill="rgba(255,255,255,0.75)"/>
+          <rect x="40" y="376" width="110" height="24" rx="10" fill="#f0f7f6"/>
+          <rect x="48" y="383" width="94" height="6" rx="3" fill="#2B5F5C" opacity="0.35"/>
+          <!-- Input bar -->
+          <rect x="36" y="412" width="198" height="18" rx="9" fill="#f5f7f6" stroke="#e2e8e7" stroke-width="1"/>
+          <rect x="44" y="417" width="80" height="6" rx="3" fill="#c8d8d7"/>
+
+          <!-- ── Card 5: Workflow automation (bottom-right) ── -->
+          <rect x="642" y="264" width="232" height="168" rx="12" fill="white" filter="url(#cs2)"/>
+          <rect x="642" y="264" width="232" height="36" rx="12" fill="#f5f9f8"/>
+          <rect x="642" y="288" width="232" height="12" fill="#f5f9f8"/>
+          <rect x="658" y="276" width="80" height="8" rx="3" fill="#e2e8e7"/>
+          <!-- Workflow nodes -->
+          <circle cx="680" cy="330" r="18" fill="#edf6f5" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.4"/>
+          <rect x="672" y="325" width="16" height="10" rx="2" fill="#2B5F5C" opacity="0.4"/>
+          <line x1="698" y1="330" x2="722" y2="330" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
+          <circle cx="740" cy="330" r="18" fill="#2B5F5C" opacity="0.12" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.5"/>
+          <path d="M733 330 l4-5 4 5 h-2.5 v6 h-3 v-6z" fill="#2B5F5C" opacity="0.55"/>
+          <line x1="758" y1="330" x2="782" y2="330" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
+          <circle cx="800" cy="330" r="18" fill="#edf6f5" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.4"/>
+          <rect x="793" y="325" width="14" height="10" rx="2" fill="#2B5F5C" opacity="0.4"/>
+          <rect x="795" y="328" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
+          <rect x="795" y="331" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
+          <rect x="795" y="334" width="6" height="1.5" rx="1" fill="white" opacity="0.8"/>
+          <!-- Labels -->
+          <rect x="660" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
+          <rect x="720" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
+          <rect x="779" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
+          <!-- Status bar -->
+          <rect x="658" y="376" width="100" height="8" rx="4" fill="#e8f3f2"/>
+          <rect x="658" y="376" width="72" height="8" rx="4" fill="#2B5F5C" opacity="0.5"/>
+          <rect x="658" y="394" width="60" height="6" rx="3" fill="#d0dcdb"/>
+          <rect x="658" y="404" width="130" height="6" rx="3" fill="#d0dcdb"/>
+
+          <!-- ── Connecting arrows between cards ── -->
+          <line x1="258" y1="138" x2="290" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.35"/>
+          <polygon points="286,134 294,138 286,142" fill="#2B5F5C" opacity="0.35"/>
+          <line x1="610" y1="138" x2="642" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.35"/>
+          <polygon points="638,134 646,138 638,142" fill="#2B5F5C" opacity="0.35"/>
+          <line x1="143" y1="224" x2="143" y2="256" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.25"/>
+          <polygon points="139,252 143,260 147,252" fill="#2B5F5C" opacity="0.25"/>
+          <line x1="758" y1="232" x2="758" y2="264" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.25"/>
+          <polygon points="754,260 758,268 762,260" fill="#2B5F5C" opacity="0.25"/>
+        </svg>
       </div>
     </div>
   </div>
+</section>
 
-
-  <!-- ABOUT -->
-  <div id="about" class="section-card fade-in" style="transition-delay:0.04s;">
-    <div class="section-title">About</div>
-    <div class="about-text">
-      <p>Most small businesses don't have an operations team, a data team, or anyone whose job is to figure out what AI can actually do for them. That's the gap I fill.</p>
-      <p>I've worked as a software engineer at Google, Amazon, and TikTok, and published machine learning research at multiple conferences (<a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>). I co-run <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a> and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, and have built the AI systems running inside both.</p>
-      <p style="font-weight:600; color:#191919;">Not demos. Production.</p>
+<!-- ─── LOGO MARQUEE BAR ──────────────────────────────────────── -->
+<section id="proof">
+  <div class="proof-inner">
+    <span class="proof-label">Places I've Worked At</span>
+    <div class="proof-divider"></div>
+    <div class="proof-marquee-wrap">
+      <div class="proof-marquee-track" data-speed="35">
+        <img src="assets/logos/google.svg" alt="Google" title="Google" />
+        <img src="assets/logos/amazon.svg" alt="Amazon" title="Amazon" />
+        <img src="assets/logos/tiktok.svg" alt="TikTok" title="TikTok" />
+        <img src="assets/logos/ucla.svg" alt="UCLA" title="UCLA" />
+        <img src="assets/logos/ucsd.svg" alt="UC San Diego" title="UC San Diego" />
+        <img src="assets/logos/doheny.png" alt="Doheny Eye Institute" title="Doheny Eye Institute" style="height:26px;" />
+      </div>
     </div>
   </div>
+</section>
 
 
-  <!-- SERVICES -->
-  <div id="services" class="section-card fade-in" style="transition-delay:0.06s;">
-    <div class="section-title">Services</div>
-    <p class="services-subhead">I've worked with service businesses, agencies, and e-commerce teams and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week. I sit down with your team, understand the actual workflow, and build the solution that fixes it.</p>
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-quote-wrap reveal">
+        <div class="about-quote">"Not demos.<br>Production."</div>
+        <div class="about-quote-sub">Real systems, running inside real businesses. Not prototypes.</div>
+      </div>
+      <div class="about-prose reveal reveal-delay-1">
+        <span class="eyebrow">About</span>
+        <p>Most small businesses don't have an operations team, a data team, or anyone whose job is to figure out what AI can actually do for them. That's the gap I fill.</p>
+        <p>I've worked as a software engineer at Google, Amazon, and TikTok, and published machine learning research at multiple conferences (<a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>). I co-run <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a> and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, and have built the AI systems running inside both.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div style="margin: 24px 0; border-top: 1px solid #f0f0f0;"></div>
 
-    <!-- Website Design & Build -->
-    <div id="svc-website" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Website Design &amp; Build</div>
-        <div class="svc-desc">Most small businesses either have no website or one that actively loses them customers. I build a clean, fast site around your brand and goals, then wire it up to collect and understand visitor data from day one.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">✏️</div>
-            <div class="svc-icon-card-title">Custom design</div>
-            <div class="svc-icon-card-desc">Built around your brand, not a template</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">💬</div>
-            <div class="svc-icon-card-title">AI chat widget</div>
-            <div class="svc-icon-card-desc">Trained on your common questions and services</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🔍</div>
-            <div class="svc-icon-card-title">SEO included</div>
-            <div class="svc-icon-card-desc">So people can actually find you</div>
-          </div>
+<!-- ─── SERVICES ──────────────────────────────────────────────── -->
+<section id="services" class="section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Services</span>
+      <h2 class="section-h2">What I build</h2>
+      <p class="section-sub">I've worked with service businesses, agencies, and e-commerce teams and found the same patterns everywhere: time lost to meetings no one recaps, inboxes nobody owns, and reports built manually every week.</p>
+    </div>
+    <div class="services-grid">
+      <a href="#svc-website" class="svc-card reveal reveal-delay-1">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <div class="svc-card-name">Website Design &amp; Build</div>
+        <div class="svc-card-desc">A clean, fast site around your brand with an AI chat widget and analytics from day one.</div>
+      </a>
+      <a href="#svc-meeting" class="svc-card reveal reveal-delay-2">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div class="svc-card-name">Meeting Intelligence</div>
+        <div class="svc-card-desc">Every meeting captured, summarized, and turned into action items automatically.</div>
+      </a>
+      <a href="#svc-inbox" class="svc-card reveal reveal-delay-3">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
+        <div class="svc-card-name">Inbox &amp; Communication Ops</div>
+        <div class="svc-card-desc">Business email triaged by AI. You see what needs a decision. Everything else is handled.</div>
+      </a>
+      <a href="#svc-reporting" class="svc-card reveal reveal-delay-1">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+        <div class="svc-card-name">Custom Reporting &amp; Workflow Tools</div>
+        <div class="svc-card-desc">Automate reports your team rebuilds manually every week.</div>
+      </a>
+      <a href="#svc-knowledge" class="svc-card reveal reveal-delay-2">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div class="svc-card-name">Shared Knowledge Base &amp; File AI</div>
+        <div class="svc-card-desc">One organized workspace with AI that reads your files and surfaces what matters.</div>
+      </a>
+      <a href="#svc-trends" class="svc-card reveal reveal-delay-3">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div class="svc-card-name">Customer Data &amp; Trend Analysis</div>
+        <div class="svc-card-desc">Who buys, when they drop off, what they keep asking. No analyst needed.</div>
+      </a>
+      <div class="svc-card" style="visibility:hidden; pointer-events:none;"></div>
+      <a href="#svc-support" class="svc-card reveal reveal-delay-2">
+        <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="svc-card-name">Customer Questions &amp; Chat Automation</div>
+        <div class="svc-card-desc">A chat widget trained on your products and policies. Answers 24/7, no staff needed.</div>
+      </a>
+      <div class="svc-card" style="visibility:hidden; pointer-events:none;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Service detail panels -->
+<div id="svc-details">
+
+  <div id="svc-website" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">01 — Website Design &amp; Build</div>
+        <h3 class="svc-panel-name">A site that works for you while you work.</h3>
+        <p class="svc-panel-desc">Most small businesses either have no website or one that actively loses them customers. I build a clean, fast site around your brand and goals, then wire it up to collect and understand visitor data from day one.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">✏️</div><div class="svc-feature-title">Custom design</div><div class="svc-feature-desc">Built around your brand, not a template</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">💬</div><div class="svc-feature-title">AI chat widget</div><div class="svc-feature-desc">Trained on your common questions and services</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🔍</div><div class="svc-feature-title">SEO included</div><div class="svc-feature-desc">So people can actually find you</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -501,61 +1074,41 @@
                 <div class="demo-stat"><div class="demo-stat-val">12</div><div class="demo-stat-label">Inquiry forms</div></div>
                 <div class="demo-stat"><div class="demo-stat-val">#3</div><div class="demo-stat-label">Google rank</div></div>
               </div>
-              <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
+              <div style="margin-top:10px;">
+                <div class="demo-section-label">Key insight</div>
                 <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top traffic source: Google search. Most visited page: Services. AI chat handled 8 visitor questions without you.</div>
               </div>
             </div>
             <div class="demo-caption">A site that works for you while you work.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Meeting Intelligence -->
-    <div id="svc-meeting" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Meeting Intelligence</div>
-        <div class="svc-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📋</div>
-            <div class="svc-icon-card-title">AI recap</div>
-            <div class="svc-icon-card-desc">Decisions, owners, and deadlines captured automatically</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📤</div>
-            <div class="svc-icon-card-title">Action routing</div>
-            <div class="svc-icon-card-desc">Tasks sent to each assignee via email or Slack</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🗂️</div>
-            <div class="svc-icon-card-title">Searchable archive</div>
-            <div class="svc-icon-card-desc">Every summary indexed and findable by topic</div>
-          </div>
+  <div id="svc-meeting" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">02 — Meeting Intelligence</div>
+        <h3 class="svc-panel-name">Every meeting captured. Zero effort from you.</h3>
+        <p class="svc-panel-desc">Every meeting captured, summarized, and turned into action items sent to the right people automatically. No notes, no follow-up emails, no dropped tasks.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">📋</div><div class="svc-feature-title">AI recap</div><div class="svc-feature-desc">Decisions, owners, and deadlines captured automatically</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">📤</div><div class="svc-feature-title">Action routing</div><div class="svc-feature-desc">Tasks sent to each assignee via email or Slack</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🗂️</div><div class="svc-feature-title">Searchable archive</div><div class="svc-feature-desc">Every summary indexed and findable by topic</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">This week's meetings</div>
-              <div class="demo-meeting-row">
-                <div class="demo-meeting-title">Weekly Team Check-in</div>
-                <div class="demo-meeting-sub">Mon, Oct 14 · 2:00 PM · 4 people</div>
-                <div class="demo-meeting-note">No notes · No agenda · No follow-up</div>
-              </div>
-              <div class="demo-meeting-row">
-                <div class="demo-meeting-title">Client Strategy Call</div>
-                <div class="demo-meeting-sub">Tue, Oct 15 · 10:00 AM · 3 people</div>
-                <div class="demo-meeting-note">No notes · No agenda · No follow-up</div>
-              </div>
-              <div class="demo-meeting-row">
-                <div class="demo-meeting-title">Vendor Onboarding</div>
-                <div class="demo-meeting-sub">Wed, Oct 16 · 3:00 PM · 2 people</div>
-                <div class="demo-meeting-note">No notes · No agenda · No follow-up</div>
-              </div>
+              <div class="demo-meeting-row"><div class="demo-meeting-title">Weekly Team Check-in</div><div class="demo-meeting-sub">Mon, Oct 14 · 2:00 PM · 4 people</div><div class="demo-meeting-note">No notes · No agenda · No follow-up</div></div>
+              <div class="demo-meeting-row"><div class="demo-meeting-title">Client Strategy Call</div><div class="demo-meeting-sub">Tue, Oct 15 · 10:00 AM · 3 people</div><div class="demo-meeting-note">No notes · No agenda · No follow-up</div></div>
+              <div class="demo-meeting-row"><div class="demo-meeting-title">Vendor Onboarding</div><div class="demo-meeting-sub">Wed, Oct 16 · 3:00 PM · 2 people</div><div class="demo-meeting-note">No notes · No agenda · No follow-up</div></div>
             </div>
             <div class="demo-caption">Someone has to write the notes. Usually no one does.</div>
           </div>
@@ -568,41 +1121,30 @@
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Sara:</span> follow up with Acme on new timeline</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">Mike:</span> confirm budget approval with finance by Oct 20</span></div>
               <div class="demo-action-item"><span class="demo-action-dot"></span><span><span class="demo-assignee">All:</span> reconvene Oct 22 for status update</span></div>
-              <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Decision</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Push Acme deal to November. Legal review needed before any signatures.</div>
-              </div>
+              <div style="margin-top:10px;"><div class="demo-section-label">Decision</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Push Acme deal to November. Legal review needed before any signatures.</div></div>
             </div>
             <div class="demo-caption">Delivered to attendees within 2 minutes of the call ending.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Inbox & Communication Ops -->
-    <div id="svc-inbox" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Inbox &amp; Communication Ops</div>
-        <div class="svc-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📥</div>
-            <div class="svc-icon-card-title">Unified inbox</div>
-            <div class="svc-icon-card-desc">All team email aggregated into one prioritized feed</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🏷️</div>
-            <div class="svc-icon-card-title">AI triage</div>
-            <div class="svc-icon-card-desc">Urgency tagged, owners assigned, actions surfaced</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🌅</div>
-            <div class="svc-icon-card-title">Morning digest</div>
-            <div class="svc-icon-card-desc">What needs attention today, delivered automatically</div>
-          </div>
+  <div id="svc-inbox" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">03 — Inbox &amp; Communication Ops</div>
+        <h3 class="svc-panel-name">Your inbox, sorted. You see only what needs you.</h3>
+        <p class="svc-panel-desc">Your internal business email (vendors, suppliers, contractors, partners) pulled into one prioritized feed and triaged by AI. You see what needs a decision. Everything else is flagged, sorted, or drafted for you.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">📥</div><div class="svc-feature-title">Unified inbox</div><div class="svc-feature-desc">All team email aggregated into one prioritized feed</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🏷️</div><div class="svc-feature-title">AI triage</div><div class="svc-feature-desc">Urgency tagged, owners assigned, actions surfaced</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🌅</div><div class="svc-feature-title">Morning digest</div><div class="svc-feature-desc">What needs attention today, delivered automatically</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -629,33 +1171,25 @@
             <div class="demo-caption">2 decisions needed. Everything else is sorted.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Custom Reporting -->
-    <div id="svc-reporting" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Custom Reporting &amp; Workflow Tools</div>
-        <div class="svc-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🔗</div>
-            <div class="svc-icon-card-title">Data pull</div>
-            <div class="svc-icon-card-desc">Pulls from your existing sources and spreadsheets</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📄</div>
-            <div class="svc-icon-card-title">Doc generation</div>
-            <div class="svc-icon-card-desc">Proposals and reports built from structured inputs</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">⏰</div>
-            <div class="svc-icon-card-title">Scheduled delivery</div>
-            <div class="svc-icon-card-desc">Weekly, daily, or on-trigger (your call)</div>
-          </div>
+  <div id="svc-reporting" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">04 — Custom Reporting &amp; Workflow Tools</div>
+        <h3 class="svc-panel-name">Reports that write themselves. Done before you arrive.</h3>
+        <p class="svc-panel-desc">Automate the reports and documents your team rebuilds every week. Client summaries, proposals, inventory updates, generated and delivered on a schedule.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">🔗</div><div class="svc-feature-title">Data pull</div><div class="svc-feature-desc">Pulls from your existing sources and spreadsheets</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">📄</div><div class="svc-feature-title">Doc generation</div><div class="svc-feature-desc">Proposals and reports built from structured inputs</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">⏰</div><div class="svc-feature-title">Scheduled delivery</div><div class="svc-feature-desc">Weekly, daily, or on-trigger (your call)</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -679,41 +1213,30 @@
                 <div class="demo-stat"><div class="demo-stat-val">2.1%</div><div class="demo-stat-label">Return rate</div></div>
               </div>
               <div class="demo-section-label" style="margin-top:10px;">Sent to 6 clients automatically</div>
-              <div style="margin-top:10px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Top product: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div>
-              </div>
+              <div style="margin-top:8px;"><div class="demo-section-label">Key insight</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Top product: Blue Hoodie (312 units). Revenue up 8% vs last week. Return rate within normal range.</div></div>
             </div>
             <div class="demo-caption">Done before anyone gets to the office.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Knowledge Base -->
-    <div id="svc-knowledge" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Shared Knowledge Base &amp; File AI</div>
-        <div class="svc-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📁</div>
-            <div class="svc-icon-card-title">Organized workspace</div>
-            <div class="svc-icon-card-desc">Folder structure built around how your team actually works</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🤖</div>
-            <div class="svc-icon-card-title">AI summaries</div>
-            <div class="svc-icon-card-desc">Docs, folders, and contracts surfaced on demand</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🔒</div>
-            <div class="svc-icon-card-title">Access control</div>
-            <div class="svc-icon-card-desc">Everyone sees exactly what they need, nothing more</div>
-          </div>
+  <div id="svc-knowledge" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">05 — Shared Knowledge Base &amp; File AI</div>
+        <h3 class="svc-panel-name">Ask a question. Get the answer in seconds.</h3>
+        <p class="svc-panel-desc">One organized cloud workspace your whole team stays in sync on, with AI that reads your files and surfaces what matters on demand.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">📁</div><div class="svc-feature-title">Organized workspace</div><div class="svc-feature-desc">Folder structure built around how your team actually works</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🤖</div><div class="svc-feature-title">AI summaries</div><div class="svc-feature-desc">Docs, folders, and contracts surfaced on demand</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🔒</div><div class="svc-feature-title">Access control</div><div class="svc-feature-desc">Everyone sees exactly what they need, nothing more</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -731,43 +1254,32 @@
             <div class="demo-panel-header after"><span class="demo-dot after"></span><span class="demo-panel-label after">After</span></div>
             <div class="demo-panel-body">
               <div class="demo-section-label">Ask: "What did we agree with Johnson?"</div>
-              <div style="margin-top:4px; margin-bottom:2px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Answer</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): payment due in 60 days, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div>
-              </div>
-              <div class="demo-section-label" style="margin-top:8px;">Source</div>
+              <div style="margin-top:4px;"><div class="demo-section-label">Answer</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Johnson contract (signed Oct 3): payment due in 60 days, 2-year exclusivity in California, 15% discount on orders over 500 units. Renewal clause in section 4.2.</div></div>
+              <div class="demo-section-label" style="margin-top:10px;">Source</div>
               <div class="demo-file-row"><span class="demo-file-icon">📄</span><span class="demo-row-text">Johnson_contract_FINAL_v3.pdf</span></div>
             </div>
             <div class="demo-caption">Answer in seconds. No folder hunting.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Trend Analysis -->
-    <div id="svc-trends" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Customer Data &amp; Trend Analysis</div>
-        <div class="svc-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📊</div>
-            <div class="svc-icon-card-title">Automated pulls</div>
-            <div class="svc-icon-card-desc">Data collected from forms, customer databases, and order systems</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">📈</div>
-            <div class="svc-icon-card-title">Trend reports</div>
-            <div class="svc-icon-card-desc">Behavior, retention, and demand signals surfaced by AI</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🗓️</div>
-            <div class="svc-icon-card-title">Digest or dashboard</div>
-            <div class="svc-icon-card-desc">Recurring email digest or live dashboard, your preference</div>
-          </div>
+  <div id="svc-trends" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">06 — Customer Data &amp; Trend Analysis</div>
+        <h3 class="svc-panel-name">The data exists. Now it actually tells you something.</h3>
+        <p class="svc-panel-desc">Collect customer data across your channels automatically, then use AI to surface patterns: who buys, when they drop off, what they keep asking. No analyst needed.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">📊</div><div class="svc-feature-title">Automated pulls</div><div class="svc-feature-desc">Data collected from forms, customer databases, and order systems</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">📈</div><div class="svc-feature-title">Trend reports</div><div class="svc-feature-desc">Behavior, retention, and demand signals surfaced by AI</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🗓️</div><div class="svc-feature-title">Digest or dashboard</div><div class="svc-feature-desc">Recurring email digest or live dashboard, your preference</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -789,45 +1301,31 @@
                 <div class="demo-stat"><div class="demo-stat-val">68%</div><div class="demo-stat-label">Return rate <span class="demo-tag up">+12%</span></div></div>
                 <div class="demo-stat"><div class="demo-stat-val">Day 14</div><div class="demo-stat-label">Avg churn point</div></div>
               </div>
-              <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Key insight</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div>
-              </div>
-              <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Recommended action</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Send a re-engagement sequence to customers with no activity in 14 days. Draft ready. Approve to send.</div>
-              </div>
+              <div style="margin-top:10px;"><div class="demo-section-label">Key insight</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Most common drop-off: customers who don't use the product in the first 2 weeks rarely return. Top question this week: shipping timelines.</div></div>
+              <div style="margin-top:10px;"><div class="demo-section-label">Recommended action</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Send a re-engagement sequence to customers with no activity in 14 days. Draft ready. Approve to send.</div></div>
             </div>
             <div class="demo-caption">Delivered every Monday. No spreadsheet required.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Customer Support -->
-    <div id="svc-support" class="svc-row">
-      <div class="svc-left">
-        <div class="svc-name">Customer Questions &amp; Chat Automation</div>
-        <div class="svc-desc">A chat widget on your website trained on your products, policies, and common questions. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</div>
-        <div class="svc-icon-cards">
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🧠</div>
-            <div class="svc-icon-card-title">Trained on your data</div>
-            <div class="svc-icon-card-desc">Products, pricing, policies, and past answers</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">⚡</div>
-            <div class="svc-icon-card-title">Instant answers</div>
-            <div class="svc-icon-card-desc">Common questions answered via website chat, 24/7, no staff needed</div>
-          </div>
-          <div class="svc-icon-card">
-            <div class="svc-icon-card-icon">🔔</div>
-            <div class="svc-icon-card-title">Smart escalation</div>
-            <div class="svc-icon-card-desc">Edge cases routed to you with full conversation attached</div>
-          </div>
+  <div id="svc-support" class="svc-panel">
+    <div class="svc-panel-inner">
+      <div class="svc-panel-left reveal">
+        <div class="svc-panel-number">07 — Customer Questions &amp; Chat Automation</div>
+        <h3 class="svc-panel-name">Customers get answers at midnight. You sleep.</h3>
+        <p class="svc-panel-desc">A chat widget on your website trained on your products, policies, and common questions. It answers shoppers instantly, 24/7, without you lifting a finger. Complex issues get escalated to you with full context already attached.</p>
+        <div class="svc-feature-cards">
+          <div class="svc-feature-card"><div class="svc-feature-icon">🧠</div><div class="svc-feature-title">Trained on your data</div><div class="svc-feature-desc">Products, pricing, policies, and past answers</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">⚡</div><div class="svc-feature-title">Instant answers</div><div class="svc-feature-desc">Common questions answered via website chat, 24/7, no staff needed</div></div>
+          <div class="svc-feature-card"><div class="svc-feature-icon">🔔</div><div class="svc-feature-title">Smart escalation</div><div class="svc-feature-desc">Edge cases routed to you with full conversation attached</div></div>
         </div>
-        <div style="font-size:0.7rem; font-weight:700; color:#555; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">What changes</div>
+        <a href="#contact" class="btn btn-primary svc-cta">Get in touch →</a>
+      </div>
+      <div class="svc-panel-right reveal reveal-delay-2">
+        <div class="demo-label">What changes</div>
         <div class="demo-panels">
           <div class="demo-panel before">
             <div class="demo-panel-header before"><span class="demo-dot before"></span><span class="demo-panel-label before">Before</span></div>
@@ -849,280 +1347,318 @@
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Return window? · 30 days, free returns</span></div>
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">Blue version restock? · Notified when available</span></div>
               <div class="demo-row"><span class="demo-badge badge-auto">Answered</span><span class="demo-row-text">In-store pickup? · Directions sent automatically</span></div>
-              <div style="margin-top:12px;">
-                <div style="font-size:0.65rem; font-weight:700; color:#555; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:4px;">Escalated to you</div>
-                <div style="font-size:0.8rem; color:#222; line-height:1.6;">Order #4821 delayed in transit. Customer frustrated. Full chat history attached.</div>
-              </div>
+              <div style="margin-top:10px;"><div class="demo-section-label">Escalated to you</div><div style="font-size:0.8rem; color:#222; line-height:1.6;">Order #4821 delayed in transit. Customer frustrated. Full chat history attached.</div></div>
             </div>
             <div class="demo-caption">Shoppers get answers instantly. You only see what needs a human.</div>
           </div>
         </div>
-        <a href="#contact" class="svc-cta">Get in touch →</a>
       </div>
-    </div>
-
-    <!-- Custom Service callout -->
-    <div style="margin-top:24px; border-top:1px solid #f0f0f0; padding-top:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
-      <div>
-        <div style="font-size:0.95rem; font-weight:700; color:#191919; margin-bottom:4px;">Don't see what you need?</div>
-        <div style="font-size:0.84rem; color:#555; line-height:1.6;">Every business runs differently. If your workflow doesn't fit the categories above, reach out and describe what you're dealing with. I'll tell you honestly if I can build it.</div>
-      </div>
-      <a href="#contact" class="btn-connect" style="white-space:nowrap; flex-shrink:0;">Talk about a custom service →</a>
     </div>
   </div>
 
-
-  <!-- WORK / PROJECTS -->
-  <div id="work" class="section-card fade-in" style="transition-delay:0.08s;">
-    <div class="section-title">Client Work</div>
-    <p style="font-size:0.84rem; color:#666; line-height:1.65; margin-top:10px;">Two businesses I built the full AI stack for, end to end.</p>
-
-    <div style="margin: 24px 0; border-top: 1px solid #f0f0f0;"></div>
-
-    <div class="project-item">
-      <div class="project-header">
+  <!-- Custom service callout -->
+  <div style="padding: 80px 0; background: var(--surface);">
+    <div class="container">
+      <div class="custom-svc-banner reveal">
         <div>
-          <div class="project-name">WinTone</div>
-          <div class="project-sub"><a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a> · Retail expansion · Los Angeles</div>
+          <h3>Don't see what you need?</h3>
+          <p>Every business runs differently. If your workflow doesn't fit the categories above, reach out and describe what you're dealing with. I'll tell you honestly if I can build it.</p>
+        </div>
+        <a href="#contact" class="btn btn-white" style="flex-shrink:0;">Talk about a custom service →</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /svc-details -->
+
+
+<!-- ─── CLIENT WORK ────────────────────────────────────────────── -->
+<section id="work">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Client Work</span>
+      <h2 class="section-h2">Two businesses. Full AI stacks. End to end.</h2>
+      <p class="section-sub">Not consulting recommendations. Not prototypes. Running systems inside real companies.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card reveal reveal-delay-1">
+        <div class="work-card-header">
+          <div class="work-card-logo"><img src="assets/logos/wintone.png" alt="WinTone" /></div>
+          <div class="work-card-meta">
+            <div class="work-card-name">WinTone</div>
+            <div class="work-card-sub"><a href="https://wintone.co" target="_blank" rel="noopener">wintone.co</a> · Retail expansion · Los Angeles</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <p><strong>Client database.</strong> Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
+          <p><strong>Meeting system.</strong> Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip chip-dark">AI Search</span>
+          <span class="chip chip-dark">Meeting Transcription</span>
+          <span class="chip chip-dark">Email Automation</span>
+          <span class="chip chip-dark">Google Workspace</span>
         </div>
       </div>
-      <div class="project-desc">
-        <p><strong>Client database.</strong> Built a centralized Google Drive that functions as a searchable client database: all contracts, email history, and past interactions indexed and queryable with AI. Set up automatic forwarding from all business email accounts so every client communication is captured and searchable without anyone manually filing anything.</p>
-        <p><strong>Meeting system.</strong> Built a meeting system that transcribes each call, generates a summary and action items, uploads everything to the shared drive, then emails each participant their specific tasks with deadlines and urgency flags automatically.</p>
-      </div>
-      <div class="tags">
-        <span class="tag">AI Search</span>
-        <span class="tag">Meeting Transcription</span>
-        <span class="tag">Email Automation</span>
-        <span class="tag">Google Workspace</span>
-      </div>
-    </div>
 
-    <div class="project-item" style="border-bottom:none; padding-bottom:0;">
-      <div class="project-header">
-        <div>
-          <div class="project-name">Keystone Consulting</div>
-          <div class="project-sub"><a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
+      <div class="work-card reveal reveal-delay-2">
+        <div class="work-card-header">
+          <div class="work-card-logo"><img src="assets/logos/keystone.svg" alt="Keystone Consulting" /></div>
+          <div class="work-card-meta">
+            <div class="work-card-name">Keystone Consulting</div>
+            <div class="work-card-sub"><a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">keystoneconsultingllc.com</a> · College admissions coaching · Global client base</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <p><strong>Meeting scheduler.</strong> Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
+          <p><strong>Retention dashboard.</strong> Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip chip-dark">Scheduling Automation</span>
+          <span class="chip chip-dark">Client Database</span>
+          <span class="chip chip-dark">Retention Dashboard</span>
+          <span class="chip chip-dark">AI Support Bot</span>
         </div>
       </div>
-      <div class="project-desc">
-        <p><strong>Meeting scheduler.</strong> Built an automatic meeting scheduler and transcription system that triggers from message interaction history and populates a client database with each student's stats, target schools, and session notes. No manual data entry after each session.</p>
-        <p><strong>Retention dashboard.</strong> Built a retention dashboard that tracks changes in student engagement and background data, and generates targeted marketing strategy suggestions based on trends. Also built a support bot: simple questions are answered automatically, complex ones (pricing for a specific student, school fit given their stats) generate a draft using existing client data and queue it for advisor approval before sending.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── EXPERIENCE ─────────────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header left reveal">
+      <span class="eyebrow">Background</span>
+      <h2 class="section-h2">Experience</h2>
+    </div>
+    <div class="exp-list reveal">
+      <div class="exp-item">
+        <div class="exp-logo"><img src="assets/logos/google.svg" alt="Google" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Software Engineer Intern</div>
+          <div class="exp-company">Google</div>
+          <div class="exp-meta">2026 · Irvine, CA · On-site</div>
+          <div class="exp-desc">Agentic Ads Personalization</div>
+        </div>
       </div>
-      <div class="tags">
-        <span class="tag">Scheduling Automation</span>
-        <span class="tag">Client Database</span>
-        <span class="tag">Retention Dashboard</span>
-        <span class="tag">AI Support Bot</span>
+      <div class="exp-item">
+        <div class="exp-logo" style="background:#fff; padding:4px;"><img src="assets/logos/amazon.svg" alt="Amazon" style="width:32px;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Software Engineer Intern</div>
+          <div class="exp-company">Amazon Web Services (AWS)</div>
+          <div class="exp-meta">2025 · Seattle, WA · On-site</div>
+          <div class="exp-desc">Core Build Infrastructure</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-logo"><img src="assets/logos/tiktok.svg" alt="TikTok" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Software Engineer Intern</div>
+          <div class="exp-company">TikTok</div>
+          <div class="exp-meta">2024 · Irvine, CA · On-site</div>
+          <div class="exp-desc">Creator Commerce Infrastructure</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-logo" style="padding:2px;"><img src="assets/logos/ucsd.svg" alt="UC San Diego" style="width:36px; height:36px; object-fit:contain;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Machine Learning Researcher Intern</div>
+          <div class="exp-company">UC San Diego · Julian McAuley Lab</div>
+          <div class="exp-meta">2024 – Present · San Diego, CA · Hybrid</div>
+          <div class="exp-desc">Multimodal large language models, visual prompting, personalization and alignment. <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Published research →</a></div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-logo" style="padding:2px;"><img src="assets/logos/doheny.png" alt="Doheny Eye Institute" style="width:36px; height:36px; object-fit:contain;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Machine Learning Researcher Intern</div>
+          <div class="exp-company">Doheny Eye Institute</div>
+          <div class="exp-meta">Nov 2019 – Mar 2024 · 4 yrs 5 mos · Pasadena, CA · Hybrid</div>
+          <div class="exp-desc">Medical image processing using neural networks at the Doheny Image Analysis Laboratory.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-logo" style="padding:2px;"><img src="assets/logos/wintone.png" alt="WinTone" style="width:36px; height:36px; object-fit:contain;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">AI Systems Lead</div>
+          <div class="exp-company">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener">wintone.co</a></div>
+          <div class="exp-meta">2022 – Present · Los Angeles, CA</div>
+          <div class="exp-desc">Retail expansion helping Chinese brands enter the U.S. market. Built internal AI systems including a centralized email aggregation pipeline, automated client reporting, and workflow tooling. Also built the company website.</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-logo" style="padding:2px;"><img src="assets/logos/keystone.svg" alt="Keystone Consulting" style="width:36px; height:36px; object-fit:contain;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Technology Lead</div>
+          <div class="exp-company">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">keystoneconsultingllc.com</a></div>
+          <div class="exp-meta">2021 – Present · Los Angeles, CA</div>
+          <div class="exp-desc">College admissions coaching with a 100% client success rate. Designed and deployed AI-assisted document workflows, meeting summary systems, and client communication automation. Also built the company website.</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-
-  <!-- EXPERIENCE -->
-  <div id="experience" class="section-card fade-in" style="transition-delay:0.1s;">
-    <div class="section-title">Experience</div>
-
-    <div class="exp-item">
-      <div class="exp-logo">
-        <img src="assets/logos/google.svg" alt="Google" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">Software Engineer Intern</div>
-        <div class="exp-company">Google</div>
-        <div class="exp-meta">2026 · Irvine, CA · On-site</div>
-        <div class="exp-desc">Agentic Ads Personalization</div>
-      </div>
+<section id="education">
+  <div class="container">
+    <div class="section-header left reveal" style="margin-bottom:32px;">
+      <span class="eyebrow">Education</span>
+      <h2 class="section-h2">Education</h2>
     </div>
-
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:4px;">
-        <img src="assets/logos/amazon.svg" alt="Amazon" style="width:32px;" />
+    <div class="exp-list reveal">
+      <div class="exp-item">
+        <div class="exp-logo"><img src="assets/logos/ucla.svg" alt="UCLA" /></div>
+        <div class="exp-content">
+          <div class="exp-title">University of California, Los Angeles</div>
+          <div class="exp-company">B.S. Computer Science</div>
+          <div class="exp-meta">2022 – 2026 · Los Angeles, CA</div>
+        </div>
       </div>
-      <div class="exp-content">
-        <div class="exp-title">Software Engineer Intern</div>
-        <div class="exp-company">Amazon Web Services (AWS)</div>
-        <div class="exp-meta">2025 · Seattle, WA · On-site</div>
-        <div class="exp-desc">Core Build Infrastructure</div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-logo">
-        <img src="assets/logos/tiktok.svg" alt="TikTok" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">Software Engineer Intern</div>
-        <div class="exp-company">TikTok</div>
-        <div class="exp-meta">2024 · Irvine, CA · On-site</div>
-        <div class="exp-desc">Creator Commerce Infrastructure</div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:2px;">
-        <img src="assets/logos/ucsd.svg" alt="UC San Diego" style="width:36px; height:36px; object-fit:contain;" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">Machine Learning Researcher Intern</div>
-        <div class="exp-company">UC San Diego · Julian McAuley Lab</div>
-        <div class="exp-meta">2024 – Present · San Diego, CA · Hybrid</div>
-        <div class="exp-desc">Multimodal LLMs, Visual Prompting, Personalization + Alignment. <a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener" style="color:#0a66c2;">Published research →</a></div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:2px;">
-        <img src="assets/logos/doheny.png" alt="Doheny Eye Institute" style="width:36px; height:36px; object-fit:contain;" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">Machine Learning Researcher Intern</div>
-        <div class="exp-company">Doheny Eye Institute</div>
-        <div class="exp-meta">Nov 2019 – Mar 2024 · 4 yrs 5 mos · Pasadena, CA · Hybrid</div>
-        <div class="exp-desc">Medical Image Processing using CNNs @ Doheny Image Analysis Laboratory (DIAL)</div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:2px;">
-        <img src="assets/logos/wintone.png" alt="WinTone" style="width:36px; height:36px; object-fit:contain;" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">AI Systems Lead</div>
-        <div class="exp-company">WinTone · <a href="https://wintone.co" target="_blank" rel="noopener" style="color:#0a66c2;">wintone.co</a></div>
-        <div class="exp-meta">2022 – Present · Los Angeles, CA</div>
-        <div class="exp-desc">Retail expansion helping Chinese brands enter the U.S. market. Built internal AI systems including a centralized email aggregation pipeline, automated client reporting, and workflow tooling. Also built the company website.</div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:2px; display:flex; align-items:center; justify-content:center;">
-        <img src="assets/logos/keystone.svg" alt="Keystone Consulting" style="width:36px; height:36px; object-fit:contain;" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">Technology Lead</div>
-        <div class="exp-company">Keystone Consulting · <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener" style="color:#0a66c2;">keystoneconsultingllc.com</a></div>
-        <div class="exp-meta">2021 – Present · Los Angeles, CA</div>
-        <div class="exp-desc">College admissions coaching with a 100% client success rate. Designed and deployed AI-assisted document workflows, meeting summary systems, and client communication automation. Also built the company website.</div>
+      <div class="exp-item">
+        <div class="exp-logo" style="padding:2px;"><img src="assets/logos/ahs.jpg" alt="Arcadia High School" style="width:36px; height:36px; object-fit:contain;" /></div>
+        <div class="exp-content">
+          <div class="exp-title">Arcadia High School</div>
+          <div class="exp-company">High School Diploma</div>
+          <div class="exp-meta">2018 – 2022 · Arcadia, CA</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
 
-  <!-- EDUCATION -->
-  <div class="section-card fade-in" style="transition-delay:0.1s;">
-    <div class="section-title">Education</div>
-    <div class="exp-item">
-      <div class="exp-logo">
-        <img src="assets/logos/ucla.svg" alt="UCLA" />
-      </div>
-      <div class="exp-content">
-        <div class="exp-title">University of California, Los Angeles</div>
-        <div class="exp-company">B.S. Computer Science</div>
-        <div class="exp-meta">2022 – 2026 · Los Angeles, CA</div>
-      </div>
+<!-- ─── HOBBIES ─────────────────────────────────────────────────── -->
+<section id="hobbies">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Outside the office</span>
+      <h2 class="section-h2">When I'm Not Working</h2>
     </div>
-    <div class="exp-item">
-      <div class="exp-logo" style="background:#fff; padding:2px; display:flex; align-items:center; justify-content:center;">
-        <img src="assets/logos/ahs.jpg" alt="Arcadia High School" style="width:36px; height:36px; object-fit:contain;" />
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal reveal-delay-1">
+        <div class="hobby-card-icon">🏃</div>
+        <div class="hobby-card-label">Running</div>
+        <div class="hobby-card-desc">Chasing a sub-16 5K. Also working toward a half marathon PR. I like progress you can measure in seconds.</div>
       </div>
-      <div class="exp-content">
-        <div class="exp-title">Arcadia High School</div>
-        <div class="exp-company">High School Diploma</div>
-        <div class="exp-meta">2018 – 2022 · Arcadia, CA</div>
+      <div class="hobby-card reveal reveal-delay-2">
+        <div class="hobby-card-icon">🎱</div>
+        <div class="hobby-card-label">Billiards</div>
+        <div class="hobby-card-desc">Working on running out more often. Thinking through shot selection and position planning before I get to the table, not after.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-3">
+        <div class="hobby-card-icon">🏓</div>
+        <div class="hobby-card-label">Table Tennis</div>
+        <div class="hobby-card-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-1">
+        <div class="hobby-card-icon">🏸</div>
+        <div class="hobby-card-label">Pickleball</div>
+        <div class="hobby-card-desc">Playing on an RPM Friction Pro V2, no DUPR rating yet, but competing for the first time this year. Ask me how it goes.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-2">
+        <div class="hobby-card-icon">🎳</div>
+        <div class="hobby-card-label">Bowling</div>
+        <div class="hobby-card-desc">Throwing a 14 lb Raw Hammer. PR is 194 and I'm chasing a 200 game. So close.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-3">
+        <div class="hobby-card-icon">🎲</div>
+        <div class="hobby-card-label">Board Games</div>
+        <div class="hobby-card-desc">Cambio, Hues &amp; Cues, Texas Hold'em, Dou Di Zhu, and Chess (1600+ on chess.com). I like games where thinking three moves ahead actually pays off.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-1">
+        <div class="hobby-card-icon">🍳</div>
+        <div class="hobby-card-label">Cooking</div>
+        <div class="hobby-card-desc">Japanese Zwilling Miyabi knives and Demeyere pots. The right tools make a real difference and I take the equipment as seriously as the recipe.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-2">
+        <div class="hobby-card-icon">🧗</div>
+        <div class="hobby-card-label">Rock Climbing</div>
+        <div class="hobby-card-desc">La Sportiva TC Pro shoes and Friction Labs Gorilla Grip chalk. Friction and footwork over brute strength every time.</div>
+      </div>
+      <div class="hobby-card reveal reveal-delay-3">
+        <div class="hobby-card-icon">🐱</div>
+        <div class="hobby-card-label">Cats</div>
+        <div class="hobby-card-desc">I catsit whenever I can. I travel too much to own one, but the dream is a male calico (yes, I know how rare they are).</div>
       </div>
     </div>
   </div>
+</section>
 
 
-  <!-- OUTSIDE THE OFFICE -->
-  <div class="section-card fade-in" style="transition-delay:0.14s;">
-    <div class="section-title">When I'm Not Working</div>
-
-    <div class="hobby-item">
-      <div class="hobby-label">Running</div>
-      <div class="hobby-desc">Chasing a sub-16 5K. Also working toward a half marathon PR. I like progress you can measure in seconds.</div>
+<!-- ─── CONTACT ─────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-header reveal">
+      <span class="eyebrow eyebrow-light">Free · No obligation</span>
+      <h2 class="section-h2 section-h2-light">Book a free consultation</h2>
+      <p class="section-sub section-sub-light">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it takes to build it.</p>
     </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Billiards</div>
-      <div class="hobby-desc">Working on running out more often. Thinking through shot selection and position planning before I get to the table, not after.</div>
-    </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Table Tennis</div>
-      <div class="hobby-desc">~2000 USATT rated. There's something satisfying about a sport where reading your opponent matters as much as reflexes. I take it seriously.</div>
-    </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Pickleball</div>
-      <div class="hobby-desc">Playing on an RPM Friction Pro V2, no DUPR rating yet, but competing for the first time this year. Ask me how it goes.</div>
-    </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Bowling</div>
-      <div class="hobby-desc">Throwing a 14 lb Raw Hammer. PR is 194 and I'm chasing a 200 game. So close.</div>
-    </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Board Games</div>
-      <div class="hobby-desc">Cambio, Hues &amp; Cues, Texas Hold'em, Dou Di Zhu, and Chess (1600+ on chess.com). I like games where thinking three moves ahead actually pays off.</div>
-    </div>
-    <div class="hobby-item">
-      <div class="hobby-label">Cats</div>
-      <div class="hobby-desc">I catsit whenever I can. I travel too much to own one, but the dream is a male calico (yes, I know how rare they are).</div>
+    <div class="contact-form-wrap reveal reveal-delay-1">
+      <iframe data-tally-src="https://tally.so/embed/Ekbv7X?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1331" frameborder="0" marginheight="0" marginwidth="0" title="Book a Free Consultation"></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
     </div>
   </div>
+</section>
 
 
-  <!-- CTA -->
-  <!-- CONTACT -->
-  <div id="contact" class="section-card fade-in" style="transition-delay:0.16s; padding:28px 24px;">
-    <div class="section-title" style="margin-bottom:4px;">Book a Free Consultation</div>
-    <p style="font-size:0.87rem; color:#666; margin-bottom:20px;">Tell me what's slowing your team down. I'll be honest about what AI can fix and what it takes to build it.</p>
-    <iframe data-tally-src="https://tally.so/embed/Ekbv7X?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="1331" frameborder="0" marginheight="0" marginwidth="0" title="Book a Free Consultation"></iframe>
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-  </div>
-
-
-  <!-- FOOTER -->
-  <footer style="margin-top:28px;">
-    <span>© 2026 Aaron Chang</span>
-    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Aaron Chang</span>
+    <div class="footer-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#work">Client Work</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="mailto:aaron@aaronchang.dev">aaron@aaronchang.dev</a>
-  </footer>
-
-</div><!-- /page-wrap -->
+    <a href="mailto:aaron@aaronchang.dev" class="footer-email">aaron@aaronchang.dev</a>
+  </div>
+</footer>
 
 
 <script>
-  // Nav hamburger
+  // ── Nav: transparent over dark hero, solid on scroll ──────────
+  const navbar = document.getElementById('navbar');
+  function updateNav() {
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ── Mobile menu ────────────────────────────────────────────────
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+  document.querySelectorAll('.mobile-link').forEach(l =>
+    l.addEventListener('click', () => mobileMenu.classList.remove('open'))
+  );
 
-  // Fade-in observer — large rootMargin so sections below fold trigger before scrolling
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  // Immediately show anything already visible on load
+  // ── Scroll reveal ──────────────────────────────────────────────
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Immediately reveal anything already in viewport on load
   setTimeout(() => {
-    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight) el.classList.add('visible');
     });
   }, 0);
 
-  // Logo marquee — speed in px/second, device-refresh-rate independent
-  document.querySelectorAll('.logo-marquee-track').forEach(track => {
-    const pxPerSec = parseFloat(track.dataset.speed) || 60;
+  // ── Logo marquee ───────────────────────────────────────────────
+  document.querySelectorAll('.logo-marquee-track, .proof-marquee-track').forEach(track => {
+    const pxPerSec = parseFloat(track.dataset.speed) || 40;
+    const gap = track.classList.contains('proof-marquee-track') ? 48 : 36;
     Array.from(track.children).forEach(child => track.appendChild(child.cloneNode(true)));
-    let offset = 0;
-    let paused = false;
-    let lastTs = null;
+    let offset = 0, paused = false, lastTs = null;
     track.addEventListener('mouseenter', () => paused = true);
     track.addEventListener('mouseleave', () => paused = false);
     function step(ts) {
@@ -1130,8 +1666,8 @@
         const delta = Math.min((ts - lastTs) / 1000, 0.1);
         offset += pxPerSec * delta;
         const first = track.children[0];
-        if (offset >= first.offsetWidth + 40) {
-          offset -= first.offsetWidth + 40;
+        if (offset >= first.offsetWidth + gap) {
+          offset -= first.offsetWidth + gap;
           track.appendChild(track.removeChild(first));
         }
         track.style.transform = `translateX(-${offset}px)`;
@@ -1140,6 +1676,15 @@
       requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+  });
+
+  // ── Service card click → smooth scroll to panel ────────────────
+  document.querySelectorAll('.svc-card').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(card.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
   });
 </script>
 
