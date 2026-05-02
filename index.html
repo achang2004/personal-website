@@ -403,8 +403,17 @@
     }
     .proof-marquee-track img:hover { opacity: 1; }
     @media (max-width: 640px) {
-      .proof-inner { flex-wrap: wrap; gap: 12px; }
-      .proof-label { font-size: 0.65rem; }
+      #proof { padding: 0; background: var(--surface); border-top: none; }
+      .proof-inner { padding: 0; flex-direction: column; align-items: center; gap: 0; }
+      .proof-label {
+        display: block;
+        background: #fff;
+        width: 100%; text-align: center;
+        padding: 18px 0 14px;
+        border-bottom: 1px solid var(--border);
+      }
+      .proof-divider { display: none; }
+      .proof-marquee-wrap { flex: unset; width: 100%; padding: 18px 0; }
     }
 
     /* Nav logo — hero is now white, no invert needed */
