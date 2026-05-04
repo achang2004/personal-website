@@ -2179,18 +2179,21 @@
   // ── Logo marquee ───────────────────────────────────────────────
   document.querySelectorAll('.logo-marquee-track, .proof-marquee-track').forEach(track => {
     const pxPerSec = parseFloat(track.dataset.speed) || 40;
-    const gap = track.classList.contains('proof-marquee-track') ? 48 : 36;
     Array.from(track.children).forEach(child => track.appendChild(child.cloneNode(true)));
     let offset = 0, paused = false, lastTs = null;
     track.addEventListener('mouseenter', () => paused = true);
     track.addEventListener('mouseleave', () => paused = false);
+    function getGap() {
+      // Read the actual rendered gap from the computed style so CSS overrides are respected
+      return parseFloat(getComputedStyle(track).gap) || 0;
+    }
     function step(ts) {
       if (lastTs !== null && !paused) {
         const delta = Math.min((ts - lastTs) / 1000, 0.1);
         offset += pxPerSec * delta;
         const first = track.children[0];
-        if (offset >= first.offsetWidth + gap) {
-          offset -= first.offsetWidth + gap;
+        if (offset >= first.offsetWidth + getGap()) {
+          offset -= first.offsetWidth + getGap();
           track.appendChild(track.removeChild(first));
         }
         track.style.transform = `translateX(-${offset}px)`;
