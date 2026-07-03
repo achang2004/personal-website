@@ -261,48 +261,16 @@
       animation: heroWordIn 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
     }
 
-    /* ── SVG card entrance ────────────────────────────────────── */
+    /* ── Card entrance / caret blink ──────────────────────────── */
     @keyframes cardRise {
       0%   { opacity: 0; transform: translateY(18px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    @keyframes cardFloat {
-      0%,100% { transform: translateY(0px); }
-      50%      { transform: translateY(-6px); }
-    }
-    .svg-card-1 { animation: cardRise 0.6s 0.8s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4s 1.4s ease-in-out infinite; }
-    .svg-card-2 { animation: cardRise 0.6s 1.0s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.5s 1.6s ease-in-out infinite; }
-    .svg-card-3 { animation: cardRise 0.6s 1.2s cubic-bezier(0.16,1,0.3,1) both, cardFloat 5s 1.8s ease-in-out infinite; }
-    .svg-card-4 { animation: cardRise 0.6s 1.4s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.2s 2.0s ease-in-out infinite; }
-    .svg-card-5 { animation: cardRise 0.6s 1.6s cubic-bezier(0.16,1,0.3,1) both, cardFloat 4.8s 2.2s ease-in-out infinite; }
-
-    /* ── SVG connecting arrows pulse ─────────────────────────── */
-    @keyframes arrowPulse {
-      0%,100% { opacity: 0.15; }
-      50%      { opacity: 0.5; }
-    }
-    .svg-arrow { animation: arrowPulse 2s ease-in-out infinite; }
-
-    /* ── SVG flow dot animation ───────────────────────────────── */
-    @keyframes flowRight { 0%{transform:translateX(0);opacity:0.7} 100%{transform:translateX(260px);opacity:0} }
-    @keyframes flowRight2 { 0%{transform:translateX(0);opacity:0.7} 100%{transform:translateX(70px);opacity:0} }
-    .flow-dot { animation: flowRight 2.2s ease-in infinite; }
-    .flow-dot-2 { animation: flowRight2 1.8s ease-in infinite 1.1s; }
-
-    /* ── SVG bar chart grow ───────────────────────────────────── */
-    @keyframes barGrow {
-      0%   { transform: scaleY(0); transform-origin: bottom; }
-      100% { transform: scaleY(1); transform-origin: bottom; }
-    }
-    .svg-bar { animation: barGrow 0.5s cubic-bezier(0.16,1,0.3,1) both; }
-
-    /* ── SVG typing cursor blink ──────────────────────────────── */
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .svg-cursor { animation: blink 1s step-end infinite; }
 
-    /* Hero CTA (above illustration) */
+    /* Hero CTA (below illustration) */
     .hero-cta-wrap {
-      margin-bottom: 48px;
+      margin-top: 24px;
     }
     .hero-cta-wrap .btn-primary {
       padding: 14px 40px; font-size: var(--fs-base);
@@ -311,23 +279,192 @@
 
     /* Hero illustration area */
     .hero-visual {
-      width: 100%; max-width: 960px; position: relative;
+      width: 100%; max-width: 1080px; position: relative;
     }
     .hero-visual-inner {
-      width: 100%; padding-bottom: 46%;
+      width: 100%;
       position: relative; overflow: hidden;
       border-radius: 16px;
       background: #f7f8f8;
       border: 1px solid var(--border);
     }
-    .hero-visual svg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-    }
 
     @media (max-width: 640px) {
       #hero { padding-top: calc(var(--nav-h) + 28px); min-height: 100svh; }
       .hero-h1 { font-size: 1.9rem; }
-      .hero-visual-inner { padding-bottom: 65%; }
+      .hero-cta-wrap { margin-top: 64px; }
+    }
+
+    /* ─── OPS WALL (living hero) ─────────────────────────────── */
+    .ops-card {
+      position: relative; z-index: 1;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      width: min(560px, calc(100% - 24px));
+      margin: 12px auto 0;
+      font-size: 0.82rem; line-height: 1.5;
+      text-align: left;
+      touch-action: manipulation;
+      animation: cardRise 0.6s var(--d,0.8s) cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .hero-visual-inner .ops-card:last-of-type { margin-bottom: 12px; }
+
+    .ops-head {
+      display: flex; align-items: center; gap: 0.5em;
+      padding: 0.55em 0.9em;
+      background: #f5f9f8; border-bottom: 1px solid var(--border);
+      font-size: 0.92em; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    .ops-head .material-icons-outlined { font-size: 1.25em; color: var(--brand); }
+    .ops-dot {
+      width: 0.5em; height: 0.5em; border-radius: 50%;
+      background: var(--brand); margin-left: auto;
+      animation: opsDotPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes opsDotPulse { 0%,100%{opacity:0.35} 50%{opacity:1} }
+
+    .ops-body { padding: 0.75em 1em 0.9em; display: flex; flex-direction: column; gap: 0.55em; }
+    .ops-strip {
+      background: rgba(43,95,92,0.08); border-left: 2px solid var(--brand);
+      padding: 0.45em 0.7em; border-radius: 0 4px 4px 0;
+      color: var(--text-muted); min-height: 2.4em;
+      margin-top: auto; flex-shrink: 0;
+    }
+    .ops-caret {
+      display: inline-block; width: 1px; height: 1em;
+      background: var(--brand); vertical-align: -0.12em; margin-left: 1px;
+      animation: blink 1s step-end infinite;
+    }
+    .ops-row { display: flex; align-items: center; gap: 0.6em; padding: 0.3em 0; border-bottom: 1px solid #f0f3f2; }
+    .ops-row:last-child { border-bottom: none; }
+    .ops-row .demo-badge { font-size: 0.82em; padding: 0.18em 0.7em; }
+    .ops-row-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); flex: 1; }
+    .ops-row-in { animation: opsRowIn 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes opsRowIn { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .ops-mtg-title { font-weight: 700; color: var(--text); }
+    .ops-transcript { display: flex; flex-direction: column; gap: 0.3em; color: var(--text-faint); max-height: 6em; overflow: hidden; transition: max-height 0.5s ease, opacity 0.5s ease; }
+    .ops-transcript.condensed { max-height: 0; opacity: 0; margin: -0.28em 0; }
+    .ops-transcript span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ops-actions { display: flex; flex-direction: column; gap: 0.35em; }
+    .ops-actions[hidden] { display: none; }
+    .ops-action { display: flex; gap: 0.5em; align-items: flex-start; color: var(--text); }
+    .ops-action b { color: var(--brand); font-weight: 700; }
+    .ops-action-dot { width: 0.45em; height: 0.45em; border-radius: 50%; background: var(--brand); flex-shrink: 0; margin-top: 0.5em; }
+
+    .ops-bars { display: flex; align-items: flex-end; gap: 5%; height: 3.2em; }
+    .ops-bars i { flex: 1; background: var(--brand); opacity: 0.5; border-radius: 2px 2px 0 0; height: var(--h, 40%); transition: height 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .ops-bars i:nth-child(odd) { opacity: 0.28; }
+    .ops-stat { color: var(--text-muted); }
+    .ops-stat b { color: var(--text); font-size: 1.25em; }
+    .ops-tag { background: #e6f2f1; color: #1f4a47; font-size: 0.82em; font-weight: 600; padding: 0.08em 0.5em; border-radius: 3px; }
+
+    .ops-chat-log { display: flex; flex-direction: column; gap: 0.45em; min-height: 4.6em; justify-content: flex-end; }
+    .ops-bubble { max-width: 88%; padding: 0.38em 0.8em; border-radius: 10px; }
+    .ops-bubble.them { background: #f0f2f1; color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; }
+    .ops-bubble.me { background: var(--brand); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
+    .ops-bubble.me .ops-caret { background: #fff; }
+    .ops-bubble.typing i { display: inline-block; width: 0.35em; height: 0.35em; border-radius: 50%; background: currentColor; margin-right: 0.25em; animation: opsDotPulse 1s ease-in-out infinite; }
+    .ops-bubble.typing i:nth-child(2) { animation-delay: 0.2s; }
+    .ops-bubble.typing i:nth-child(3) { animation-delay: 0.4s; margin-right: 0; }
+
+    .ops-prog { height: 0.45em; background: #eef1f0; border-radius: 100px; overflow: hidden; }
+    .ops-prog i { display: block; height: 100%; width: 100%; background: var(--brand); border-radius: 100px; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); }
+    .ops-rep-name { font-weight: 700; color: var(--text); }
+    .ops-rep-stats { display: flex; gap: 1.4em; color: var(--text-muted); }
+    .ops-rep-stats b { color: var(--text); font-size: 1.25em; }
+
+    /* Dot grid backdrop */
+    .hero-visual-inner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(43,95,92,0.18) 1.2px, transparent 1.3px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Stage chrome hidden until the engine starts (no-JS fallback = stacked cards) */
+    .ops-caption, .ops-syschips, .ops-nav { display: none; }
+
+    /* ── Stage mode: one example at a time ── */
+    .ops-live .hero-visual-inner { height: 380px; }
+    .ops-live .ops-card {
+      position: absolute; margin: 0;
+      left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: min(560px, 72%);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+      animation: none;
+    }
+    .ops-live .ops-card .ops-body { overflow: hidden; }
+    .ops-live .ops-card.spotlight { opacity: 1; pointer-events: auto; }
+
+    .ops-live .ops-nav {
+      display: flex; align-items: center; justify-content: center;
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+      cursor: pointer; color: var(--text-muted); padding: 0;
+      transition: box-shadow 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .ops-live .ops-nav:hover { color: var(--brand); border-color: var(--brand); box-shadow: var(--shadow); }
+    .ops-prev { left: 2.5%; }
+    .ops-next { right: 2.5%; }
+    .ops-nav .material-icons-outlined { font-size: 26px; }
+
+    .ops-live .ops-caption {
+      display: flex; align-items: center; gap: 14px;
+      position: absolute; left: 50%; top: 26px; transform: translateX(-50%);
+      z-index: 3; max-width: 92%;
+      background: #fff; border: 1px solid var(--border); border-radius: 100px;
+      box-shadow: var(--shadow-sm); padding: 10px 22px;
+      font-size: var(--fs-base); color: var(--text-muted); white-space: nowrap;
+    }
+    .ops-caption b { color: var(--text); font-weight: 700; }
+    .ops-caption-text { overflow: hidden; text-overflow: ellipsis; }
+    .ops-caption a { color: var(--brand); font-weight: 700; text-decoration: none; flex-shrink: 0; font-size: var(--fs-sm); }
+    .ops-caption a:hover { text-decoration: underline; }
+
+    .ops-live .ops-syschips {
+      display: flex; gap: 16px; z-index: 3;
+      position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+    }
+    .ops-syschip {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--border); background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; padding: 0;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .ops-syschip .material-icons-outlined { font-size: 21px; color: var(--text-faint); transition: color 0.25s; }
+    .ops-syschip:hover { border-color: var(--brand); }
+    .ops-syschip:hover .material-icons-outlined { color: var(--brand); }
+    .ops-syschip.on { background: var(--brand); border-color: var(--brand); }
+    .ops-syschip.on .material-icons-outlined { color: #fff; }
+
+    .ops-note { text-align: center; font-size: var(--fs-xs); color: var(--text-faint); margin-top: 12px; }
+    .ops-note a { color: var(--brand); text-decoration: none; }
+    .ops-note a:hover { text-decoration: underline; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 640px) {
+      .ops-live .hero-visual-inner { height: 340px; }
+      .ops-live .ops-card {
+        width: 90%; font-size: 0.78rem; height: 184px; top: 74px; transform: translateX(-50%);
+        display: flex; flex-direction: column;
+      }
+      .ops-live .ops-card .ops-body { flex: 1 1 auto; }
+      .ops-live .ops-nav { display: none; }
+      .ops-live .ops-syschips { bottom: 24px; gap: 12px; }
+      .ops-syschip { width: 40px; height: 40px; }
+      .ops-syschip .material-icons-outlined { font-size: 19px; }
+      .ops-live .ops-caption { top: 14px; padding: 8px 16px; font-size: var(--fs-sm); gap: 10px; }
+      .ops-caption a { font-size: var(--fs-xs); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ops-card, .ops-dot, .ops-bars i, .ops-prog i, .ops-transcript { animation: none !important; }
     }
     .logo-marquee-wrap {
       overflow: hidden;
@@ -1020,181 +1157,85 @@
       <span class="hero-word" style="animation-delay:0.61s; color:var(--brand)"> already</span>
       <span class="hero-word" style="animation-delay:0.69s; color:var(--brand)"> have.</span>
     </h1>
+    <!-- Ops Wall: living operations preview -->
+    <div class="hero-visual" id="ops-wall">
+      <span class="sr-only">Animated preview of five AI systems at work: email triage, meeting summaries, customer chat, trend analysis, and automated reports.</span>
+      <div class="hero-visual-inner">
+
+        <div class="ops-card" data-key="inbox" data-name="Inbox &amp; Communication Ops" data-href="#svc-inbox" style="--d:0.5s">
+          <div class="ops-head"><span class="material-icons-outlined" aria-hidden="true">inbox</span>Inbox<span class="ops-dot"></span></div>
+          <div class="ops-body" aria-hidden="true">
+            <div class="ops-rows">
+              <div class="ops-row"><span class="demo-badge badge-urgent">Urgent</span><span class="ops-row-text">Invoice #2211 · Pacific Supply Co</span></div>
+              <div class="ops-row"><span class="demo-badge badge-waiting">Review</span><span class="ops-row-text">Lease renewal terms · Landlord</span></div>
+              <div class="ops-row"><span class="demo-badge badge-auto">Handled</span><span class="ops-row-text">Schedule conflict · Staff</span></div>
+            </div>
+            <div class="ops-strip">Two decisions need you today. Everything else is sorted.</div>
+          </div>
+        </div>
+
+        <div class="ops-card" data-key="meeting" data-name="Meeting Intelligence" data-href="#svc-meeting" style="--d:0.65s">
+          <div class="ops-head"><span class="material-icons-outlined" aria-hidden="true">mic</span>Meetings<span class="ops-dot"></span></div>
+          <div class="ops-body" aria-hidden="true">
+            <div class="ops-mtg-title">Client strategy call · 32 min</div>
+            <div class="ops-transcript condensed"><span>...so if legal signs off we can move on the contract...</span></div>
+            <div class="ops-actions">
+              <div class="ops-action"><span class="ops-action-dot"></span><span><b>Jason:</b> send revised contract to legal by Oct 18</span></div>
+              <div class="ops-action"><span class="ops-action-dot"></span><span><b>Sara:</b> follow up with Acme on new timeline</span></div>
+            </div>
+            <div class="ops-strip">Summary sent to 4 attendees, 2 minutes after the call.</div>
+          </div>
+        </div>
+
+        <div class="ops-card" data-key="chat" data-name="Chat Automation" data-href="#svc-support" style="--d:0.8s">
+          <div class="ops-head"><span class="material-icons-outlined" aria-hidden="true">chat</span>Support<span class="ops-dot"></span></div>
+          <div class="ops-body" aria-hidden="true">
+            <div class="ops-chat-log">
+              <div class="ops-bubble them">Do you ship to Canada?</div>
+              <div class="ops-bubble me">Yes, 5 to 7 business days.</div>
+            </div>
+            <div class="ops-strip">4 answered overnight. 1 escalated to you.</div>
+          </div>
+        </div>
+
+        <div class="ops-card" data-key="trends" data-name="Customer Data &amp; Trend Analysis" data-href="#svc-trends" style="--d:0.95s">
+          <div class="ops-head"><span class="material-icons-outlined" aria-hidden="true">trending_up</span>Trends<span class="ops-dot"></span></div>
+          <div class="ops-body" aria-hidden="true">
+            <div class="ops-bars"><i style="--h:30%"></i><i style="--h:48%"></i><i style="--h:38%"></i><i style="--h:64%"></i><i style="--h:52%"></i><i style="--h:78%"></i><i style="--h:60%"></i></div>
+            <div class="ops-stat"><b>68%</b> return rate <span class="ops-tag">+12%</span></div>
+            <div class="ops-strip">Customers who skip week one rarely come back. Draft ready.</div>
+          </div>
+        </div>
+
+        <div class="ops-card" data-key="report" data-name="Custom Reporting" data-href="#svc-reporting" style="--d:1.1s">
+          <div class="ops-head"><span class="material-icons-outlined" aria-hidden="true">bar_chart</span>Reports<span class="ops-dot"></span></div>
+          <div class="ops-body" aria-hidden="true">
+            <div class="ops-prog"><i style="width:100%"></i></div>
+            <div class="ops-rep-name">Weekly client report</div>
+            <div class="ops-rep-stats"><span><b>1,240</b> units</span><span><b>$38.4k</b> revenue</span></div>
+            <div class="ops-strip">Built and sent to 6 clients before 8 AM.</div>
+          </div>
+        </div>
+
+        <button class="ops-nav ops-prev" aria-label="Previous example"><span class="material-icons-outlined" aria-hidden="true">chevron_left</span></button>
+        <button class="ops-nav ops-next" aria-label="Next example"><span class="material-icons-outlined" aria-hidden="true">chevron_right</span></button>
+
+        <div class="ops-caption">
+          <span class="ops-caption-text"><b>Inbox &amp; Communication Ops</b></span>
+          <a href="#svc-inbox">See this service →</a>
+        </div>
+        <div class="ops-syschips">
+          <button class="ops-syschip on" data-key="inbox" aria-label="Show inbox example"><span class="material-icons-outlined" aria-hidden="true">inbox</span></button>
+          <button class="ops-syschip" data-key="meeting" aria-label="Show meetings example"><span class="material-icons-outlined" aria-hidden="true">mic</span></button>
+          <button class="ops-syschip" data-key="chat" aria-label="Show support chat example"><span class="material-icons-outlined" aria-hidden="true">chat</span></button>
+          <button class="ops-syschip" data-key="trends" aria-label="Show trends example"><span class="material-icons-outlined" aria-hidden="true">trending_up</span></button>
+          <button class="ops-syschip" data-key="report" aria-label="Show reports example"><span class="material-icons-outlined" aria-hidden="true">bar_chart</span></button>
+        </div>
+      </div>
+      <div class="ops-note">Scripted preview. The real systems run in <a href="#work">Client Work</a> below.</div>
+    </div>
     <div class="hero-cta-wrap" style="animation-delay:0.85s">
       <a href="#contact" class="btn btn-primary">Book a free consultation</a>
-    </div>
-    <!-- Decorative visual -->
-    <div class="hero-visual">
-      <div class="hero-visual-inner">
-        <svg viewBox="0 0 900 468" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <!-- Grid floor -->
-          <rect width="900" height="468" fill="url(#heroGrad)"/>
-          <defs>
-            <linearGradient id="heroGrad" x1="0" y1="0" x2="0" y2="468" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#f8f8f8"/>
-              <stop offset="100%" stop-color="#f2f2f2"/>
-            </linearGradient>
-            <filter id="cs" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#1a3a38" flood-opacity="0.10"/>
-            </filter>
-            <filter id="cs2" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#1a3a38" flood-opacity="0.08"/>
-            </filter>
-          </defs>
-
-          <!-- Background -->
-          <rect width="900" height="468" fill="url(#heroGrad)"/>
-
-          <!-- Subtle dot grid -->
-          <g opacity="0.18">
-            <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-              <circle cx="16" cy="16" r="1.2" fill="#2B5F5C"/>
-            </pattern>
-            <rect width="900" height="468" fill="url(#dots)"/>
-          </g>
-
-          <!-- ── Card 1: Email triage (left) ── -->
-          <g class="svg-card-1">
-          <rect x="28" y="52" width="230" height="172" rx="12" fill="white" filter="url(#cs)"/>
-          <rect x="28" y="52" width="230" height="36" rx="12" fill="#f5f9f8"/>
-          <rect x="28" y="76" width="230" height="12" fill="#f5f9f8"/>
-          <circle cx="48" cy="70" r="7" fill="#2B5F5C" opacity="0.15"/>
-          <path d="M44 70 l4-3 4 3 v5 h-8z" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="62" y="65" width="72" height="8" rx="3" fill="#e2e8e7"/>
-          <rect x="200" y="63" width="42" height="12" rx="6" fill="#2B5F5C" opacity="0.08"/>
-          <rect x="207" y="67" width="28" height="4" rx="2" fill="#2B5F5C" opacity="0.35"/>
-          <rect x="40" y="100" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.6"/>
-          <rect x="56" y="101" width="88" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
-          <rect x="56" y="111" width="130" height="5" rx="2" fill="#9aadab"/>
-          <rect x="196" y="98" width="46" height="16" rx="8" fill="#e6f2f1"/>
-          <rect x="204" y="103" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
-          <rect x="40" y="128" width="8" height="8" rx="2" fill="#ccc" opacity="0.5"/>
-          <rect x="56" y="129" width="70" height="6" rx="2" fill="#1a1a1a" opacity="0.5"/>
-          <rect x="56" y="139" width="110" height="5" rx="2" fill="#c8d8d7"/>
-          <rect x="196" y="126" width="46" height="16" rx="8" fill="#f0f0f0"/>
-          <rect x="203" y="131" width="32" height="6" rx="2" fill="#aaa" opacity="0.5"/>
-          <rect x="40" y="156" width="8" height="8" rx="2" fill="#2B5F5C" opacity="0.8"/>
-          <rect x="56" y="157" width="96" height="6" rx="2" fill="#1a1a1a" opacity="0.75"/>
-          <rect x="56" y="167" width="118" height="5" rx="2" fill="#9aadab"/>
-          <rect x="196" y="154" width="46" height="16" rx="8" fill="#e6f2f1"/>
-          <rect x="204" y="159" width="30" height="6" rx="2" fill="#2B5F5C" opacity="0.6"/>
-          </g>
-
-          <!-- ── Card 2: Meeting summary (center-top) ── -->
-          <g class="svg-card-2">
-          <rect x="290" y="28" width="320" height="200" rx="12" fill="white" filter="url(#cs)"/>
-          <rect x="290" y="28" width="320" height="36" rx="12" fill="#f5f9f8"/>
-          <rect x="290" y="52" width="320" height="12" fill="#f5f9f8"/>
-          <rect x="308" y="57" width="6" height="12" rx="3" fill="#2B5F5C" opacity="0.5"/>
-          <path d="M305 66 q3 5 9 0" stroke="#2B5F5C" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <rect x="311" y="72" width="1" height="4" fill="#2B5F5C" opacity="0.4"/>
-          <rect x="320" y="61" width="100" height="8" rx="3" fill="#e2e8e7"/>
-          <rect x="560" y="61" width="36" height="8" rx="3" fill="#2B5F5C" opacity="0.12"/>
-          <rect x="306" y="84" width="60" height="5" rx="2" fill="#9aadab"/>
-          <rect x="306" y="96" width="288" height="6" rx="2" fill="#d0dcdb"/>
-          <rect x="306" y="108" width="260" height="6" rx="2" fill="#d0dcdb"/>
-          <rect x="306" y="120" width="200" height="6" rx="2" fill="#d0dcdb"/>
-          <rect x="306" y="140" width="70" height="5" rx="2" fill="#9aadab"/>
-          <circle cx="312" cy="158" r="3" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="320" y="154" width="180" height="6" rx="2" fill="#d0dcdb"/>
-          <circle cx="312" cy="174" r="3" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="320" y="170" width="220" height="6" rx="2" fill="#d0dcdb"/>
-          <circle cx="312" cy="190" r="3" fill="#2B5F5C" opacity="0.3"/>
-          <rect x="320" y="186" width="160" height="6" rx="2" fill="#d0dcdb"/>
-          <!-- blinking cursor -->
-          <rect x="480" y="186" width="2" height="10" rx="1" fill="#2B5F5C" opacity="0.6" class="svg-cursor"/>
-          <rect x="536" y="196" width="58" height="16" rx="8" fill="#2B5F5C" opacity="0.1"/>
-          <rect x="546" y="200" width="38" height="8" rx="3" fill="#2B5F5C" opacity="0.4"/>
-          </g>
-
-          <!-- ── Card 3: Analytics dashboard (right) ── -->
-          <g class="svg-card-3">
-          <rect x="642" y="52" width="232" height="180" rx="12" fill="white" filter="url(#cs)"/>
-          <rect x="642" y="52" width="232" height="36" rx="12" fill="#f5f9f8"/>
-          <rect x="642" y="76" width="232" height="12" fill="#f5f9f8"/>
-          <rect x="658" y="64" width="80" height="8" rx="3" fill="#e2e8e7"/>
-          <!-- Bar chart with grow animation -->
-          <rect x="658" y="168" width="16" height="44" rx="3" fill="#2B5F5C" opacity="0.18" class="svg-bar" style="animation-delay:1.2s"/>
-          <rect x="680" y="148" width="16" height="64" rx="3" fill="#2B5F5C" opacity="0.35" class="svg-bar" style="animation-delay:1.3s"/>
-          <rect x="702" y="136" width="16" height="76" rx="3" fill="#2B5F5C" opacity="0.55" class="svg-bar" style="animation-delay:1.4s"/>
-          <rect x="724" y="110" width="16" height="102" rx="3" fill="#2B5F5C" opacity="0.80" class="svg-bar" style="animation-delay:1.5s"/>
-          <rect x="746" y="125" width="16" height="87" rx="3" fill="#2B5F5C" opacity="0.60" class="svg-bar" style="animation-delay:1.6s"/>
-          <rect x="768" y="140" width="16" height="72" rx="3" fill="#2B5F5C" opacity="0.40" class="svg-bar" style="animation-delay:1.7s"/>
-          <rect x="790" y="155" width="16" height="57" rx="3" fill="#2B5F5C" opacity="0.25" class="svg-bar" style="animation-delay:1.8s"/>
-          <rect x="812" y="145" width="16" height="67" rx="3" fill="#2B5F5C" opacity="0.45" class="svg-bar" style="animation-delay:1.9s"/>
-          <polyline points="666,166 688,148 710,136 732,112 754,128 776,142 798,156 820,146"
-            stroke="#2B5F5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.7"/>
-          <rect x="658" y="96" width="56" height="26" rx="6" fill="#edf6f5"/>
-          <rect x="662" y="101" width="28" height="7" rx="2" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="662" y="111" width="42" height="5" rx="2" fill="#9aadab"/>
-          <rect x="722" y="96" width="56" height="26" rx="6" fill="#edf6f5"/>
-          <rect x="726" y="101" width="20" height="7" rx="2" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="726" y="111" width="38" height="5" rx="2" fill="#9aadab"/>
-          <rect x="786" y="96" width="56" height="26" rx="6" fill="#f5f5f5"/>
-          <rect x="790" y="101" width="32" height="7" rx="2" fill="#555" opacity="0.35"/>
-          <rect x="790" y="111" width="42" height="5" rx="2" fill="#c8d0cf"/>
-          </g>
-
-          <!-- ── Card 4: Chat widget (bottom-left) ── -->
-          <g class="svg-card-4">
-          <rect x="28" y="256" width="230" height="182" rx="12" fill="white" filter="url(#cs2)"/>
-          <rect x="28" y="256" width="230" height="36" rx="12" fill="#2B5F5C"/>
-          <rect x="28" y="280" width="230" height="12" fill="#2B5F5C"/>
-          <circle cx="46" cy="274" r="8" fill="rgba(255,255,255,0.2)"/>
-          <rect x="60" y="269" width="70" height="7" rx="3" fill="rgba(255,255,255,0.6)"/>
-          <rect x="60" y="279" width="44" height="5" rx="2" fill="rgba(255,255,255,0.35)"/>
-          <rect x="40" y="304" width="130" height="28" rx="10" fill="#f0f0f0"/>
-          <rect x="48" y="311" width="114" height="7" rx="3" fill="#2B5F5C" opacity="0.35"/>
-          <rect x="48" y="321" width="80" height="5" rx="2" fill="#2B5F5C" opacity="0.2"/>
-          <rect x="106" y="342" width="106" height="24" rx="10" fill="#2B5F5C"/>
-          <rect x="114" y="349" width="90" height="6" rx="3" fill="rgba(255,255,255,0.75)"/>
-          <rect x="40" y="376" width="110" height="24" rx="10" fill="#f0f0f0"/>
-          <rect x="48" y="383" width="94" height="6" rx="3" fill="#2B5F5C" opacity="0.35"/>
-          <rect x="36" y="412" width="198" height="18" rx="9" fill="#f5f7f6" stroke="#e2e8e7" stroke-width="1"/>
-          <rect x="44" y="417" width="80" height="6" rx="3" fill="#c8d8d7"/>
-          <!-- typing cursor in input -->
-          <rect x="126" y="414" width="2" height="14" rx="1" fill="#2B5F5C" opacity="0.4" class="svg-cursor"/>
-          </g>
-
-          <!-- ── Card 5: Workflow automation (bottom-right) ── -->
-          <g class="svg-card-5">
-          <rect x="642" y="264" width="232" height="168" rx="12" fill="white" filter="url(#cs2)"/>
-          <rect x="642" y="264" width="232" height="36" rx="12" fill="#f5f9f8"/>
-          <rect x="642" y="288" width="232" height="12" fill="#f5f9f8"/>
-          <rect x="658" y="276" width="80" height="8" rx="3" fill="#e2e8e7"/>
-          <circle cx="680" cy="330" r="18" fill="#edf6f5" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.4"/>
-          <rect x="672" y="325" width="16" height="10" rx="2" fill="#2B5F5C" opacity="0.4"/>
-          <line x1="698" y1="330" x2="722" y2="330" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
-          <circle cx="740" cy="330" r="18" fill="#2B5F5C" opacity="0.12" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.5"/>
-          <path d="M733 330 l4-5 4 5 h-2.5 v6 h-3 v-6z" fill="#2B5F5C" opacity="0.55"/>
-          <line x1="758" y1="330" x2="782" y2="330" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
-          <circle cx="800" cy="330" r="18" fill="#edf6f5" stroke="#2B5F5C" stroke-width="1.5" stroke-opacity="0.4"/>
-          <rect x="793" y="325" width="14" height="10" rx="2" fill="#2B5F5C" opacity="0.4"/>
-          <rect x="795" y="328" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
-          <rect x="795" y="331" width="10" height="1.5" rx="1" fill="white" opacity="0.8"/>
-          <rect x="795" y="334" width="6" height="1.5" rx="1" fill="white" opacity="0.8"/>
-          <rect x="660" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
-          <rect x="720" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
-          <rect x="779" y="356" width="40" height="6" rx="2" fill="#c8d8d7"/>
-          <rect x="658" y="376" width="100" height="8" rx="4" fill="#e2e2e2"/>
-          <rect x="658" y="376" width="72" height="8" rx="4" fill="#2B5F5C" opacity="0.5"/>
-          <rect x="658" y="394" width="60" height="6" rx="3" fill="#d0dcdb"/>
-          <rect x="658" y="404" width="130" height="6" rx="3" fill="#d0dcdb"/>
-          </g>
-
-          <!-- ── Connecting arrows ── -->
-          <g class="svg-arrow">
-          <line x1="258" y1="138" x2="290" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
-          <polygon points="286,134 294,138 286,142" fill="#2B5F5C"/>
-          <line x1="610" y1="138" x2="642" y2="138" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
-          <polygon points="638,134 646,138 638,142" fill="#2B5F5C"/>
-          <line x1="143" y1="224" x2="143" y2="256" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
-          <polygon points="139,252 143,260 147,252" fill="#2B5F5C"/>
-          <line x1="758" y1="232" x2="758" y2="264" stroke="#2B5F5C" stroke-width="1.5" stroke-dasharray="5 3"/>
-          <polygon points="754,260 758,268 762,260" fill="#2B5F5C"/>
-          </g>
-        </svg>
-      </div>
     </div>
   </div>
 </section>
@@ -2203,6 +2244,301 @@
     }
     requestAnimationFrame(step);
   });
+
+  // ── Ops Wall: living hero simulation (one example at a time) ──
+  (function () {
+    const wall = document.getElementById('ops-wall');
+    if (!wall) return;
+    const netInfo = navigator.connection;
+    // Reduced motion / save-data: no autoplay or typing, manual navigation only
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || !!(netInfo && netInfo.saveData);
+
+    const cards = {};
+    wall.querySelectorAll('.ops-card').forEach(c => { cards[c.dataset.key] = c; });
+    const order = ['inbox', 'meeting', 'chat', 'trends', 'report'];
+    const stage = wall.querySelector('.hero-visual-inner');
+    const caption = wall.querySelector('.ops-caption');
+    const captionText = caption.querySelector('.ops-caption-text');
+    const captionLink = caption.querySelector('a');
+    const chips = wall.querySelectorAll('.ops-syschip');
+    const mobileMq = window.matchMedia('(max-width: 640px)');
+
+    let gen = 0, queuedKey = null;
+    let offscreen = false, tabHidden = false, hovering = false;
+    let currentKey = 'inbox';
+    const isPaused = () => offscreen || tabHidden || hovering;
+
+    new IntersectionObserver(entries => { offscreen = !entries[0].isIntersecting; }, { threshold: 0.05 }).observe(wall);
+    document.addEventListener('visibilitychange', () => { tabHidden = document.hidden; });
+
+    // Pause-aware, abortable sleep: returns immediately when the run is superseded
+    function sleep(ms, g) {
+      return new Promise(resolve => {
+        let remaining = ms;
+        (function tick() {
+          if (g !== gen) { resolve(); return; }
+          setTimeout(() => {
+            if (g !== gen) { resolve(); return; }
+            if (!isPaused()) remaining -= 120;
+            if (remaining <= 0) resolve(); else tick();
+          }, 120);
+        })();
+      });
+    }
+
+    function typeInto(el, text, cps, g) {
+      el.textContent = '';
+      const node = document.createTextNode('');
+      const caret = document.createElement('span');
+      caret.className = 'ops-caret';
+      el.appendChild(node); el.appendChild(caret);
+      const interval = 1000 / (cps || 32);
+      return new Promise(resolve => {
+        let i = 0, last = performance.now();
+        function frame(now) {
+          if (g !== gen) { node.data = text; caret.remove(); resolve(); return; }
+          if (isPaused()) { last = now; requestAnimationFrame(frame); return; }
+          while (now - last >= interval && i < text.length) { last += interval; i++; }
+          node.data = text.slice(0, i);
+          if (i >= text.length) { caret.remove(); resolve(); }
+          else requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+
+    const POOLS = {
+      inbox: [
+        { text: 'Invoice #2211 · Pacific Supply Co', reason: 'Supplier invoice, due Friday. Filed to payables, reply drafted.', badge: 'Urgent', cls: 'badge-urgent' },
+        { text: 'Lease renewal terms · Landlord', reason: 'Key terms extracted. Summary lands in your morning digest.', badge: 'Review', cls: 'badge-waiting' },
+        { text: 'Revised quote · Contractor', reason: 'Quote is 4 percent above last time. Comparison drafted for you.', badge: 'Review', cls: 'badge-waiting' },
+        { text: 'Schedule conflict · Staff', reason: 'Shift swap found and confirmed with both employees.', badge: 'Handled', cls: 'badge-auto' },
+        { text: 'Wholesale pricing question · New lead', reason: 'Sales inquiry, high value. Routed straight to you.', badge: 'Urgent', cls: 'badge-urgent' },
+        { text: 'FREE SEO audit!!! · Unknown sender', reason: 'Spam. Archived, sender blocked.', badge: 'Handled', cls: 'badge-auto' }
+      ],
+      meeting: [
+        { title: 'Client strategy call · 32 min',
+          lines: ['...so if legal signs off we can move on the Acme contract...', '...Sara can own the timeline conversation with them...', '...we need the budget confirmed before the 20th...'],
+          items: [{ who: 'Jason', what: 'send revised contract to legal by Oct 18' }, { who: 'Sara', what: 'follow up with Acme on new timeline' }],
+          reason: 'Summary sent to 4 attendees, 2 minutes after the call.' },
+        { title: 'Weekly team check-in · 24 min',
+          lines: ['...inventory counts are still off at the second location...', '...Mike said finance wants one more week on budget...', '...do we push the launch or split the order?...'],
+          items: [{ who: 'Mike', what: 'confirm budget approval with finance by Oct 20' }, { who: 'Priya', what: 'recount inventory at location two' }],
+          reason: 'Action items routed by email. Decision logged: launch holds.' },
+        { title: 'Student session recap · 45 min',
+          lines: ['...essay draft two is much stronger on the opening...', '...the target list still needs a second safety school...', '...parents asked about the November deadline...'],
+          items: [{ who: 'Advisor', what: 'send essay feedback to the family by Friday' }, { who: 'Aaron', what: 'add UCSD to the target school list' }],
+          reason: 'Session notes filed to the student database automatically.' }
+      ],
+      chat: [
+        { q: 'Do you ship to Canada?', a: 'Yes, 5 to 7 business days.', reason: 'Answered at 11:42 PM. No staff needed.' },
+        { q: 'What is your return window?', a: '30 days, free returns.', reason: 'Answered instantly from your policy docs.' },
+        { q: 'Is the blue version back in stock?', a: 'Next week. Want a notify link?', reason: 'Restock date pulled from inventory. Lead captured.' },
+        { q: 'My order #4821 still has not arrived', a: 'So sorry! Getting a human on this now.', reason: 'Frustrated customer. Escalated to you with full history.' },
+        { q: 'Can I pick up in store?', a: 'Yes, same day. Directions sent.', reason: 'Answered at 6:15 AM, before opening.' }
+      ],
+      trends: [
+        { bars: [30, 48, 38, 64, 52, 78, 60], statVal: '68%', statLabel: 'return rate', tag: '+12%', reason: 'Customers who skip week one rarely come back. Draft ready.' },
+        { bars: [55, 40, 62, 45, 70, 52, 66], statVal: 'Day 14', statLabel: 'average churn point', tag: 'watch', reason: 'Top question this week: shipping timelines. FAQ updated.' },
+        { bars: [42, 58, 35, 72, 48, 64, 80], statVal: 'Tue', statLabel: 'busiest day', tag: '+9%', reason: 'Tuesdays keep spiking. Staffing suggestion drafted.' }
+      ],
+      report: [
+        { name: 'Weekly client report', stats: [{ v: '1,240', l: 'units' }, { v: '$38.4k', l: 'revenue' }], reason: 'Built and sent to 6 clients before 8 AM.' },
+        { name: 'Inventory update', stats: [{ v: '38', l: 'SKUs low' }, { v: '5', l: 'reorders drafted' }], reason: 'Reorder drafts queued for your approval.' },
+        { name: 'Monday digest', stats: [{ v: '52', l: 'handled' }, { v: '3', l: 'need you' }], reason: 'In your inbox at 8:00 AM, every Monday.' }
+      ]
+    };
+
+    async function evInbox(v, g) {
+      const card = cards.inbox;
+      const rows = card.querySelector('.ops-rows');
+      const strip = card.querySelector('.ops-strip');
+      while (rows.children.length >= 3) rows.lastElementChild.remove();
+      const row = document.createElement('div');
+      row.className = 'ops-row ops-row-in';
+      row.innerHTML = '<span class="demo-badge badge-waiting">New</span><span class="ops-row-text"></span>';
+      row.querySelector('.ops-row-text').textContent = v.text;
+      rows.prepend(row);
+      await sleep(600, g);
+      await typeInto(strip, v.reason, 34, g);
+      const badge = row.querySelector('.demo-badge');
+      badge.className = 'demo-badge ' + v.cls;
+      badge.textContent = v.badge;
+    }
+
+    async function evMeeting(v, g) {
+      const card = cards.meeting;
+      const transcript = card.querySelector('.ops-transcript');
+      const actions = card.querySelector('.ops-actions');
+      const strip = card.querySelector('.ops-strip');
+      card.querySelector('.ops-mtg-title').textContent = v.title;
+      actions.hidden = true;
+      strip.textContent = '';
+      transcript.innerHTML = '';
+      v.lines.forEach(l => { const s = document.createElement('span'); s.textContent = l; transcript.appendChild(s); });
+      transcript.classList.remove('condensed');
+      await sleep(1900, g);
+      transcript.classList.add('condensed');
+      await sleep(450, g);
+      actions.innerHTML = '';
+      v.items.forEach((it, i) => {
+        const a = document.createElement('div');
+        a.className = 'ops-action ops-row-in';
+        a.style.animationDelay = (i * 0.25) + 's';
+        const dot = document.createElement('span'); dot.className = 'ops-action-dot';
+        const body = document.createElement('span');
+        const who = document.createElement('b'); who.textContent = it.who + ':';
+        body.appendChild(who);
+        body.appendChild(document.createTextNode(' ' + it.what));
+        a.appendChild(dot); a.appendChild(body);
+        actions.appendChild(a);
+      });
+      actions.hidden = false;
+      await sleep(800, g);
+      await typeInto(strip, v.reason, 34, g);
+    }
+
+    async function evChat(v, g) {
+      const card = cards.chat;
+      const log = card.querySelector('.ops-chat-log');
+      const strip = card.querySelector('.ops-strip');
+      log.innerHTML = '';
+      strip.textContent = '';
+      const q = document.createElement('div'); q.className = 'ops-bubble them';
+      log.appendChild(q);
+      await typeInto(q, v.q, 26, g);
+      const t = document.createElement('div'); t.className = 'ops-bubble me typing';
+      t.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(t);
+      await sleep(900, g);
+      t.classList.remove('typing');
+      t.classList.add('ops-row-in');
+      t.textContent = v.a;
+      await sleep(500, g);
+      await typeInto(strip, v.reason, 34, g);
+    }
+
+    async function evTrends(v, g) {
+      const card = cards.trends;
+      card.querySelectorAll('.ops-bars i').forEach((b, i) => { b.style.setProperty('--h', v.bars[i] + '%'); });
+      const stat = card.querySelector('.ops-stat');
+      stat.innerHTML = '';
+      const bv = document.createElement('b'); bv.textContent = v.statVal;
+      const tag = document.createElement('span'); tag.className = 'ops-tag'; tag.textContent = v.tag;
+      stat.appendChild(bv);
+      stat.appendChild(document.createTextNode(' ' + v.statLabel + ' '));
+      stat.appendChild(tag);
+      await sleep(850, g);
+      await typeInto(card.querySelector('.ops-strip'), v.reason, 34, g);
+    }
+
+    async function evReport(v, g) {
+      const card = cards.report;
+      const prog = card.querySelector('.ops-prog i');
+      const strip = card.querySelector('.ops-strip');
+      prog.style.transition = 'none';
+      prog.style.width = '0%';
+      void prog.offsetWidth;
+      prog.style.transition = '';
+      card.querySelector('.ops-rep-name').textContent = v.name;
+      const stats = card.querySelector('.ops-rep-stats');
+      stats.innerHTML = '';
+      v.stats.forEach(s => {
+        const span = document.createElement('span');
+        const b = document.createElement('b'); b.textContent = s.v;
+        span.appendChild(b);
+        span.appendChild(document.createTextNode(' ' + s.l));
+        stats.appendChild(span);
+      });
+      strip.textContent = '';
+      await sleep(200, g);
+      prog.style.width = '100%';
+      await sleep(1300, g);
+      await typeInto(strip, v.reason, 34, g);
+    }
+
+    const RUNNERS = { inbox: evInbox, meeting: evMeeting, chat: evChat, trends: evTrends, report: evReport };
+    const poolIdx = { inbox: 0, meeting: 0, chat: 0, trends: 0, report: 0 };
+    function nextVariant(key) {
+      const pool = POOLS[key];
+      const v = pool[poolIdx[key] % pool.length];
+      poolIdx[key]++;
+      return v;
+    }
+
+    function setCaption(card) {
+      captionText.innerHTML = '';
+      const b = document.createElement('b');
+      b.textContent = card.dataset.name;
+      captionText.appendChild(b);
+      captionLink.href = mobileMq.matches ? '#services' : card.dataset.href;
+    }
+
+    function applySpotlight(key) {
+      currentKey = key;
+      order.forEach(k => cards[k].classList.toggle('spotlight', k === key));
+      chips.forEach(ch => ch.classList.toggle('on', ch.dataset.key === key));
+      setCaption(cards[key]);
+    }
+
+    function requestKey(key) {
+      if (reduced) { applySpotlight(key); return; }
+      queuedKey = key;
+      gen++; // fast-forward whatever is playing
+    }
+    function step(dir) {
+      const i = order.indexOf(currentKey);
+      requestKey(order[(i + dir + order.length) % order.length]);
+    }
+
+    wall.querySelector('.ops-prev').addEventListener('click', () => step(-1));
+    wall.querySelector('.ops-next').addEventListener('click', () => step(1));
+    chips.forEach(ch => ch.addEventListener('click', () => requestKey(ch.dataset.key)));
+
+    // Swipe navigation (mobile)
+    let touchX = null, touchY = null;
+    stage.addEventListener('touchstart', e => {
+      touchX = e.touches[0].clientX; touchY = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      const dy = e.changedTouches[0].clientY - touchY;
+      touchX = touchY = null;
+      if (Math.abs(dx) > 44 && Math.abs(dx) > 1.5 * Math.abs(dy)) step(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    // Hovering the example pauses the loop (desktop)
+    order.forEach(k => {
+      cards[k].addEventListener('mouseenter', () => { if (!mobileMq.matches) hovering = true; });
+      cards[k].addEventListener('mouseleave', () => { hovering = false; });
+    });
+
+    const onMqChange = () => setCaption(cards[currentKey]);
+    if (mobileMq.addEventListener) mobileMq.addEventListener('change', onMqChange);
+    else mobileMq.addListener(onMqChange);
+
+    wall.classList.add('ops-live');
+    applySpotlight('inbox');
+    if (reduced) return;
+
+    async function playCard(key) {
+      const g = ++gen;
+      applySpotlight(key);
+      await sleep(420, g);
+      await RUNNERS[key](nextVariant(key), g);
+      await sleep(2800, g);
+    }
+    (async function loop() {
+      await sleep(1400, gen);
+      let key = 'inbox';
+      for (;;) {
+        if (queuedKey) { key = queuedKey; queuedKey = null; }
+        await playCard(key);
+        if (!queuedKey) key = order[(order.indexOf(key) + 1) % order.length];
+      }
+    })();
+  })();
 
 </script>
 
