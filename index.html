@@ -2263,10 +2263,10 @@
     const chips = wall.querySelectorAll('.ops-syschip');
     const mobileMq = window.matchMedia('(max-width: 640px)');
 
-    let gen = 0, queuedKey = null;
-    let offscreen = false, tabHidden = false, hovering = false;
+    let gen = 0;
+    let offscreen = false, tabHidden = false;
     let currentKey = 'inbox';
-    const isPaused = () => offscreen || tabHidden || hovering;
+    const isPaused = () => offscreen || tabHidden;
 
     new IntersectionObserver(entries => { offscreen = !entries[0].isIntersecting; }, { threshold: 0.05 }).observe(wall);
     document.addEventListener('visibilitychange', () => { tabHidden = document.hidden; });
@@ -2466,6 +2466,43 @@
       return v;
     }
 
+    const RESETTERS = {
+      inbox(card) {
+        card.querySelector('.ops-rows').innerHTML = '';
+        card.querySelector('.ops-strip').textContent = '';
+      },
+      meeting(card) {
+        card.querySelector('.ops-mtg-title').textContent = '';
+        const transcript = card.querySelector('.ops-transcript');
+        transcript.innerHTML = '';
+        transcript.classList.add('condensed');
+        const actions = card.querySelector('.ops-actions');
+        actions.innerHTML = '';
+        actions.hidden = true;
+        card.querySelector('.ops-strip').textContent = '';
+      },
+      chat(card) {
+        card.querySelector('.ops-chat-log').innerHTML = '';
+        card.querySelector('.ops-strip').textContent = '';
+      },
+      trends(card) {
+        card.querySelectorAll('.ops-bars i').forEach(b => b.style.setProperty('--h', '0%'));
+        card.querySelector('.ops-stat').innerHTML = '';
+        card.querySelector('.ops-strip').textContent = '';
+      },
+      report(card) {
+        const prog = card.querySelector('.ops-prog i');
+        prog.style.transition = 'none';
+        prog.style.width = '0%';
+        void prog.offsetWidth;
+        prog.style.transition = '';
+        card.querySelector('.ops-rep-name').textContent = '';
+        card.querySelector('.ops-rep-stats').innerHTML = '';
+        card.querySelector('.ops-strip').textContent = '';
+      }
+    };
+    function resetCard(key) { RESETTERS[key](cards[key]); }
+
     function setCaption(card) {
       captionText.innerHTML = '';
       const b = document.createElement('b');
@@ -2481,10 +2518,16 @@
       setCaption(cards[key]);
     }
 
+    async function activate(key) {
+      const g = ++gen; // supersede whatever was mid-animation
+      if (!reduced) resetCard(key);
+      applySpotlight(key);
+      if (reduced) return;
+      await sleep(420, g);
+      await RUNNERS[key](nextVariant(key), g);
+    }
     function requestKey(key) {
-      if (reduced) { applySpotlight(key); return; }
-      queuedKey = key;
-      gen++; // fast-forward whatever is playing
+      activate(key);
     }
     function step(dir) {
       const i = order.indexOf(currentKey);
@@ -2508,36 +2551,12 @@
       if (Math.abs(dx) > 44 && Math.abs(dx) > 1.5 * Math.abs(dy)) step(dx < 0 ? 1 : -1);
     }, { passive: true });
 
-    // Hovering the example pauses the loop (desktop)
-    order.forEach(k => {
-      cards[k].addEventListener('mouseenter', () => { if (!mobileMq.matches) hovering = true; });
-      cards[k].addEventListener('mouseleave', () => { hovering = false; });
-    });
-
     const onMqChange = () => setCaption(cards[currentKey]);
     if (mobileMq.addEventListener) mobileMq.addEventListener('change', onMqChange);
     else mobileMq.addListener(onMqChange);
 
     wall.classList.add('ops-live');
-    applySpotlight('inbox');
-    if (reduced) return;
-
-    async function playCard(key) {
-      const g = ++gen;
-      applySpotlight(key);
-      await sleep(420, g);
-      await RUNNERS[key](nextVariant(key), g);
-      await sleep(2800, g);
-    }
-    (async function loop() {
-      await sleep(1400, gen);
-      let key = 'inbox';
-      for (;;) {
-        if (queuedKey) { key = queuedKey; queuedKey = null; }
-        await playCard(key);
-        if (!queuedKey) key = order[(order.indexOf(key) + 1) % order.length];
-      }
-    })();
+    activate('inbox'); // plays once on load; further changes are user-driven only
   })();
 
 </script>
