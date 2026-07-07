@@ -2518,6 +2518,8 @@
       setCaption(cards[key]);
     }
 
+    let autoAdvance = true;
+
     async function activate(key) {
       const g = ++gen; // supersede whatever was mid-animation
       if (!reduced) resetCard(key);
@@ -2525,8 +2527,14 @@
       if (reduced) return;
       await sleep(420, g);
       await RUNNERS[key](nextVariant(key), g);
+      if (g !== gen || !autoAdvance) return;
+      await sleep(3000, g);
+      if (g !== gen || !autoAdvance) return;
+      const i = order.indexOf(key);
+      activate(order[(i + 1) % order.length]);
     }
     function requestKey(key) {
+      autoAdvance = false; // manual navigation permanently stops auto-advance
       activate(key);
     }
     function step(dir) {
@@ -2556,7 +2564,7 @@
     else mobileMq.addListener(onMqChange);
 
     wall.classList.add('ops-live');
-    activate('inbox'); // plays once on load; further changes are user-driven only
+    activate('inbox'); // auto-advances every 3s after each animation, until the user navigates manually
   })();
 
 </script>
