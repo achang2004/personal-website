@@ -7,7 +7,7 @@
   <meta name="description" content="I build AI workflows that save small businesses 20+ hours a week. UCLA CS grad, software engineer at Google, ex-Amazon, TikTok." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
   <style>
     /* ─── RESET & TOKENS ─────────────────────────────────────── */
@@ -50,7 +50,7 @@
     }
 
     body {
-      font-family: 'Nunito Sans', -apple-system, sans-serif;
+      font-family: 'Google Sans', -apple-system, sans-serif;
       font-size: var(--fs-base);
       color: var(--text);
       background: var(--white);
@@ -58,7 +58,7 @@
       line-height: 1.6;
     }
 
-    h1, h2, h3, h4, h5, h6, .eyebrow, .section-label, .nav-link, .nav-logo, .btn { font-family: 'Nunito Sans', -apple-system, sans-serif; }
+    h1, h2, h3, h4, h5, h6, .eyebrow, .section-label, .nav-link, .nav-logo, .btn { font-family: 'Google Sans', -apple-system, sans-serif; }
 
     /* ─── UTILITIES ──────────────────────────────────────────── */
     .container { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
@@ -285,7 +285,7 @@
       width: 100%;
       position: relative; overflow: hidden;
       border-radius: 16px;
-      background: #f7f8f8;
+      background: #fff;
       border: 1px solid var(--border);
     }
 
@@ -299,7 +299,7 @@
     .ops-card {
       position: relative; z-index: 1;
       background: #fff; border: 1px solid var(--border);
-      border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      border-radius: var(--radius);
       overflow: hidden;
       width: min(560px, calc(100% - 24px));
       margin: 12px auto 0;
@@ -313,7 +313,7 @@
     .ops-head {
       display: flex; align-items: center; gap: 0.5em;
       padding: 0.55em 0.9em;
-      background: #f5f9f8; border-bottom: 1px solid var(--border);
+      background: #fff; border-bottom: 1px solid var(--border);
       font-size: 0.92em; font-weight: 700; letter-spacing: 0.05em;
       text-transform: uppercase; color: var(--text-muted);
     }
@@ -327,8 +327,8 @@
 
     .ops-body { padding: 0.75em 1em 0.9em; display: flex; flex-direction: column; gap: 0.55em; }
     .ops-strip {
-      background: rgba(43,95,92,0.08); border-left: 2px solid var(--brand);
-      padding: 0.45em 0.7em; border-radius: 0 4px 4px 0;
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 0.6em 0 0;
       color: var(--text-muted); min-height: 2.4em;
       margin-top: auto; flex-shrink: 0;
     }
@@ -363,7 +363,7 @@
 
     .ops-chat-log { display: flex; flex-direction: column; gap: 0.45em; min-height: 4.6em; justify-content: flex-end; }
     .ops-bubble { max-width: 88%; padding: 0.38em 0.8em; border-radius: 10px; }
-    .ops-bubble.them { background: #f0f2f1; color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; }
+    .ops-bubble.them { background: #fff; border: 1px solid var(--border); color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; }
     .ops-bubble.me { background: var(--brand); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
     .ops-bubble.me .ops-caret { background: #fff; }
     .ops-bubble.typing i { display: inline-block; width: 0.35em; height: 0.35em; border-radius: 50%; background: currentColor; margin-right: 0.25em; animation: opsDotPulse 1s ease-in-out infinite; }
@@ -375,14 +375,6 @@
     .ops-rep-name { font-weight: 700; color: var(--text); }
     .ops-rep-stats { display: flex; gap: 1.4em; color: var(--text-muted); }
     .ops-rep-stats b { color: var(--text); font-size: 1.25em; }
-
-    /* Dot grid backdrop */
-    .hero-visual-inner::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(rgba(43,95,92,0.18) 1.2px, transparent 1.3px);
-      background-size: 32px 32px;
-      pointer-events: none;
-    }
 
     /* Stage chrome hidden until the engine starts (no-JS fallback = stacked cards) */
     .ops-caption, .ops-syschips, .ops-nav { display: none; }
@@ -404,11 +396,11 @@
       display: flex; align-items: center; justify-content: center;
       position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
       width: 46px; height: 46px; border-radius: 50%;
-      background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+      background: #fff; border: 1px solid var(--border);
       cursor: pointer; color: var(--text-muted); padding: 0;
-      transition: box-shadow 0.15s, color 0.15s, border-color 0.15s;
+      transition: color 0.15s, border-color 0.15s;
     }
-    .ops-live .ops-nav:hover { color: var(--brand); border-color: var(--brand); box-shadow: var(--shadow); }
+    .ops-live .ops-nav:hover { color: var(--brand); border-color: var(--brand); }
     .ops-prev { left: 2.5%; }
     .ops-next { right: 2.5%; }
     .ops-nav .material-icons-outlined { font-size: 26px; }
@@ -418,7 +410,7 @@
       position: absolute; left: 50%; top: 26px; transform: translateX(-50%);
       z-index: 3; max-width: 92%;
       background: #fff; border: 1px solid var(--border); border-radius: 100px;
-      box-shadow: var(--shadow-sm); padding: 10px 22px;
+      padding: 10px 22px;
       font-size: var(--fs-base); color: var(--text-muted); white-space: nowrap;
     }
     .ops-caption b { color: var(--text); font-weight: 700; }
@@ -606,8 +598,8 @@
     .hero-demo-stat-val { font-size: 1.1rem; font-weight: 700; color: #fff; }
     .hero-demo-stat-label { font-size: 0.62rem; color: rgba(255,255,255,0.4); margin-top: 3px; }
     .hero-demo-insight {
-      background: rgba(43,95,92,0.15); border-left: 2px solid var(--brand);
-      padding: 10px 12px; border-radius: 0 4px 4px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 10px 0 0;
       font-size: var(--fs-xs); color: rgba(255,255,255,0.65); line-height: 1.55;
       margin-top: 10px;
     }
@@ -646,15 +638,13 @@
       position: sticky; top: calc(var(--nav-h) + 32px);
     }
     .about-quote {
-      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
-      font-weight: 800; color: var(--brand);
-      line-height: 1.2; letter-spacing: -0.02em;
-      border-left: 4px solid var(--brand);
-      padding-left: 24px;
+      font-size: clamp(2.2rem, 4vw, 3.25rem);
+      font-weight: 700; color: var(--text);
+      line-height: 1.02; letter-spacing: -0.035em;
     }
     .about-quote-sub {
-      margin-top: 16px; padding-left: 24px;
-      font-size: var(--fs-sm); color: var(--text-faint); line-height: 1.65;
+      margin-top: 20px; max-width: 300px;
+      font-size: var(--fs-base); color: var(--text-muted); line-height: 1.55;
     }
     .about-prose p { font-size: var(--fs-base); color: var(--text-muted); line-height: 1.8; }
     .about-prose p + p { margin-top: 18px; }
@@ -672,6 +662,59 @@
     @media (max-width: 900px) {
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-quote-wrap { display: none; }
+    }
+
+    /* ─── TIME AUDIT ─────────────────────────────────────────── */
+    #audit { padding: 96px 0; border-top: 1px solid var(--border); }
+    .audit-grid {
+      display: grid; grid-template-columns: 1.15fr 1fr;
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .audit-inputs { padding: 32px; border-right: 1px solid var(--border); }
+    .audit-row { display: grid; grid-template-columns: 1fr 64px; gap: 6px 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .audit-row:first-child { padding-top: 0; }
+    .audit-row-label { display: flex; align-items: center; gap: 10px; font-size: var(--fs-sm); font-weight: 500; color: var(--text); }
+    .audit-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .audit-row-val { text-align: right; font-size: var(--fs-sm); font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+    .audit-row input[type=range] { grid-column: 1 / -1; }
+    .audit-team { display: flex; align-items: center; justify-content: space-between; padding-top: 18px; font-size: var(--fs-sm); font-weight: 500; color: var(--text); }
+    .audit-stepper { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 100px; }
+    .audit-stepper button {
+      width: 34px; height: 34px; border: none; background: none; cursor: pointer;
+      color: var(--text-muted); font: inherit; font-size: 1.1rem;
+    }
+    .audit-stepper button:hover { color: var(--brand); }
+    .audit-stepper span { min-width: 28px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    .audit-range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 100px; background: var(--border); outline: none; cursor: pointer; }
+    .audit-range::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid var(--brand); }
+    .audit-range::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--brand); }
+    .audit-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px var(--brand-dim); }
+
+    .audit-output { padding: 32px; display: flex; flex-direction: column; gap: 24px; }
+    .audit-big { font-size: clamp(2.6rem, 5vw, 3.5rem); font-weight: 700; color: var(--text); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .audit-big small { font-size: var(--fs-base); font-weight: 500; color: var(--text-muted); letter-spacing: 0; margin-left: 6px; }
+    .audit-big-sub { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 8px; }
+    .audit-week-label { display: flex; justify-content: space-between; font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 8px; }
+    .audit-week { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .audit-day { display: flex; flex-direction: column; gap: 6px; }
+    .audit-day-bar { height: 120px; border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column-reverse; overflow: hidden; }
+    .audit-day-bar i { display: block; transition: height 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .audit-day-name { font-size: var(--fs-xs); color: var(--text-faint); text-align: center; }
+    .audit-pick { border-top: 1px solid var(--border); padding-top: 20px; margin-top: auto; }
+    .audit-pick-label { font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+    .audit-pick-name { font-size: var(--fs-lg); font-weight: 700; color: var(--text); }
+    .audit-pick a { display: inline-block; margin-top: 6px; font-size: var(--fs-sm); font-weight: 600; color: var(--brand); text-decoration: none; }
+    .audit-pick a:hover { text-decoration: underline; }
+    .audit-note { font-size: var(--fs-xs); color: var(--text-faint); margin-top: 14px; text-align: center; }
+
+    @media (max-width: 900px) {
+      .audit-grid { grid-template-columns: 1fr; }
+      .audit-inputs { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+    @media (max-width: 640px) {
+      .audit-inputs, .audit-output { padding: 24px 20px; }
+      .audit-day-bar { height: 90px; }
     }
 
     /* ─── SERVICES GRID ──────────────────────────────────────── */
@@ -851,12 +894,12 @@
 
     /* Before/after demo panels — preserved from original */
     .demo-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid #ccc; border-radius: var(--radius-sm); overflow: hidden; }
-    .demo-panel { overflow: hidden; font-family: 'Nunito Sans', sans-serif; display: flex; flex-direction: column; }
+    .demo-panel { overflow: hidden; font-family: 'Google Sans', sans-serif; display: flex; flex-direction: column; }
     .demo-panel.before { background: #fff; border-right: 1px solid #ccc; }
     .demo-panel.after { background: #fff; }
     .demo-panel-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #ccc; }
-    .demo-panel-header.before { background: #f9f9f9; }
-    .demo-panel-header.after { background: #f5f5f5; }
+    .demo-panel-header.before { background: #fff; }
+    .demo-panel-header.after { background: #fff; }
     .demo-panel-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
     .demo-panel-label.before { color: #888; }
     .demo-panel-label.after { color: var(--brand); }
@@ -882,8 +925,8 @@
     .demo-tag.up { background: #e6f2f1; color: #1f4a47; }
     .demo-tag.down { background: #fde8e8; color: #a02020; }
     .demo-section-label { font-size: 0.65rem; font-weight: 600; color: #777; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; margin-top: 4px; }
-    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 10px 12px; background: #f5f5f5; border-left: 2px solid var(--brand); margin-top: 6px; border-radius: 0 4px 4px 0; }
-    .demo-panel.before .demo-summary-box { border-left-color: #ccc; background: #fafafa; color: #666; }
+    .demo-summary-box { font-size: 0.77rem; color: #222; line-height: 1.65; padding: 10px 12px; background: #fff; border: 1px solid #e2e2e2; margin-top: 6px; border-radius: 4px; }
+    .demo-panel.before .demo-summary-box { color: #666; }
     .demo-file-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid #ebebeb; font-size: 0.78rem; color: #333; }
     .demo-file-row:last-child { border-bottom: none; }
     .demo-file-icon { font-size: 0.9rem; opacity: 0.5; }
@@ -896,7 +939,7 @@
     .demo-action-item:last-child { border-bottom: none; }
     .demo-action-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); flex-shrink: 0; margin-top: 5px; }
     .demo-assignee { font-weight: 600; color: var(--brand); margin-right: 2px; }
-    .demo-card { background: #f5f5f5; border: 1px solid #e2e2e2; padding: 10px 12px; margin-top: 8px; border-radius: 4px; }
+    .demo-card { background: #fff; border: 1px solid #e2e2e2; padding: 10px 12px; margin-top: 8px; border-radius: 4px; }
     .demo-card-title { font-size: 0.78rem; font-weight: 600; color: #1a3a38; margin-bottom: 3px; }
     .demo-card-sub { font-size: 0.74rem; color: #444; line-height: 1.5; }
     .demo-approval { font-size: 0.69rem; color: var(--brand); padding: 5px 0 0; font-weight: 500; }
@@ -946,7 +989,7 @@
     .work-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
     .work-card-logo {
       width: 44px; height: 44px; border-radius: 8px;
-      background: var(--surface);
+      background: #fff;
       border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; overflow: hidden;
@@ -996,7 +1039,7 @@
     .exp-logo {
       width: 48px; height: 48px; border-radius: 8px;
       border: 1px solid var(--border);
-      background: #fafafa;
+      background: #fff;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; overflow: hidden;
     }
@@ -1264,7 +1307,7 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-quote-wrap reveal">
-        <div class="about-quote">"Not demos.<br>&nbsp Production."</div>
+        <div class="about-quote">Not demos.<br>Production.</div>
         <div class="about-quote-sub">Real systems, running inside real businesses. Not prototypes.</div>
       </div>
       <div class="about-prose reveal reveal-delay-1">
@@ -1273,6 +1316,37 @@
         <p>I studied computer science at UCLA, worked as a software engineer at Amazon and TikTok, and am now a software engineer at Google. I've also published machine learning research at multiple conferences (<a href="https://tinyurl.com/googlescholar-aaronchang" target="_blank" rel="noopener">Google Scholar</a>). I co-run <a href="https://wintone.co" target="_blank" rel="noopener">WinTone</a> and <a href="https://keystoneconsultingllc.com" target="_blank" rel="noopener">Keystone Consulting</a>, and have built the AI systems running inside both.</p>
       </div>
     </div>
+  </div>
+</section>
+
+
+<!-- ─── TIME AUDIT ────────────────────────────────────────────── -->
+<section id="audit">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Time Audit</span>
+      <h2 class="section-h2">Where does your week go?</h2>
+      <p class="section-sub">Drag each slider to how many hours a week you spend on it. This is the work I automate.</p>
+    </div>
+    <div class="audit-grid reveal" id="audit-tool">
+      <div class="audit-inputs" id="audit-inputs"></div>
+      <div class="audit-output">
+        <div>
+          <div class="audit-big"><span id="audit-total">0</span><small>hours a week</small></div>
+          <div class="audit-big-sub" id="audit-sub"></div>
+        </div>
+        <div>
+          <div class="audit-week-label"><span>One person's week</span><span>8 hrs / day</span></div>
+          <div class="audit-week" id="audit-week"></div>
+        </div>
+        <div class="audit-pick">
+          <div class="audit-pick-label">Start here</div>
+          <div class="audit-pick-name" id="audit-pick-name"></div>
+          <a href="#services" id="audit-pick-link">See this service &rarr;</a>
+        </div>
+      </div>
+    </div>
+    <p class="audit-note">Your numbers, not mine. Nothing you enter leaves this page.</p>
   </div>
 </section>
 
@@ -1865,7 +1939,7 @@
           <div class="exp-title">Software Engineer</div>
           <div class="exp-company">Google</div>
           <div class="exp-meta">2026 · Irvine, CA · On-site</div>
-          <div class="exp-desc">Agentic Ads Personalization</div>
+          <div class="exp-desc">Gemini Agents for Ads Policies</div>
         </div>
       </div>
       <div class="exp-item">
@@ -2567,6 +2641,79 @@
     activate('inbox'); // auto-advances every 3s after each animation, until the user navigates manually
   })();
 
+  /* ─── Time audit ─────────────────────────────────────────── */
+  (() => {
+    const inputs = document.getElementById('audit-inputs');
+    if (!inputs) return;
+    const tasks = [
+      { id: 'inbox',     label: 'Sorting and answering email',       svc: 'svc-inbox',     name: 'Inbox & Communication Ops',        color: '#2B5F5C', h: 5 },
+      { id: 'support',   label: 'Answering the same customer questions', svc: 'svc-support', name: 'Customer Questions & Chat Automation', color: '#4f8f8a', h: 3 },
+      { id: 'reporting', label: 'Building reports by hand',          svc: 'svc-reporting', name: 'Custom Reporting & Workflow Tools', color: '#8ab5b2', h: 3 },
+      { id: 'meeting',   label: 'Writing up meeting notes',          svc: 'svc-meeting',   name: 'Meeting Intelligence',              color: '#1b3d3b', h: 2 },
+      { id: 'knowledge', label: 'Hunting for files and docs',        svc: 'svc-knowledge', name: 'Shared Knowledge Base & File AI',   color: '#b9d3d1', h: 2 },
+      { id: 'trends',    label: 'Pulling customer numbers together', svc: 'svc-trends',    name: 'Customer Data & Trend Analysis',    color: '#6b8a88', h: 1 },
+    ];
+    let team = 1;
+
+    tasks.forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'audit-row';
+      row.innerHTML = `
+        <label class="audit-row-label" for="audit-${t.id}"><span class="audit-swatch" style="background:${t.color}"></span>${t.label}</label>
+        <span class="audit-row-val" id="audit-${t.id}-val"></span>
+        <input class="audit-range" type="range" id="audit-${t.id}" min="0" max="15" step="0.5" value="${t.h}" />`;
+      inputs.appendChild(row);
+      row.querySelector('input').addEventListener('input', e => { t.h = parseFloat(e.target.value); render(); });
+    });
+
+    const teamRow = document.createElement('div');
+    teamRow.className = 'audit-team';
+    teamRow.innerHTML = `<span>People doing this work</span>
+      <div class="audit-stepper"><button type="button" aria-label="Fewer people">&minus;</button><span id="audit-team">1</span><button type="button" aria-label="More people">+</button></div>`;
+    inputs.appendChild(teamRow);
+    const [minus, plus] = teamRow.querySelectorAll('button');
+    minus.addEventListener('click', () => { team = Math.max(1, team - 1); render(); });
+    plus.addEventListener('click', () => { team = Math.min(50, team + 1); render(); });
+
+    const week = document.getElementById('audit-week');
+    const DAY = 8;
+    ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].forEach(d => {
+      week.insertAdjacentHTML('beforeend', `<div class="audit-day"><div class="audit-day-bar">${tasks.map(t => `<i style="background:${t.color};height:0"></i>`).join('')}</div><span class="audit-day-name">${d}</span></div>`);
+    });
+    const bars = [...week.querySelectorAll('.audit-day-bar')];
+
+    const fmt = n => (Math.round(n * 10) / 10).toLocaleString();
+
+    function render() {
+      tasks.forEach(t => { document.getElementById(`audit-${t.id}-val`).textContent = `${fmt(t.h)} h`; });
+      document.getElementById('audit-team').textContent = team;
+
+      const perPerson = tasks.reduce((sum, t) => sum + t.h, 0);
+      const total = perPerson * team;
+      const days = total * 48 / DAY;
+      document.getElementById('audit-total').textContent = fmt(total);
+      document.getElementById('audit-sub').textContent = total
+        ? `About ${Math.round(days).toLocaleString()} workdays a year${team > 1 ? ` across ${team} people` : ''}, ${Math.round(perPerson / 40 * 100)}% of each person's week.`
+        : 'Nothing to automate. Lucky you.';
+
+      // Fill one person's week day by day, in task order
+      let remaining = tasks.map(t => t.h);
+      bars.forEach(bar => {
+        let room = DAY;
+        [...bar.children].forEach((seg, i) => {
+          const take = Math.min(room, remaining[i]);
+          remaining[i] -= take; room -= take;
+          seg.style.height = `${take / DAY * 100}%`;
+        });
+      });
+
+      const top = tasks.reduce((a, b) => (b.h > a.h ? b : a));
+      const link = document.getElementById('audit-pick-link');
+      document.getElementById('audit-pick-name').textContent = top.h ? top.name : 'Website Design & Build';
+      link.href = `#${top.h ? top.svc : 'svc-website'}`;
+    }
+    render();
+  })();
 </script>
 
 </body>
